@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <link rel="shortcut icon" type="image/x-icon" href="../static/images/favicon.ico">
+    <!-- Place favicon.ico in the root directory -->
+
+    <!-- google fonts  -->
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,300,700,900' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Raleway:400,500,700,300,800' rel='stylesheet' type='text/css'>
+
+    <!-- all css here -->
+    <!-- bootstrap v3.3.6 css -->
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" type="text/css">
+    <!-- animate css -->
+    <link rel="stylesheet" th:href="@{/css/animate.css}" type="text/css">
+    <!-- jquery-ui.min css -->
+    <link rel="stylesheet" th:href="@{/css/jquery-ui.min.css}" type="text/css">
+    <!-- meanmenu css -->
+    <link rel="stylesheet" th:href="@{/css/meanmenu.min.css}" type="text/css">
+    <!-- owl.carousel css -->
+    <link rel="stylesheet" th:href="@{/css/owl.carousel.css}" type="text/css">
+    <!-- nivo-slider css -->
+    <link rel="stylesheet" th:href="@{/lib/css/nivo-slider.css}" type="text/css">
+    <!-- font-awesome css -->
+    <link rel="stylesheet" th:href="@{/css/font-awesome.min.css}" type="text/css">
+    <!-- style css -->
+    <link rel="stylesheet" th:href="@{/css/style.css}" type="text/css">
+    <!-- responsive css -->
+    <link rel="stylesheet" th:href="@{/css/responsive.css}" type="text/css">
+    <!-- modernizr js -->
+    <script th:src="@{/js/vendor/modernizr-2.8.3.min.js}"></script>
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+
+<!--slider that's here  -->
+<div th:replace="fragments/no-slider :: no-slider"></div>
+<div layout:fragment="content"></div>
+<!-- footer-->
+<div th:replace="fragments/footer::footer"></div>
+
+<!-- all js here -->
+<!-- jquery lsrc/main/resources/atesrc/main/resources/st version -->
+<script th:src="@{/css/jquery-1.12.0.min.js}"></script>
+<!-- booth:tstra@{p js -->
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<!-- owlth:.caro@{usel js -->
+<script th:src="@{/js/owl.carousel.min.js}"></script>
+<!-- meath:nmenu@{ js -->
+<script th:src="@{/js/jquery.meanmenu.js}"></script>
+<!-- jquth:ery-u@{i js -->
+<script th:src="@{/js/jquery-ui.min.js}"></script>
+<!-- nivth:o.sli@{der js -->
+<script th:src="@{/lib/js/jquery.nivo.slider.pack.js}"></script>
+<script th:src="@{/lib/js/nivo-active.js}"></script>
+<script th:src="@{/js/wow.min.js}"></script>
+<!-- pluth:gins @{js -->
+<script th:src="@{/js/plugins.js}"></script>
+<!-- maith:n js @{-->
+<script th:src="@{/js/main.js}"></script>
+</body>
+</html>
