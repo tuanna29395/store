@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+    <head>
+        <title th:text="">Page Title</title>
+        <div th:remove="tag" th:include="fragments/partials/header :: head"/>
+
+        <!-- Include css or javascript for each page  -->
+        <div th:remove="tag" layout:fragment="header"></div>
+    </head>
+<body>
+    <div th:replace="layouts/header :: header"></div>
+
+    <!--slider that's here  -->
+    <div th:replace="layouts/slider :: slider"></div>
+
+    <div th:remove="tag" layout:fragment="content"></div>
+
+    <!-- footer-->
+    <div th:replace="layouts/footer::footer"></div>
+
+    <div th:replace="fragments/partials/footer :: jquery-jquery-1-12-0"></div>
+    <div th:replace="fragments/partials/footer :: jquery-bootstrap"></div>
+    <div th:replace="fragments/partials/footer :: jquery-owl-carousel"></div>
+    <div th:replace="fragments/partials/footer :: jquery-meanmenu"></div>
+    <div th:replace="fragments/partials/footer :: jquery-jquery-ui"></div>
+    <div th:replace="fragments/partials/footer :: jquery-nivo-slider"></div>
+    <div th:replace="fragments/partials/footer :: jquery-nivo-active"></div>
+    <div th:replace="fragments/partials/footer :: jquery-wow"></div>
+    <div th:replace="fragments/partials/footer :: jquery-plugins"></div>
+    <div th:replace="fragments/partials/footer :: jquery-main"></div>
+</body>
+</html>

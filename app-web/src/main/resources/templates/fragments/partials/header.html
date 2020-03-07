@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta id="_csrf" name="_csrf" th:content="${_csrf.token}"/>
+    <meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}"/>
+
+    <link rel="shortcut icon" type="image/x-icon" href="../static/images/favicon.ico">
+    <!-- Place favicon.ico in the root directory -->
+
+    <!-- google fonts  -->
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,300,700,900' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Raleway:400,500,700,300,800' rel='stylesheet' type='text/css'>
+
+    <!-- all css here -->
+    <!-- bootstrap v3.3.6 css -->
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" type="text/css">
+    <!-- animate css -->
+    <link rel="stylesheet" th:href="@{/css/animate.css}" type="text/css">
+    <!-- jquery-ui.min css -->
+    <link rel="stylesheet" th:href="@{/css/jquery-ui.min.css}" type="text/css">
+    <!-- meanmenu css -->
+    <link rel="stylesheet" th:href="@{/css/meanmenu.min.css}" type="text/css">
+    <!-- owl.carousel css -->
+    <link rel="stylesheet" th:href="@{/css/owl.carousel.css}" type="text/css">
+    <!-- nivo-slider css -->
+    <link rel="stylesheet" th:href="@{/lib/css/nivo-slider.css}" type="text/css">
+    <!-- font-awesome css -->
+    <link rel="stylesheet" th:href="@{/css/font-awesome.min.css}" type="text/css">
+    <!-- style css -->
+    <link rel="stylesheet" th:href="@{/css/style.css}" type="text/css">
+    <!-- responsive css -->
+    <link rel="stylesheet" th:href="@{/css/responsive.css}" type="text/css">
+
+    <script th:fragment="jquery-modernizr" type="text/javascript" th:src="@{/js/vendor/modernizr-2.8.3.min.js}"></script>
+</head>
+<body>
+</body>
+</html>
