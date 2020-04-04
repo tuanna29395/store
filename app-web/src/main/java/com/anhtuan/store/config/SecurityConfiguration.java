@@ -36,39 +36,46 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(userDetailServiceImpl).passwordEncoder(passwordEncoder());
     }
 
+    private static final String[] ANT_MATCHERS_FREE_ENDPOINT = new String[]{
+            "/",
+            "/login",
+            "/hello",
+            "/products",
+            "/api/reset-password/**",
+            "/bootstrap/**",
+            "/css/**",
+            "/fonts/**",
+            "/images/**",
+            "/js/**",
+            "/lib/**",
+            "/templates/**",
+            "/vendor/**",
+            "/users/*",
+    };
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().and()
-        .authorizeRequests().antMatchers(
-                "/",
-               "/login",
-                "/hello",
-                "/products",
-                "/api/reset-password/**",
-                "/bootstrap/**",
-                "/css/**",
-                "/fonts/**",
-                "/images/**",
-                "/js/**",
-                "/lib/**",
-                "/templates/**"
-        ).permitAll();
-
-        http.authorizeRequests().anyRequest().authenticated();
-
-        http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/403");
-
-        http.authorizeRequests().and().formLogin()
+        http.csrf()
+                .ignoringAntMatchers("/users/*")
+                .and()
+                .authorizeRequests()
+                .antMatchers(ANT_MATCHERS_FREE_ENDPOINT).permitAll()
+                .anyRequest().authenticated()
+                .and()
+                .formLogin()
                 .loginProcessingUrl("/j_spring_security_check")
-                .loginPage("/customer/login")
-                .defaultSuccessUrl("/customer/users")
+                .loginPage("/login")
+                .defaultSuccessUrl("/index")
                 .failureUrl("/customer/login?error=true")
                 .usernameParameter("email")
                 .passwordParameter("password")
                 .and()
                 .logout()
                 .logoutUrl("/customer/logout")
-                .logoutSuccessUrl("/customer/logout-successful");
+                .invalidateHttpSession(true)
+                .deleteCookies("JSESSIONID")
+                .and()
+                .exceptionHandling().accessDeniedPage("/cms/403");
 
     }
 }

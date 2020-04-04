@@ -13,11 +13,23 @@
 <!--slider that's here  -->
 <div th:replace="layouts/no-slider :: no-slider"></div>
 
-<div layout:fragment="content"></div>
+<div id="main">
+    <div class="container-fluid">
+        <th:block th:if="${message != null}">
+            <div th:replace="fragments/alert :: alert (type=${#strings.toLowerCase(message.type)}, message=${message.message})">&nbsp;</div>
+        </th:block>
+        <div class="row" id="aside_wrap">
+            <div class="col-md-12">
+                <div th:remove="tag" layout:fragment="content"></div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <!-- footer-->
 <div th:replace="layouts/footer::footer"></div>
 
+<div th:replace="fragments/partials/footer :: jquery"></div>
 <div th:replace="fragments/partials/footer :: jquery-jquery-1-12-0"></div>
 <div th:replace="fragments/partials/footer :: jquery-bootstrap"></div>
 <div th:replace="fragments/partials/footer :: jquery-owl-carousel"></div>
@@ -28,5 +40,11 @@
 <div th:replace="fragments/partials/footer :: jquery-wow"></div>
 <div th:replace="fragments/partials/footer :: jquery-plugins"></div>
 <div th:replace="fragments/partials/footer :: jquery-main"></div>
+<div th:replace="fragments/partials/footer :: sweet-alert"></div>
+<div th:replace="fragments/partials/footer :: jquery-i18n"></div>
+<div th:replace="fragments/partials/footer :: jquery-i18n-messagestore"></div>
+<script th:fragment="alert" type="text/javascript" th:src="@{/js/custom-js/alert.js}"></script>
+
+<div th:remove="tag" layout:fragment="footer"></div>
 </body>
 </html>

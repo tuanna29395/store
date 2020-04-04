@@ -1,0 +1,58 @@
+<div th:fragment="input-sign-up" class="col-md-6" xmlns:th="http://www.thymeleaf.org">
+    <div class="login-content login-margin">
+        <h2 class="login-title">create a new account</h2>
+        <p>Create your own Unicase account.</p>
+        <form th:action="@{/users/sign-up}" id="form-sign-up" th:object="${userRegisterDto}"
+              accept-charset="UTF-8" method="Post">
+
+            <label>Email Address</label>
+            <input type="text" th:field="*{email}" required/>
+            <div>
+                <label th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
+                       class="error"></label>
+            </div>
+
+            <label>Username</label>
+            <input type="text" th:field="*{userName}" required/>
+
+            <label>Password</label>
+            <input type="password" th:field="*{password}" required/>
+            <div>
+                <label th:if="${#fields.hasErrors('password')}" th:errors="*{password}"
+                       class="error"></label>
+            </div>
+
+            <label>Re-Password</label>
+            <input type="password" th:field="*{passwordConfirmation}" required/>
+            <div>
+                <label th:if="${#fields.hasErrors('global')}" th:errors="*{global}"
+                       class="error"></label>
+            </div>
+
+            <input class="login-sub" type="submit" value="Sing Up"/>
+        </form>
+        <div class="sign-up-today">
+            <h2 class="login-title">sign up today and you'll be able to:</h2>
+            <ul>
+                <li>
+                                <span>
+                                    <i class="fa fa-check-square-o"></i>
+                                    <span>speed your way through the checkout</span>
+                                </span>
+                </li>
+                <li>
+                                <span>
+                                    <i class="fa fa-check-square-o"></i>
+                                    <span>track your order easily</span>
+                                </span>
+                </li>
+                <li>
+                                <span>
+                                    <i class="fa fa-check-square-o"></i>
+                                    <span>keep a record of your all purchase</span>
+                                </span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

@@ -13,3 +13,14 @@ spring:
           param_null_passing: true
   flyway:
     enabled: false
+  thymeleaf:
+    cache: false
+  mustache:
+    cache: false
+  groovy:
+    template:
+      cache: false
+
+  devtools:
+    restart:
+      exclude: static/**,public/**

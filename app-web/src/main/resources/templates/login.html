@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/main-layout-none-slide}">
+<head>
+    <title th:text="'Login |' ">Page Title</title>
+</head>
+<body>
+<div class="login-area" layout:fragment="content">
+    <div class="container">
+        <div class="row">
+            <div th:replace="fragments/login-logout/input-login :: input-login"></div>
+            <div th:replace="fragments/login-logout/input-sign-up :: input-sign-up"></div>
+
+        </div>
+    </div>
+</div>
+</body>
+<div layout:fragment="footer">
+    <script th:src="@{/vendor/jquery-validation/jquery.validate.min.js}"></script>
+<!--    <script th:src="@{/js/custom-js/login.js}"></script>-->
+    <script th:src="@{/js/custom-js/translation.js}"></script>
+</div>
+</html>

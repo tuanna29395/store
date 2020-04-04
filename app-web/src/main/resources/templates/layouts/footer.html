@@ -1,10 +1,11 @@
-<footer th:fragment="footer" xmlns:th="http://www.w3.org/1999/xhtml">
+<footer th:fragment="footer" xmlns:th="http://www.thymeleaf.org"
+        xmlns="http://www.w3.org/1999/html">
     <div class="footer-top">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
                     <div class="footer-logo">
-                        <img src="img/logo-white-text.png" alt="" />
+                        <img th:src="@{/images/logo-white-text.png}" alt="" />
                         <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore <br /> magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation.</p>
                         <div class="widget-icon">
                             <a href="#"><i class="fa fa-facebook"></i></a>
@@ -110,7 +111,7 @@
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6">
                     <div class="payment-img">
-                        <img src="img/payment.png" alt="" />
+                        <img th:src="@{/images/payment.png}" alt="" />
                     </div>
                 </div>
             </div>
@@ -119,7 +120,8 @@
     <!-- footer-bottom-area end -->
 </footer>
 
-<div id="quickview-wrapper">
+<div id="quickview-wrapper"   xmlns:th="http://www.thymeleaf.org"
+     xmlns="http://www.w3.org/1999/html">
     <!-- Modal -->
     <div class="modal fade" id="productModal" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
@@ -131,7 +133,7 @@
                     <div class="modal-product">
                         <div class="product-images">
                             <div class="main-image images">
-                                <img alt="" src="img/product/13.jpg">
+                                <img th:src="@{/images/product/13.jpg}" alt="" >
                             </div>
                         </div><!-- .product-images -->
 

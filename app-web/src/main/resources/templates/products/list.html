@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layouts/main-layout-slider}">
+      layout:decorate="~{layouts/main-layout-none-slide}">
 <head>
-    <title th:text="'Home |' ">Page Title</title>
+    <title th:text="'Products |' ">Page Title</title>
 </head>
 <div>
     <div class="shop-area" layout:fragment="content">
         <div class="container">
-            <div class="row">
+            <div class="row PDT20">
                 <div th:replace="layouts/left-category :: left-category"></div>
                 <div class="col-md-9 col-sm-12 col-xs-12">
                     <div class="shop-content">
