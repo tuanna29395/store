@@ -1,5 +1,6 @@
 package com.anhtuan.store.model;
 
+import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -8,6 +9,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import java.util.Date;
 
+@Data
 @MappedSuperclass
 public class BaseEntity {
     private Integer deletedFlag;
@@ -19,4 +21,7 @@ public class BaseEntity {
     @UpdateTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedAt;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date deletedAt;
 }

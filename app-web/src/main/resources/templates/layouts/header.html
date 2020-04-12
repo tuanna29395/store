@@ -1,4 +1,5 @@
-<header class="header-pos" th:fragment="header" xmlns:th="http://www.w3.org/1999/xhtml">
+<header class="header-pos" th:fragment="header" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+        xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <!-- header-bottom-area start -->
 <div class="header-bottom-area">
     <div class="container">
@@ -7,7 +8,7 @@
                 <div class="col-md-2 col-sm-4 col-xs-5">
                     <div class="logo">
                         <a href="index.html">
-                            <img src="../../static/images/logo-white-text.png" alt=""/>
+                            <img th:src="@{/static/images/logo-white-text.png}" alt=""/>
                         </a>
                     </div>
                 </div>
@@ -16,26 +17,26 @@
                         <nav>
                             <ul>
                                 <li>
-                                    <a href="http://bit.do/bromq">home</a>
+                                    <a href="#">home</a>
                                     <ul>
                                         <li>
-                                            <a href="index.html">home page</a>
+                                            <a href="#">home page</a>
                                         </li>
                                     </ul>
                                 </li>
                                 <li>
-                                    <a href="about.html">about</a>
+                                    <a href="#">about</a>
                                 </li>
                                 <li>
-                                    <a href="blog.html">blog</a>
+                                    <a href="#">blog</a>
                                 </li>
                                 <li class="static">
                                     <a href="/products">shop</a>
                                     <div class="mega-menu">
                                         <div class="mega-left">
                                             <span>
-                                                <a href="shop.html" class="mega-title">WOMEN CLOTH</a>
-                                                <a href="shop.html">casual shirt</a>
+                                                <a href="#" class="mega-title">WOMEN CLOTH</a>
+                                                <a href="#">casual shirt</a>
                                                 <a href="shop.html">rikke t-shirt</a>
                                                 <a href="shop.html">mia top</a>
                                                 <a href="shop.html">muscle tee</a>
@@ -72,7 +73,7 @@
                                         <div class="mega-right">
                                             <span class="mega-menu-img">
                                                 <a href="shop.html">
-                                                    <img alt="" src="../../static/images/banner/banner-tratraicaytuoi.png">
+                                                    <img alt="" th:src="@{static/images/banner/banner-tratraicaytuoi.png}">
                                                 </a>
                                             </span>
                                         </div>
@@ -146,7 +147,8 @@
                                             <a href="contact.html">contact</a>
                                         </li>
                                         <li>
-                                            <a th:href="@{/login}">login</a>
+                                            <a sec:authorize="isAnonymous()" th:href="@{/login}">login</a>
+                                            <a sec:authorize="isAuthenticated()" th:href="@{/logout}">login</a>
                                         </li>
                                         <li>
                                             <a href="/products">shop</a>
@@ -244,9 +246,15 @@
                             <li>
                                 <a href="#">Testimonial</a>
                             </li>
-                            <li>
+
+                            <li sec:authorize="!isFullyAuthenticated()">
                                 <a th:href="@{/login}">Log in</a>
                             </li>
+
+                            <li sec:authorize="isFullyAuthenticated()">
+                                    <a th:href="@{/logout}">Log out</a>
+                            </li>
+
                         </ul>
                     </div>
                     <div class="header-search">

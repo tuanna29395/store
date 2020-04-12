@@ -8,6 +8,11 @@
 <div class="login-area" layout:fragment="content">
     <div class="container">
         <div class="row">
+            <div th:if="${loginError}" class="alert alert-dismissible alert-danger">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <span>Wrong user or password</span>
+            </div>
+
             <div th:replace="fragments/login-logout/input-login :: input-login"></div>
             <div th:replace="fragments/login-logout/input-sign-up :: input-sign-up"></div>
 
@@ -17,7 +22,7 @@
 </body>
 <div layout:fragment="footer">
     <script th:src="@{/vendor/jquery-validation/jquery.validate.min.js}"></script>
-<!--    <script th:src="@{/js/custom-js/login.js}"></script>-->
+    <!--    <script th:src="@{/js/custom-js/login.js}"></script>-->
     <script th:src="@{/js/custom-js/translation.js}"></script>
 </div>
 </html>

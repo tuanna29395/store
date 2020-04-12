@@ -17,7 +17,7 @@ public class UserEntity extends BaseEntity {
 
     private String password;
 
-    private String userName;
+    private String username;
 
     @OneToOne
     @JoinColumn(name = "role_id")

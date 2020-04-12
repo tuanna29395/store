@@ -24,8 +24,9 @@ public class HomeController {
 
     @RequestMapping("/login-error")
     public String loginError(Model model) {
+        model.addAttribute(ModelViewConst.User.USER_REGISTER_DTO, new UserRegisterRqDto());
         model.addAttribute("loginError", true);
-        return "home";
+        return ViewHtmlConst.Users.SIGN_UP_SIGN_IN;
     }
 
 }

@@ -1,6 +1,6 @@
 package com.anhtuan.store.config;
 
-import com.anhtuan.store.service.UserDetailServiceImpl;
+import com.anhtuan.store.service.AuthenticationServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,7 +16,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
-    UserDetailServiceImpl userDetailServiceImpl;
+    AuthenticationServiceImpl authenticationServiceImpl;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -33,12 +33,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailServiceImpl).passwordEncoder(passwordEncoder());
+        auth.userDetailsService(authenticationServiceImpl).passwordEncoder(passwordEncoder());
     }
 
     private static final String[] ANT_MATCHERS_FREE_ENDPOINT = new String[]{
             "/",
-            "/login",
+            "/login*",
             "/hello",
             "/products",
             "/api/reset-password/**",
@@ -63,15 +63,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
-                .loginProcessingUrl("/j_spring_security_check")
                 .loginPage("/login")
                 .defaultSuccessUrl("/index")
-                .failureUrl("/customer/login?error=true")
-                .usernameParameter("email")
-                .passwordParameter("password")
+                .failureUrl("/login-error")
+                .usernameParameter("email-login")
+                .passwordParameter("password-login")
                 .and()
                 .logout()
-                .logoutUrl("/customer/logout")
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/login")
                 .invalidateHttpSession(true)
                 .deleteCookies("JSESSIONID")
                 .and()
