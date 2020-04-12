@@ -55,6 +55,6 @@ public class Principal implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return status == 1;
+        return status == 0;
     }
 }

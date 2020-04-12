@@ -2,6 +2,7 @@ package com.anhtuan.store.service.impl;
 
 import com.anhtuan.store.commons.constants.Commons;
 import com.anhtuan.store.commons.constants.ErrorMessage;
+import com.anhtuan.store.commons.enums.DeleteFlag;
 import com.anhtuan.store.commons.enums.Role;
 import com.anhtuan.store.dto.request.UserRegisterRqDto;
 import com.anhtuan.store.exception.Exception;
@@ -38,6 +39,7 @@ public class UserServiceImpl implements UserService {
                 .build(ErrorMessage.Role.ROLE_NOT_FOUND
                         .replace(Commons.ID, String.valueOf(Role.CUSTOMER.getVal()))));
         user.setRole(role);
+        user.setDeletedFlag(DeleteFlag.NOT_DELETE.getVal());
 
         userRepository.save(user);
     }
