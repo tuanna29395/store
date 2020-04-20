@@ -3439,3 +3439,7 @@ input[type=checkbox] {
 .box-error {
     border: 1px solid #dc3434;
 }
+
+.sub-menu{
+    padding-left: 20px;
+}

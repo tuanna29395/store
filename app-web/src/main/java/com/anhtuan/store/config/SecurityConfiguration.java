@@ -51,6 +51,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             "/templates/**",
             "/vendor/**",
             "/users/*",
+            "/api/**"
     };
 
     @Override
