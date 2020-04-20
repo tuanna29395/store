@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@Table(name = "categories")
+@Table(name = "category")
 @Data
 public class CategoryEntity {
     @Id
@@ -15,4 +15,11 @@ public class CategoryEntity {
     private String name;
     @OneToMany(mappedBy = "category" ,fetch = FetchType.LAZY)
     private Set<ProductEntity> products;
+
+    @ManyToOne(cascade = {CascadeType.ALL})
+    @JoinColumn(name = "parent_id")
+    private CategoryEntity parentCategory;
+
+    @OneToMany(mappedBy = "parentCategory")
+    private Set<CategoryEntity> subCategory;
 }

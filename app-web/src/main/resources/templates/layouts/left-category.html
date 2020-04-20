@@ -2,14 +2,26 @@
     <!-- widget-categories start -->
     <aside class="widget widget-categories">
         <h3 class="sidebar-title">Categories</h3>
-        <ul class="sidebar-menu">
-            <li><a href="#">Clothes</a> <span class="count">(14)</span></li>
-            <li><a href="#">Men</a> <span class="count">(9)</span></li>
-            <li><a href="#">Shoes</a> <span class="count">(2)</span></li>
-            <li><a href="#">Sunglasses</a> <span class="count">(2)</span></li>
-            <li><a href="#">Women</a> <span class="count">(8)</span></li>
+        <ul class="sidebar-menu" id="content-categories">
+<!--            <li>-->
+<!--                <a href="#clothes1" data-toggle="collapse">Clothes</a> <span class="count">(14)</span>-->
+<!--                <ul class="sub-menu collapse" id="clothes1">-->
+<!--                    <li class="">-->
+<!--                        <a th:href="@{/cms/styles}">Style List</a>-->
+<!--                    </li>-->
+<!--                    <li class="">-->
+<!--                        <a th:href="@{/cms/styles/registration}">Style Registration</a>-->
+<!--                    </li>-->
+<!--                </ul>-->
+<!--            </li>-->
         </ul>
     </aside>
+
+    <script id="item-category" type="text/x-jQuery-tmpl">
+            <li>
+                <a href="#clothes" data-toggle="collapse">${name}</a> <span class="count">(${productCount})</span>
+            </li>
+    </script>
     <!-- widget-categories end -->
     <!-- shop-filter start -->
     <aside class="widget shop-filter">
