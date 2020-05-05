@@ -16,9 +16,9 @@ public class ProductEntity extends BaseEntity {
 
     private String imageUrl;
 
-    private Double originalPrice;
+    private Integer originalPrice;
 
-    private Double salePrice;
+    private Integer salePrice;
 
     private Integer status;
 

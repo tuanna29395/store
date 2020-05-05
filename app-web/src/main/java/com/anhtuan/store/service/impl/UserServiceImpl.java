@@ -35,11 +35,11 @@ public class UserServiceImpl implements UserService {
     public void registerUser(UserRegisterRqDto dto) {
         dto.setPassword(passwordEncoder.encode(dto.getPassword()));
         UserEntity user = modelMapper.map(dto, UserEntity.class);
-        RoleEntity role = roleRepository.findByIdAndDeletedFlagIsNull(Role.CUSTOMER.getVal()).orElseThrow(() -> Exception.dataNotFound()
+        RoleEntity role = roleRepository.findByIdAndDeleteFlagIsNull(Role.CUSTOMER.getVal()).orElseThrow(() -> Exception.dataNotFound()
                 .build(ErrorMessage.Role.ROLE_NOT_FOUND
                         .replace(Commons.ID, String.valueOf(Role.CUSTOMER.getVal()))));
         user.setRole(role);
-        user.setDeletedFlag(DeleteFlag.NOT_DELETE.getVal());
+        user.setDeleteFlag(DeleteFlag.NOT_DELETE.getVal());
 
         userRepository.save(user);
     }

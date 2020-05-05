@@ -1,0 +1,44 @@
+<div th:fragment="pagination-sort" xmlns:th="http://www.thymeleaf.org"
+     xmlns="http://www.w3.org/1999/html">
+    <ul class="shop-tab" role="tablist">
+        <li><span class="sorting-name"> View as:  </span></li>
+        <li role="presentation"><a href="#home" aria-controls="home" role="tab" data-toggle="tab"><i class="fa fa-th"
+                                                                                                     aria-hidden="true"></i></a>
+        </li>
+        <li role="presentation" class="active"><a href="#profile" aria-controls="profile" role="tab"
+                                                  data-toggle="tab"><i
+                class="fa fa-th-list" aria-hidden="true"></i></a></li>
+    </ul>
+    <div class="short-by">
+        <span class="sorting-show"> Sort by:</span>
+        <select>
+            <option value="volvo">popularity</option>
+            <option value="saab">Default</option>
+            <option value="mercedes">average rating</option>
+            <option value="audi">newness</option>
+            <option value="audi">low to high</option>
+            <option value="audi">high to low</option>
+        </select>
+    </div>
+    <div class="shop-show">
+        <span class="sorting-show"> Show:</span>
+        <select>
+            <option value="volvo">9</option>
+            <option value="saab">10</option>
+            <option value="mercedes">11</option>
+            <option value="audi">12</option>
+            <option value="audi">15</option>
+            <option value="audi">16</option>
+        </select>
+    </div>
+    <div class="shop-breadcrumb">
+        <ul>
+            <li class="active"><a href="#">1</a></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
+        </ul>
+    </div>
+
+    <div class="clear"></div>
+</div>
