@@ -1,0 +1,75 @@
+<div class="tab-content" th:fragment="product-item" xmlns:th="http://www.thymeleaf.org"
+     xmlns="http://www.w3.org/1999/html">
+    <div role="tabpanel" class="tab-pane item-3column" id="home">
+        <div class="row">
+            <!-- single-product start -->
+            <th:block th:each="item : ${products}">
+                <div class="col-md-4 col-sm-4">
+                    <div class="single-product">
+                        <div class="product-img">
+                            <a href="single-product.html">
+                                <img th:src="@{'/images/product/'+ ${item.imageUrl}}" alt=""/>
+                                <img class="secondary-img" th:src="@{'/images/product/'+ ${item.imageUrl}}" alt=""/>
+                            </a>
+                            <span class="tag-line">new</span>
+                            <div class="product-action">
+                                <div class="button-top">
+                                    <a href="#" data-toggle="modal" data-target="#productModal"><i class="fa fa-search"></i></a>
+                                    <a href="#"><i class="fa fa-heart"></i></a>
+                                </div>
+                                <div class="button-cart">
+                                    <button><i class="fa fa-shopping-cart"></i> add to cart</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-content">
+                            <h3><a href="single-product.html"><span th:text="${item.name}"></span></a></h3>
+                            <div class="price">
+                                <span th:text="₫"></span> <span th:text="${item.salePrice}"></span>
+                                <span class="old">$90.11</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </th:block>
+        </div>
+    </div>
+    <div role="tabpanel" class="tab-pane item-1column active" id="profile">
+        <div class="row shop-list">
+            <!-- single-product start -->
+            <th:block th:each="item : ${products}">
+                <div class="col-md-12">
+                    <div class="single-product">
+                        <div class="product-img">
+                            <a href="single-product.html">
+                                <img th:src="@{'/images/product/'+ ${item.imageUrl}}" alt=""/>
+                                <img class="secondary-img" th:src="@{'/images/product/'+ ${item.imageUrl}}" alt=""/>
+                            </a>
+                            <span class="tag-line">new</span>
+                        </div>
+                        <div class="product-content">
+                            <h3><a href="single-product.html"><span th:text="${item.name}"></span></a></h3>
+                            <div class="price">
+                                <span th:text="₫"></span> <span th:text="${item.salePrice}"></span>
+                                <span class="old">₫90.11</span>
+                            </div>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam fringilla augue nec est
+                                tristique auctor. Donec non est at libero vulputate rutrum. Morbi ornare lectus quis justo
+                                gravida semper. Nulla tellus mi, vulputate adipiscing cursus eu, suscipit id nulla.</p>
+                            <div class="product-action">
+                                <div class="button-top">
+                                    <a href="#" data-toggle="modal" data-target="#productModal"><i class="fa fa-search"></i></a>
+                                    <a href="#"><i class="fa fa-heart"></i></a>
+                                </div>
+                                <div class="button-cart">
+                                    <button><i class="fa fa-shopping-cart"></i> add to cart</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </th:block>
+            <!-- single-product end -->
+        </div>
+    </div>
+</div>

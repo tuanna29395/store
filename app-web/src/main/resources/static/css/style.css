@@ -669,7 +669,9 @@ float: right;
 }
 .title-icon span::after{left:auto;right:-85px}
 .title-icon span i{}
-.single-product{}
+.single-product{
+  margin-bottom: 10px;
+}
 .product-img {
   overflow: hidden;
   position: relative;

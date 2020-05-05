@@ -12,7 +12,7 @@ import java.util.Date;
 @Data
 @MappedSuperclass
 public class BaseEntity {
-    private Integer deletedFlag;
+    private Integer deleteFlag;
 
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
@@ -21,7 +21,4 @@ public class BaseEntity {
     @UpdateTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedAt;
-
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date deletedAt;
 }
