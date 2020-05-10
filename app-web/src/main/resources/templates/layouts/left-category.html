@@ -1,26 +1,15 @@
-<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12" th:fragment="left-category" xmlns:th="http://www.w3.org/1999/xhtml">
+<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12" th:fragment="left-category" xmlns:th="http://www.thymeleaf.org">
     <!-- widget-categories start -->
     <aside class="widget widget-categories">
-        <h3 class="sidebar-title">Categories</h3>
+        <a th:href = "@{/products}"><h3 class="sidebar-title">Categories</h3></a>
         <ul class="sidebar-menu" id="content-categories">
-<!--            <li>-->
-<!--                <a href="#clothes1" data-toggle="collapse">Clothes</a> <span class="count">(14)</span>-->
-<!--                <ul class="sub-menu collapse" id="clothes1">-->
-<!--                    <li class="">-->
-<!--                        <a th:href="@{/cms/styles}">Style List</a>-->
-<!--                    </li>-->
-<!--                    <li class="">-->
-<!--                        <a th:href="@{/cms/styles/registration}">Style Registration</a>-->
-<!--                    </li>-->
-<!--                </ul>-->
-<!--            </li>-->
         </ul>
     </aside>
 
     <script id="item-category" type="text/x-jQuery-tmpl">
-            <li>
-                <a href="#clothes" data-toggle="collapse">${name}</a> <span class="count">(${productCount})</span>
-            </li>
+    <li id='category-${id}' class = ''>
+        <a href="/products?categoryId=${id}">${name} <span class="count">(${productCount})</span></a>
+    </li>
     </script>
     <!-- widget-categories end -->
     <!-- shop-filter start -->

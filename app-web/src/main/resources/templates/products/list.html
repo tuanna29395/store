@@ -4,6 +4,8 @@
 <head>
     <title th:text="'Products |' ">Page Title</title>
 </head>
+<body>
+
 <div>
     <div class="shop-area" layout:fragment="content">
         <div class="container">
@@ -11,7 +13,7 @@
                 <div th:replace="layouts/left-category :: left-category"></div>
                 <div class="col-md-9 col-sm-12 col-xs-12">
                     <div class="shop-content">
-                        <div th:replace="fragments/product-list/pagination-sort :: pagination-sort"></div>
+                        <div th:replace="fragments/product-list/pagination-sort :: pagination-sort(${products},${searchDto})"></div>
                         <div th:replace="fragments/product-list/product-item :: product-item"></div>
                     </div>
                 </div>
@@ -24,5 +26,6 @@
 
 <div layout:fragment="footer">
     <div th:replace="fragments/partials/footer :: jquery-tmpl"></div>
+    <script th:src="@{/js/custom-js/products.js}"></script>
 </div>
 </html>

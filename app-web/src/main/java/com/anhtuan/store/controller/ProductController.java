@@ -3,8 +3,10 @@ package com.anhtuan.store.controller;
 import com.anhtuan.store.commons.constants.ModelViewConst;
 import com.anhtuan.store.commons.constants.ViewHtmlConst;
 import com.anhtuan.store.dto.request.ProductSearchRqDto;
+import com.anhtuan.store.dto.response.ProductResponseDto;
 import com.anhtuan.store.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +22,8 @@ public class ProductController {
     @GetMapping
     public String listProduct(ProductSearchRqDto searchRqDto, Pageable pageable, Model model) {
         model.addAttribute(ModelViewConst.Product.PRODUCT_PAGEABLE, productService.search(searchRqDto, pageable));
+        model.addAttribute(ModelViewConst.Product.SEARCH_DTO, searchRqDto);
+
         return ViewHtmlConst.Products.LIST;
     }
 }
