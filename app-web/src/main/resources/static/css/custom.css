@@ -3443,3 +3443,15 @@ input[type=checkbox] {
 .sub-menu{
     padding-left: 20px;
 }
+
+.bg-category{
+    background-color: #a09c9c;
+}
+
+.disabled {
+    visibility: hidden;
+}
+
+.product-content span {
+    text-transform: capitalize;
+}

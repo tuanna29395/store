@@ -40,7 +40,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             "/",
             "/login*",
             "/hello",
-            "/products",
+            "/products/**",
             "/api/reset-password/**",
             "/bootstrap/**",
             "/css/**",

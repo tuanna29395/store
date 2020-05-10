@@ -1,6 +1,5 @@
 package com.anhtuan.store.service.impl;
 
-import com.anhtuan.store.commons.constants.ModelViewConst;
 import com.anhtuan.store.commons.enums.DeleteFlag;
 import com.anhtuan.store.dto.request.ProductSearchRqDto;
 import com.anhtuan.store.dto.response.ProductResponseDto;
@@ -27,7 +26,6 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Page<ProductResponseDto> search(ProductSearchRqDto searchRqDto, Pageable pageable) {
-        //return productRepository.findAll();
         return productRepository.findAll(buildCondition(searchRqDto), pageable).map(this::transformProductEntityToDto);
     }
 
