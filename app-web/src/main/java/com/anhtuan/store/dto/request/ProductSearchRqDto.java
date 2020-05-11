@@ -6,4 +6,5 @@ import lombok.Data;
 public class ProductSearchRqDto {
     private Integer categoryId;
     private Integer sortCondition;
+    private String name;
 }
