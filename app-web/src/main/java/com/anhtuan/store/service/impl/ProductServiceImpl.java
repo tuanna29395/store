@@ -35,6 +35,9 @@ public class ProductServiceImpl implements ProductService {
         if (Objects.nonNull(searchRqDto.getCategoryId())) {
             condition.and(productEntity.category.id.eq(searchRqDto.getCategoryId()));
         }
+        if (Objects.nonNull(searchRqDto.getName())){
+            condition.and(productEntity.name.containsIgnoreCase(searchRqDto.getName()));
+        }
         condition.and(productEntity.deleteFlag.eq(DeleteFlag.NOT_DELETE.getVal()));
         return condition;
     }

@@ -3455,3 +3455,18 @@ input[type=checkbox] {
 .product-content span {
     text-transform: capitalize;
 }
+.search-product-empty{
+    text-align: center;
+}
+.result-section__icon{
+    width: 8.375rem;
+}
+.search-empty-result-section__title{
+    margin: .9375rem 0 .625rem;
+    color: rgba(0,0,0,.87);
+    font-size: 2rem;
+}
+.search-empty-result-section__hint{
+    font-size: 2rem;
+    color: rgba(0,0,0,.54);
+}

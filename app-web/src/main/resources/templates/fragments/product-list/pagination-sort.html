@@ -26,13 +26,13 @@
         <div class="shop-show">
             <span class="sorting-show" > Show:</span>
             <select class="page-size">
-                <option value="20" selected>20</option>
-                <option value="50">50</option>
-                <option value="100">100</option>
+                <option value="20" th:selected="${dataPageable.size == 20}">20</option>
+                <option value="50" th:selected="${dataPageable.size == 50}">50</option>
+                <option value="100" th:selected="${dataPageable.size == 100}">100</option>
             </select>
         </div>
         <div class="shop-breadcrumb">
-            <ul>
+            <ul th:if="${dataPageable.content.size() != 0}">
                 <li th:class="${dataPageable.number eq 0} ? 'disabled' : ''">
                     <a th:href="@{/products(categoryId=${searchDto.categoryId},
                            sortCondition=${searchDto.sortCondition},size=${dataPageable.size},

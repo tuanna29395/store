@@ -1,8 +1,9 @@
 $(document).ready(function () {
     window.onload = function () {
         changeBackgroundMenuCategory();
-    }
+    };
     changePageSize();
+    onclickSearchProduct();
 });
 
 function getUrlParamCategory() {
@@ -37,9 +38,9 @@ function changePageSize() {
         if (currentPageSize) {
             url = url.replace("size=" + currentPageSize, "size=" + newPageSize);
         } else {
-            if (url.includes('=')){
+            if (url.includes('=')) {
                 url += "&size=" + newPageSize;
-            }else {
+            } else {
                 url += "?size=" + newPageSize;
             }
 
@@ -63,4 +64,23 @@ function getUrlParameter(sParam) {
             return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
         }
     }
+}
+
+function onclickSearchProduct() {
+    $('.btn-search-name-product').on('click', function () {
+        let newName = $('.input-search-product').val();
+        let currentName = getUrlParameter('name');
+        let url = window.location.href;
+        if (currentName) {
+            url = url.replace("name=" + currentName, "name=" + newName);
+        } else {
+            if (url.includes('=')) {
+                url += "&name=" + newName;
+            } else {
+                url += "?name=" + newName;
+            }
+
+        }
+        window.location = url;
+    });
 }

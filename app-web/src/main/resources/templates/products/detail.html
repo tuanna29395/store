@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/main-layout-none-slide}">
+<head>
+    <title th:text="'Products |' ">Page Title</title>
+</head>
+<body>
+
+<div>
+    <div class="shop-area" layout:fragment="content">
+        <div class="container">
+            <div class="row PDT20">
+                <div th:replace="layouts/left-category :: left-category"></div>
+                <div class="col-md-9 col-sm-12 col-xs-12">
+                        <div th:replace="fragments/product-detail/product-item-image :: product-item-image-detail"></div>
+                        <div th:replace="fragments/product-detail/product-info :: product-info"></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+</body>
+
+<div layout:fragment="footer">
+    <div th:replace="fragments/partials/footer :: jquery-tmpl"></div>
+    <script th:src="@{/js/custom-js/products.js}"></script>
+    <script th:src="@{/js/jquery.elevateZoom-3.0.8.min.js}"></script>
+    <script>
+        $(".zoom").elevateZoom();
+    </script>
+</div>
+</html>

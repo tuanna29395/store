@@ -8,5 +8,6 @@ public interface ViewHtmlConst {
 
     interface Products{
         String LIST = "/products/list";
+        String DETAIL = "products/detail";
     }
 }
