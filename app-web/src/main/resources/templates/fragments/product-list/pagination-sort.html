@@ -24,14 +24,11 @@
             </select>
         </div>
         <div class="shop-show">
-            <span class="sorting-show"> Show:</span>
-            <select>
-                <option value="volvo">9</option>
-                <option value="saab">10</option>
-                <option value="mercedes">11</option>
-                <option value="audi">12</option>
-                <option value="audi">15</option>
-                <option value="audi">16</option>
+            <span class="sorting-show" > Show:</span>
+            <select class="page-size">
+                <option value="20" selected>20</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
             </select>
         </div>
         <div class="shop-breadcrumb">
@@ -44,7 +41,7 @@
                     </a>
                 </li>
                 <th:block
-                        th:each="pageNumber  : ${#numbers.sequence(1, ((totalPage > 10 + dataPageable.number) ? (dataPageable.number + 10) : totalPage))}">
+                        th:each="pageNumber  : ${#numbers.sequence(dataPageable.number + 1, ((totalPage > 5 + dataPageable.number) ? (dataPageable.number + 5) : totalPage))}">
                     <li th:class="${pageNumber==dataPageable.number + 1} ? active">
                         <a th:text="${pageNumber}"
                            th:href="@{/products(categoryId=${searchDto.categoryId},
