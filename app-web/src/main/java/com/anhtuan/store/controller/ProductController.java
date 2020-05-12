@@ -28,6 +28,8 @@ public class ProductController {
 
     @GetMapping(value = "/{id}")
     public String detail(@PathVariable Integer id, Model model){
+        model.addAttribute(ModelViewConst.Product.PRODUCT_DETAIL, productService.findById(id));
+
         return ViewHtmlConst.Products.DETAIL;
 
     }

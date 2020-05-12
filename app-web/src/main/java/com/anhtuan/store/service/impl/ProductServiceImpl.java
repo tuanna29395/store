@@ -1,8 +1,11 @@
 package com.anhtuan.store.service.impl;
 
+import com.anhtuan.store.commons.constants.ErrorMessage;
 import com.anhtuan.store.commons.enums.DeleteFlag;
+import com.anhtuan.store.commons.enums.ProductStatus;
 import com.anhtuan.store.dto.request.ProductSearchRqDto;
 import com.anhtuan.store.dto.response.ProductResponseDto;
+import com.anhtuan.store.exception.Exception;
 import com.anhtuan.store.model.ProductEntity;
 import com.anhtuan.store.model.QProductEntity;
 import com.anhtuan.store.repository.ProductRepository;
@@ -29,13 +32,21 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.findAll(buildCondition(searchRqDto), pageable).map(this::transformProductEntityToDto);
     }
 
+    @Override
+    public ProductResponseDto findById(Integer productId) {
+        ProductEntity productEntity = productRepository.findByIdAndAndDeleteFlagAndStatus(productId, DeleteFlag.NOT_DELETE.getVal(), ProductStatus.IN_STOCK.getVal())
+                .orElseThrow(() -> Exception.dataNotFound().build(String.format(ErrorMessage.Product.PRODUCT_NOT_FOUND, productId)));
+
+        return transformProductEntityToDto(productEntity);
+    }
+
     private BooleanBuilder buildCondition(ProductSearchRqDto searchRqDto) {
         BooleanBuilder condition = new BooleanBuilder();
         QProductEntity productEntity = QProductEntity.productEntity;
         if (Objects.nonNull(searchRqDto.getCategoryId())) {
             condition.and(productEntity.category.id.eq(searchRqDto.getCategoryId()));
         }
-        if (Objects.nonNull(searchRqDto.getName())){
+        if (Objects.nonNull(searchRqDto.getName())) {
             condition.and(productEntity.name.containsIgnoreCase(searchRqDto.getName()));
         }
         condition.and(productEntity.deleteFlag.eq(DeleteFlag.NOT_DELETE.getVal()));

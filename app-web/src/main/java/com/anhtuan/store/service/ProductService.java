@@ -7,4 +7,6 @@ import org.springframework.data.domain.Pageable;
 
 public interface ProductService {
     Page<ProductResponseDto> search(ProductSearchRqDto searchRqDto, Pageable pageable);
+
+    ProductResponseDto findById(Integer productId);
 }
