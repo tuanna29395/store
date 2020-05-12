@@ -15,7 +15,7 @@
                 <div class="col-md-4 col-sm-4">
                     <div class="single-product">
                         <div class="product-img">
-                            <a href="single-product.html">
+                            <a th:href="@{'/products/'+ ${item.id}}">
                                 <img th:src="@{'/images/product/'+ ${item.imageUrl}}" alt=""/>
                                 <img class="secondary-img" th:src="@{'/images/product/'+ ${item.imageUrl}}" alt=""/>
                             </a>
@@ -32,7 +32,7 @@
                             </div>
                         </div>
                         <div class="product-content">
-                            <h3><a href="single-product.html"><span th:text="${item.name}"></span></a></h3>
+                            <h3><a th:href="@{'/products/'+ ${item.imageUrl}}"><span th:text="${item.name}"></span></a></h3>
                             <div class="price">
                                 <span th:text="₫"></span> <span th:text="${item.salePrice}"></span>
                                 <span class="old">$90.11</span>
@@ -56,19 +56,19 @@
                 <div class="col-md-12">
                     <div class="single-product">
                         <div class="product-img">
-                            <a href="single-product.html">
+                            <a th:href="@{'/products/'+ ${item.id}}">
                                 <img th:src="@{'/images/product/'+ ${item.imageUrl}}" alt=""/>
                                 <img class="secondary-img" th:src="@{'/images/product/'+ ${item.imageUrl}}" alt=""/>
                             </a>
                             <span class="tag-line">new</span>
                         </div>
                         <div class="product-content">
-                            <h3><a href="single-product.html"><span th:text="${item.name}"></span></a></h3>
+                            <h3><a th:href="@{'/products/'+ ${item.imageUrl}}"><span th:text="${item.name}"></span></a></h3>
                             <div class="price">
                                 <span th:text="₫"></span> <span th:text="${item.salePrice}"></span>
                                 <span class="old">₫90.11</span>
                             </div>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam fringilla augue nec est
+                            <p th:text="${item.description}">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam fringilla augue nec est
                                 tristique auctor. Donec non est at libero vulputate rutrum. Morbi ornare lectus quis
                                 justo
                                 gravida semper. Nulla tellus mi, vulputate adipiscing cursus eu, suscipit id nulla.</p>

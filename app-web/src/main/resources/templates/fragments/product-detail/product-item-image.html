@@ -1,86 +1,23 @@
-<div class="row" th:fragment="product-item-image-detail" xmlns:th="http://www.thymeleaf.org"
-     xmlns="http://www.w3.org/1999/html">
-    <div class="col-md-5 col-sm-5 col-xs-12">
+<div class="col-md-5 col-sm-5 col-xs-12" th:fragment="product-item-image-detail" xmlns:th="http://www.thymeleaf.org"
+         xmlns="http://www.w3.org/1999/html">
+    <th:block th:with="imageUrl=${'/images/product/'+ productDetail.imageUrl}">
+
         <div class="single-pro-tab-content">
             <!-- Tab panes -->
             <div class="tab-content">
-                <div role="tabpanel" class="tab-pane active" id="home"><a href="#"><img class="zoom" th:src="@{/images/product/Peach-Tea-Macchiato.png}" data-zoom-image="/images/product/Peach-Tea-Macchiato.png" alt="" /></a></div>
-                <div role="tabpanel" class="tab-pane" id="profile"><a href="#"><img class="zoom" th:src="@{/images/product/Peach-Tea-Macchiato.png}" data-zoom-image="/images/product/Peach-Tea-Macchiato.png" alt="" /></a></div>
-                <div role="tabpanel" class="tab-pane" id="messages"><a href="#"><img class="zoom" th:src="@{/images/product/Peach-Tea-Macchiato.png}" data-zoom-image="/images/product/Peach-Tea-Macchiato.png" alt="" /></a></div>
-                <div role="tabpanel" class="tab-pane" id="settings"><a href="#"><img class="zoom" th:src="@{/images/product/Peach-Tea-Macchiato.png}" data-zoom-image="/images/product/Peach-Tea-Macchiato.png" alt="" /></a></div>
-                <div role="tabpanel" class="tab-pane" id="settingss"><a href="#"><img class="zoom" th:src="@{/images/product/Peach-Tea-Macchiato.png}" data-zoom-image="/images/product/Peach-Tea-Macchiato.png" alt="" /></a></div>
+                <div role="tabpanel" class="tab-pane active" id="home"><a href="#"><img class="zoom" th:src="${imageUrl}" th:data-zoom-image="${imageUrl}" alt="" /></a></div>
+                <div role="tabpanel" class="tab-pane" id="profile"><a href="#"><img class="zoom" th:src="${imageUrl}" th:data-zoom-image="${imageUrl}" alt="" /></a></div>
+                <div role="tabpanel" class="tab-pane" id="settings"><a href="#"><img class="zoom" th:src="${imageUrl}" th:data-zoom-image="${imageUrl}" alt="" /></a></div>
+                <div role="tabpanel" class="tab-pane" id="settingss"><a href="#"><img class="zoom" th:src="${imageUrl}" th:data-zoom-image="${imageUrl}" alt="" /></a></div>
             </div>
             <!-- Nav tabs -->
             <ul class="single-product-tab" role="tablist">
-                <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab"><img th:src="@{/images/product/Peach-Tea-Macchiato.png}" alt="" /></a></li>
-                <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab"><img th:src="@{/images/product/Peach-Tea-Macchiato.png}" alt="" /></a></li>
-                <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab"><img th:src="@{/images/product/Peach-Tea-Macchiato.png}" alt="" /></a></li>
-                <li role="presentation"><a href="#settingss" aria-controls="settings" role="tab" data-toggle="tab"><img th:src="@{/images/product/Peach-Tea-Macchiato.png}" alt="" /></a></li>
+                <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab"><img th:src="${imageUrl}" alt="" /></a></li>
+                <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab"><img th:src="${imageUrl}" alt="" /></a></li>
+                <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab"><img th:src="${imageUrl}" alt="" /></a></li>
+                <li role="presentation"><a href="#settingss" aria-controls="settings" role="tab" data-toggle="tab"><img th:src="${imageUrl}" alt="" /></a></li>
             </ul>
         </div>
-    </div>
-    <div class="col-md-7 col-sm-7 col-xs-12 shop-list shop-details">
-        <div class="product-content">
-            <h3><a href="single-product.html">Lorem ipsum dolor</a></h3>
-            <div class="price">
-                <span>$80.00</span>
-                <span class="old">$90.11</span>
-            </div>
-            <div class="s-p-rating">
-										<span class="rating">
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star-o"></i>
-										</span>
-                <span class="review-no">04 Review (s)</span>
-                <span class="review-no add-review"><a href="#">Add your review</a></span>
-            </div>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam fringilla augue nec est tristique auctor. Donec non est at libero vulputate rutrum. Morbi ornare lectus quis justo gravida semper. Nulla tellus mi, vulputate adipiscing cursus eu, suscipit id nulla.</p>
-            <div class="pro-size">
-                <label>size <span>*</span></label>
-                <select>
-                    <option value="1">Default</option>
-                    <option value="1">small</option>
-                    <option value="1">Medium</option>
-                    <option value="1">Large</option>
-                    <option value="1">extra large</option>
-                </select>
-            </div>
-            <div class="pro-size">
-                <label>color <span>*</span></label>
-                <select>
-                    <option value="1">Black</option>
-                    <option value="1">White</option>
-                    <option value="1">Red</option>
-                    <option value="1">Yellow</option>
-                    <option value="1">Pink</option>
-                </select>
-            </div>
-            <div class="product-action">
-                <div class="cart-plus">
-                    <form action="#">
-                        <div class="cart-plus-minus"><input type="text" value="1" /></div>
-                    </form>
-                </div>
-                <div class="button-top">
-                    <a href="#" ><i class="fa fa-heart"></i></a>
-                </div>
-                <div class="button-cart">
-                    <button><i class="fa fa-shopping-cart"></i> add to cart</button>
-                </div>
-            </div>
-            <div class="product-share">
-                <label>Share:</label>
-                <span>
-											<a href="#"><i class="fa fa-facebook"></i></a>
-											<a href="#"><i class="fa fa-twitter"></i></a>
-											<a href="#"><i class="fa fa-google-plus"></i></a>
-											<a href="#"><i class="fa fa-linkedin"></i></a>
-											<a href="#"><i class="fa fa-pinterest"></i></a>
-										</span>
-            </div>
-        </div>
-    </div>
+
+    </th:block>
 </div>

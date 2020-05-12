@@ -12,8 +12,11 @@
             <div class="row PDT20">
                 <div th:replace="layouts/left-category :: left-category"></div>
                 <div class="col-md-9 col-sm-12 col-xs-12">
+                    <div class="row">
                         <div th:replace="fragments/product-detail/product-item-image :: product-item-image-detail"></div>
-                        <div th:replace="fragments/product-detail/product-info :: product-info"></div>
+                        <div th:replace="fragments/product-detail/product-info.html :: product-info(${productDetail})"></div>
+                    </div>
+                        <div th:replace="fragments/product-detail/product-description-review :: product-description-review"></div>
                 </div>
             </div>
         </div>
