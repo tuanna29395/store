@@ -80,16 +80,17 @@ DROP TABLE IF EXISTS `order_items`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `order_items` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `order_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
   `quantity` int(11) DEFAULT NULL,
   `sold_price` decimal(10,0) DEFAULT NULL,
-  `order_id` int(11) DEFAULT NULL,
-  `product_id` int(11) DEFAULT NULL,
-  `amount` decimal(10,0) DEFAULT NULL,
+  `size_id` int(11) DEFAULT NULL,
+  `size_price` decimal(10,0) DEFAULT '0',
+  `amount` decimal(10,0) GENERATED ALWAYS AS ((`quantity` * (`sold_price` + `size_price`))) VIRTUAL,
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`order_id`,`product_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -162,8 +163,33 @@ CREATE TABLE `product` (
 
 LOCK TABLES `product` WRITE;
 /*!40000 ALTER TABLE `product` DISABLE KEYS */;
-INSERT INTO `product` VALUES (1,'Coca Milk','Apple-Fruit-Sorbet.png',15000,20000,'2020-05-05 13:27:39','2020-05-05 13:27:39',0,NULL,1,NULL,1),(2,'Caramel Milk Tea','Apple-Lemon-Babo.png',15000,20000,'2020-05-05 13:28:22','2020-05-05 13:28:22',0,NULL,1,NULL,1),(3,'Matcha','Apple-Tea-with-Fresh-Pulp.png',20000,25000,'2020-05-05 13:31:04','2020-05-05 13:31:04',0,NULL,1,NULL,1),(4,'Trà sữa cafe','Black-Tea.png',17000,20000,'2020-05-05 13:31:04','2020-05-05 13:31:04',0,NULL,1,NULL,1),(5,'Chanh leo','chanhleo.jpg',13000,18000,'2020-05-05 13:33:39','2020-05-05 13:33:39',0,NULL,3,NULL,1),(6,'Hồng trà việt quất','Black-Tea-Macchiato.png',15000,20000,'2020-05-05 13:33:39','2020-05-05 13:33:39',0,NULL,3,NULL,1),(7,'Trà xanh','Kiwi-Fruit-Sorbet.png',7000,12000,'2020-05-05 13:33:39','2020-05-05 13:33:39',0,NULL,3,NULL,1),(8,'7 UP','7up.jpg',7000,10000,'2020-05-05 13:36:19','2020-05-05 13:36:19',0,NULL,2,NULL,1),(9,'c2','c2.jpg',5000,8000,'2020-05-05 13:36:19','2020-05-05 13:36:19',0,NULL,2,NULL,1),(10,'nutri cam','nutri-cam.jpg',8000,12000,'2020-05-05 13:36:19','2020-05-05 13:36:19',0,NULL,2,NULL,1),(11,'Trà sữa tươi','tra-sua-milk-tea.png',15000,20000,'2020-05-09 02:54:58','2020-05-09 02:54:58',0,NULL,1,NULL,1),(12,'Trà sữa cafe thạch','tra-sua-cafe-thach.jpg',17000,22000,'2020-05-09 02:54:58','2020-05-09 02:54:58',0,NULL,1,NULL,1),(13,'Bò húc','red-bull.png',8000,12000,'2020-05-09 02:54:58','2020-05-09 02:54:58',0,NULL,2,NULL,1),(14,'Trà sữa đậu đỏ','Red-Bean-Milk-Tea.png',15000,20000,'2020-05-09 02:54:58','2020-05-09 02:54:58',0,NULL,1,NULL,1),(15,'Trà sữa thạch rau câu','Red-Bean-Match-Mike.png',17000,20000,'2020-05-09 02:54:58','2020-05-09 02:54:58',0,NULL,1,NULL,1),(16,'Pepsi','Pepsi_non.jpg',7000,10000,'2020-05-09 02:54:58','2020-05-09 02:54:58',0,NULL,3,NULL,1),(17,'Sữa tươi Trân châu đường đen','Pearl-Milk-Tea.png',20000,28000,'2020-05-09 02:59:32','2020-05-09 02:59:32',0,NULL,1,NULL,1),(18,'Nước ép cam tươi','Peach-Tea-with-Fresh-Pulp.png',15000,20000,'2020-05-09 03:00:48','2020-05-09 03:00:48',0,NULL,2,NULL,1),(19,'Trà sữa ô long','tra-sua-olong.jpg',20000,25000,'2020-05-09 03:05:32','2020-05-09 03:05:32',0,NULL,1,NULL,1),(20,'Trà sữa alisan','tra-sua-alisan.jpg',25000,30000,'2020-05-09 03:06:58','2020-05-09 03:06:58',0,NULL,1,NULL,1),(21,'Trà sữa trà xanh','tra-sua-tra-xanh.jpg',20000,25000,'2020-05-09 03:07:59','2020-05-09 03:07:59',0,NULL,1,NULL,1);
+INSERT INTO `product` VALUES (1,'Coca Milk','Apple-Fruit-Sorbet.png',15000,20000,'2020-05-05 13:27:39','2020-05-05 13:27:39',0,NULL,1,'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam fringilla augue nec est tristique auctor. Donec non est at libero vulputate rutrum. Morbi ornare lectus quis justo gravida semper. Nulla tellus mi, vulputate adipiscing cursus eu, suscipit id nulla.',1),(2,'Caramel Milk Tea','Apple-Lemon-Babo.png',15000,20000,'2020-05-05 13:28:22','2020-05-05 13:28:22',0,NULL,1,'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam fringilla augue nec est tristique auctor. Donec non est at libero vulputate rutrum. Morbi ornare lectus quis justo gravida semper. Nulla tellus mi, vulputate adipiscing cursus eu, suscipit id nulla.',1),(3,'Matcha','Apple-Tea-with-Fresh-Pulp.png',20000,25000,'2020-05-05 13:31:04','2020-05-05 13:31:04',0,NULL,1,NULL,1),(4,'Trà sữa cafe','Black-Tea.png',17000,20000,'2020-05-05 13:31:04','2020-05-05 13:31:04',0,NULL,1,NULL,1),(5,'Chanh leo','chanhleo.jpg',13000,18000,'2020-05-05 13:33:39','2020-05-05 13:33:39',0,NULL,3,NULL,1),(6,'Hồng trà việt quất','Black-Tea-Macchiato.png',15000,20000,'2020-05-05 13:33:39','2020-05-05 13:33:39',0,NULL,3,NULL,1),(7,'Trà xanh','Kiwi-Fruit-Sorbet.png',7000,12000,'2020-05-05 13:33:39','2020-05-05 13:33:39',0,NULL,3,NULL,1),(8,'7 UP','7up.jpg',7000,10000,'2020-05-05 13:36:19','2020-05-05 13:36:19',0,NULL,2,NULL,1),(9,'c2','c2.jpg',5000,8000,'2020-05-05 13:36:19','2020-05-05 13:36:19',0,NULL,2,NULL,1),(10,'nutri cam','nutri-cam.jpg',8000,12000,'2020-05-05 13:36:19','2020-05-05 13:36:19',0,NULL,2,NULL,1),(11,'Trà sữa tươi','tra-sua-milk-tea.png',15000,20000,'2020-05-09 02:54:58','2020-05-09 02:54:58',0,NULL,1,NULL,1),(12,'Trà sữa cafe thạch','tra-sua-cafe-thach.jpg',17000,22000,'2020-05-09 02:54:58','2020-05-09 02:54:58',0,NULL,1,NULL,1),(13,'Bò húc','red-bull.png',8000,12000,'2020-05-09 02:54:58','2020-05-09 02:54:58',0,NULL,2,NULL,1),(14,'Trà sữa đậu đỏ','Red-Bean-Milk-Tea.png',15000,20000,'2020-05-09 02:54:58','2020-05-09 02:54:58',0,NULL,1,NULL,1),(15,'Trà sữa thạch rau câu','Red-Bean-Match-Mike.png',17000,20000,'2020-05-09 02:54:58','2020-05-09 02:54:58',0,NULL,1,NULL,1),(16,'Pepsi','Pepsi_non.jpg',7000,10000,'2020-05-09 02:54:58','2020-05-09 02:54:58',0,NULL,3,NULL,1),(17,'Sữa tươi Trân châu đường đen','Pearl-Milk-Tea.png',20000,28000,'2020-05-09 02:59:32','2020-05-09 02:59:32',0,NULL,1,NULL,1),(18,'Nước ép cam tươi','Peach-Tea-with-Fresh-Pulp.png',15000,20000,'2020-05-09 03:00:48','2020-05-09 03:00:48',0,NULL,2,NULL,1),(19,'Trà sữa ô long','tra-sua-olong.jpg',20000,25000,'2020-05-09 03:05:32','2020-05-09 03:05:32',0,NULL,1,NULL,1),(20,'Trà sữa alisan','tra-sua-alisan.jpg',25000,30000,'2020-05-09 03:06:58','2020-05-09 03:06:58',0,NULL,1,NULL,1),(21,'Trà sữa trà xanh','tra-sua-tra-xanh.jpg',20000,25000,'2020-05-09 03:07:59','2020-05-09 03:07:59',0,NULL,1,NULL,1);
 /*!40000 ALTER TABLE `product` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `review`
+--
+
+DROP TABLE IF EXISTS `review`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `review` (
+  `id` int(11) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `product_id` int(11) DEFAULT NULL,
+  `review_content` longtext,
+  `number_star` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `review`
+--
+
+LOCK TABLES `review` WRITE;
+/*!40000 ALTER TABLE `review` DISABLE KEYS */;
+/*!40000 ALTER TABLE `review` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -203,6 +229,7 @@ DROP TABLE IF EXISTS `size`;
 CREATE TABLE `size` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `price` decimal(10,0) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -256,4 +283,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-05-12 15:07:49
+-- Dump completed on 2020-05-13 16:55:09
