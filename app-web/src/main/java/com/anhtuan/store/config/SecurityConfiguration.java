@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -31,17 +32,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/webjars/**");
     }
 
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(authenticationServiceImpl).passwordEncoder(passwordEncoder());
-    }
-
-    private static final String[] ANT_MATCHERS_FREE_ENDPOINT = new String[]{
-            "/",
-            "/login*",
-            "/hello",
-            "/products/**",
-            "/api/reset-password/**",
+    private static final String[] ANT_MATCHERS_RESOURCES = new String[]{
             "/bootstrap/**",
             "/css/**",
             "/fonts/**",
@@ -50,6 +41,21 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             "/lib/**",
             "/templates/**",
             "/vendor/**",
+            "/login-process",
+
+    };
+
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(authenticationServiceImpl).passwordEncoder(passwordEncoder());
+    }
+
+    private static final String[] ANT_MATCHERS_FREE_ENDPOINT = new String[]{
+            "/",
+            "/login*",
+            "/cart/**",
+            "/products/**",
+            "/api/reset-password/**",
             "/users/*",
             "/api/**"
     };
@@ -60,12 +66,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .ignoringAntMatchers("/users/*")
                 .and()
                 .authorizeRequests()
+                .antMatchers(ANT_MATCHERS_RESOURCES).permitAll()
                 .antMatchers(ANT_MATCHERS_FREE_ENDPOINT).permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/login")
-                .defaultSuccessUrl("/index")
+                .defaultSuccessUrl("/products")
                 .failureUrl("/login-error")
                 .usernameParameter("email-login")
                 .passwordParameter("password-login")
@@ -76,7 +83,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .invalidateHttpSession(true)
                 .deleteCookies("JSESSIONID")
                 .and()
-                .exceptionHandling().accessDeniedPage("/cms/403");
+                .exceptionHandling().accessDeniedPage("/403");
 
     }
 }

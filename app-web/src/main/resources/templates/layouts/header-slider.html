@@ -189,7 +189,7 @@
                                     <li>
                                         <div class="cart-img">
                                             <a href="#">
-                                                <img alt="" src="../../static/images/cart/1.png">
+                                                <img alt="" src="">
                                             </a>
                                         </div>
                                         <div class="cart-info">
@@ -207,7 +207,7 @@
                                     <li>
                                         <div class="cart-img">
                                             <a href="#">
-                                                <img alt="" src="../../static/images/cart/1.png">
+                                                <img alt="" src="">
                                             </a>
                                         </div>
                                         <div class="cart-info">
@@ -257,9 +257,9 @@
                             <div class="header-search">
                                 <i class="fa fa-search"></i>
                                 <div class="header-form">
-                                    <form action="#">
-                                        <input type="text" placeholder="search"/>
-                                        <button>
+                                    <form method="get" th:action="@{/products}">
+                                        <input type="text" th:value = "*{name}" placeholder="search"/>
+                                        <button type="submit">
                                             <i class="fa fa-search"></i>
                                         </button>
                                     </form>

@@ -9,6 +9,7 @@ import com.anhtuan.store.exception.Exception;
 import com.anhtuan.store.model.ProductEntity;
 import com.anhtuan.store.model.QProductEntity;
 import com.anhtuan.store.repository.ProductRepository;
+import com.anhtuan.store.service.CommonService;
 import com.anhtuan.store.service.ProductService;
 import com.querydsl.core.BooleanBuilder;
 import org.modelmapper.ModelMapper;
@@ -27,9 +28,12 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     private ModelMapper modelMapper;
 
+    @Autowired
+    CommonService commonService;
+
     @Override
     public Page<ProductResponseDto> search(ProductSearchRqDto searchRqDto, Pageable pageable) {
-        return productRepository.findAll(buildCondition(searchRqDto), pageable).map(this::transformProductEntityToDto);
+        return productRepository.findAll(buildCondition(searchRqDto), pageable).map(entity -> commonService.transformProductEntityToDto(entity));
     }
 
     @Override
@@ -37,7 +41,7 @@ public class ProductServiceImpl implements ProductService {
         ProductEntity productEntity = productRepository.findByIdAndAndDeleteFlagAndStatus(productId, DeleteFlag.NOT_DELETE.getVal(), ProductStatus.IN_STOCK.getVal())
                 .orElseThrow(() -> Exception.dataNotFound().build(String.format(ErrorMessage.Product.PRODUCT_NOT_FOUND, productId)));
 
-        return transformProductEntityToDto(productEntity);
+        return commonService.transformProductEntityToDto(productEntity);
     }
 
     private BooleanBuilder buildCondition(ProductSearchRqDto searchRqDto) {
@@ -53,10 +57,4 @@ public class ProductServiceImpl implements ProductService {
         return condition;
     }
 
-    private ProductResponseDto transformProductEntityToDto(ProductEntity productEntity) {
-        ProductResponseDto res = modelMapper.map(productEntity, ProductResponseDto.class);
-        Integer salePrice = productEntity.getSalePrice();
-        res.setSalePrice(String.format("%,d", salePrice));
-        return res;
-    }
 }

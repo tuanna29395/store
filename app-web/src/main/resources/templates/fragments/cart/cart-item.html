@@ -1,4 +1,5 @@
-<div class="row">
+<div class="row" th:fragment="cart-item" xmlns:th="http://www.thymeleaf.org"
+     xmlns="http://www.w3.org/1999/html">
     <div class="col-md-12 col-sm-12 col-xs-12">
         <form action="#">
             <div class="table-content table-responsive">
@@ -14,20 +15,12 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td class="product-thumbnail"><a href="#"><img src="img/cart/2.jpg" alt=""></a></td>
-                        <td class="product-name"><a href="#">Lorem ipsum dolor</a></td>
-                        <td class="product-price"><span class="amount">£125.00</span></td>
-                        <td class="product-quantity"><input type="number" value="1"></td>
-                        <td class="product-subtotal">£125.00</td>
-                        <td class="product-remove"><a href="#"><i class="fa fa-times"></i></a></td>
-                    </tr>
-                    <tr>
-                        <td class="product-thumbnail"><a href="#"><img src="img/cart/3.jpg" alt=""></a></td>
-                        <td class="product-name"><a href="#">Lorem ipsum dolor</a></td>
-                        <td class="product-price"><span class="amount">£90.00</span></td>
-                        <td class="product-quantity"><input type="number" value="1"></td>
-                        <td class="product-subtotal">£90.00</td>
+                    <tr th:each="item:${session.myCartItems}">
+                        <td class="product-thumbnail"><a href="#"><img th:src="${'/images/product/'+ item.value.product.imageUrl}" alt=""></a></td>
+                        <td class="product-name"><a href="#" ><span th:text="${item.value.product.name}"></span></a></td>
+                        <td class="product-price"><span class="amount"><span th:text="₫"></span> <span th:text="${item.value.product.salePrice}"></span></span></td>
+                        <td class="product-quantity"><input type="number" th:value="${item.value.quantity}"></td>
+                        <td class="product-subtotal"><span th:text="₫"></span> <span th:text="${item.value.getAmount()}"></span></td>
                         <td class="product-remove"><a href="#"><i class="fa fa-times"></i></a></td>
                     </tr>
                     </tbody>

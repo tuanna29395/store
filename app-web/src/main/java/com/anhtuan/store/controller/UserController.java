@@ -33,7 +33,7 @@ public class UserController extends BaseController {
             return ViewHtmlConst.Users.SIGN_UP_SIGN_IN;
         }
 
-        if (userRepository.existsByEmailIgnoreCaseAndDeleteFlagIsNull(user.getEmail())) {
+        if (userRepository.existsByEmailIgnoreCaseAndDeletedFlagIsNull(user.getEmail())) {
             MessageHelper.addErrorAttribute(ra, String.format(ErrorMessage.DUPLICATED_DATA, Messages.User.EMAIL));
             return redirect(EndPointConst.LOGIN);
         }

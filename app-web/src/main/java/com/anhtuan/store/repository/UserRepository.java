@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<UserEntity, Integer> {
-    Optional<UserEntity> findByEmailAndDeleteFlag(String username, Integer deletedFlg);
+    Optional<UserEntity> findByEmailAndDeletedFlag(String username, Integer deletedFlg);
 
-    boolean existsByEmailIgnoreCaseAndDeleteFlagIsNull(String email);
+    boolean existsByEmailIgnoreCaseAndDeletedFlagIsNull(String email);
 }
