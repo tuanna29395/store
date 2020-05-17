@@ -3,7 +3,7 @@ $(document).ready(function () {
         changeBackgroundMenuCategory();
     };
     changePageSize();
-    onclickSearchProduct();
+    //onclickSearchProduct();
 });
 
 function getUrlParamCategory() {
@@ -66,21 +66,21 @@ function getUrlParameter(sParam) {
     }
 }
 
-function onclickSearchProduct() {
-    $('.btn-search-name-product').on('click', function () {
-        let newName = $('.input-search-product').val();
-        let currentName = getUrlParameter('name');
-        let url = window.location.href;
-        if (currentName) {
-            url = url.replace("name=" + currentName, "name=" + newName);
-        } else {
-            if (url.includes('=')) {
-                url += "&name=" + newName;
-            } else {
-                url += "?name=" + newName;
-            }
-
-        }
-        window.location = url;
-    });
-}
+// function onclickSearchProduct() {
+//     $('.btn-search-name-product').on('click', function () {
+//         let newName = $('.input-search-product').val();
+//         let currentName = getUrlParameter('name');
+//         let url = window.location.href;
+//         if (currentName) {
+//             url = url.replace("name=" + currentName, "name=" + newName);
+//         } else {
+//             if (url.includes('=')) {
+//                 url += "&name=" + newName;
+//             } else {
+//                 url += "?name=" + newName;
+//             }
+//
+//         }
+//         window.location = 'http://' + window.location.hostname + "products/"+"?name=" + newName ;
+//     });
+// }

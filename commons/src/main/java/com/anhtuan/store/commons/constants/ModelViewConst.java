@@ -10,4 +10,8 @@ public interface ModelViewConst {
         String SEARCH_DTO = "searchDto";
         String PRODUCT_DETAIL = "productDetail";
     }
+
+    interface Carts{
+        String TOPPING = "toppingRq";
+    }
 }

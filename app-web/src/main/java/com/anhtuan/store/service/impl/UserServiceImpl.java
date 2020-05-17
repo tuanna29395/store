@@ -39,7 +39,7 @@ public class UserServiceImpl implements UserService {
                 .build(ErrorMessage.Role.ROLE_NOT_FOUND
                         .replace(Commons.ID, String.valueOf(Role.CUSTOMER.getVal()))));
         user.setRole(role);
-        user.setDeleteFlag(DeleteFlag.NOT_DELETE.getVal());
+        user.setDeletedFlag(DeleteFlag.NOT_DELETE.getVal());
 
         userRepository.save(user);
     }

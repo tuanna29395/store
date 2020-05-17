@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.7.25, for Linux (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.28, for Win64 (x86_64)
 --
 -- Host: 127.0.0.1    Database: store
 -- ------------------------------------------------------
--- Server version	5.7.25
+-- Server version	5.7.28-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -231,7 +231,7 @@ CREATE TABLE `size` (
   `name` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `price` decimal(10,0) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -240,6 +240,7 @@ CREATE TABLE `size` (
 
 LOCK TABLES `size` WRITE;
 /*!40000 ALTER TABLE `size` DISABLE KEYS */;
+INSERT INTO `size` VALUES (1,'default',0),(2,'small',5000),(3,'Medium',7000),(4,'Large',9000),(5,'extra large',12000);
 /*!40000 ALTER TABLE `size` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -261,7 +262,7 @@ CREATE TABLE `user` (
   `delete_at` timestamp NULL DEFAULT NULL,
   `deleted_flag` int(4) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -270,7 +271,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'neo29395@gmail.com','$2a$10$CcjJbcUGBl6yK28I4xbrKO2Gc7KStEAgOUNyQbAF51242cOQI41v.','anhtuan',2,'2020-04-12 03:16:54','2020-04-12 03:16:54',NULL,0),(2,'TESS@GMAIL.COM','$2a$10$lKVAM5wlakV7Akp7AWAvmuW8XKmeh.G2dOv1VAl2iSHRzSD1krV5y','test12345',2,'2020-04-12 03:18:00','2020-04-12 03:18:00',NULL,0),(3,'test1@gmail.com','$2a$10$Kr9UbBSmBMtJJLsEpi4AXeQhiNATVeO7DrqdZ2.EC6HYNAhXTTl/C','nguyễn anh tuấn',2,'2020-04-12 08:26:19','2020-04-12 08:26:19',NULL,0);
+INSERT INTO `user` VALUES (1,'neo29395@gmail.com','$2a$10$CcjJbcUGBl6yK28I4xbrKO2Gc7KStEAgOUNyQbAF51242cOQI41v.','anhtuan',2,'2020-04-12 03:16:54','2020-04-12 03:16:54',NULL,0),(2,'TESS@GMAIL.COM','$2a$10$lKVAM5wlakV7Akp7AWAvmuW8XKmeh.G2dOv1VAl2iSHRzSD1krV5y','test12345',2,'2020-04-12 03:18:00','2020-04-12 03:18:00',NULL,0),(3,'test1@gmail.com','$2a$10$Kr9UbBSmBMtJJLsEpi4AXeQhiNATVeO7DrqdZ2.EC6HYNAhXTTl/C','nguyễn anh tuấn',2,'2020-04-12 08:26:19','2020-04-12 08:26:19',NULL,0),(4,'neo29391235@gmail.com','$2a$10$zhidTLf28FciXalmgWGHwekX0ruYy3SrRfH6Q4Iqx1egyWWxGdFp.','anhtuan',2,'2020-05-16 13:00:29','2020-05-16 13:00:29',NULL,0);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -283,4 +284,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-05-13 16:55:09
+-- Dump completed on 2020-05-17 23:20:48

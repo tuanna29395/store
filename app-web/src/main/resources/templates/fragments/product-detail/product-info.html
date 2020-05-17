@@ -17,42 +17,45 @@
             <span class="review-no">04 Review (s)</span>
             <span class="review-no add-review"><a href="#">Add your review</a></span>
         </div>
-        <p th:text="${item.description}">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam fringilla augue nec est tristique auctor. Donec
+        <p th:text="${item.description}">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam fringilla augue
+            nec est tristique auctor. Donec
             non est at libero vulputate rutrum. Morbi ornare lectus quis justo gravida semper. Nulla tellus mi,
             vulputate adipiscing cursus eu, suscipit id nulla.</p>
-        <div class="pro-size">
-            <label>size <span>*</span></label>
-            <select>
-                <option value="1">Default</option>
-                <option value="1">small</option>
-                <option value="1">Medium</option>
-                <option value="1">Large</option>
-                <option value="1">extra large</option>
-            </select>
-        </div>
-<!--        <div class="pro-size">-->
-<!--            <label>color <span>*</span></label>-->
-<!--            <select>-->
-<!--                <option value="1">Black</option>-->
-<!--                <option value="1">White</option>-->
-<!--                <option value="1">Red</option>-->
-<!--                <option value="1">Yellow</option>-->
-<!--                <option value="1">Pink</option>-->
-<!--            </select>-->
-<!--        </div>-->
-        <div class="product-action">
-            <div class="cart-plus">
-                <form action="#">
-                    <div class="cart-plus-minus"><input type="text" value="1"/></div>
-                </form>
+        <form th:action="@{'/cart/add/' + ${item.id}}" th:object="${toppingRq}" method="GET">
+            <div class="pro-size">
+                <label>size <span>*</span></label>
+                <select th:field="*{sizeId}">
+                    <option th:value="1">Default</option>
+                    <option th:value="2">small</option>
+                    <option th:value="3">Medium</option>
+                    <option th:value="4">Large</option>
+                    <option th:value="5">extra large</option>
+                </select>
             </div>
-            <div class="button-top">
-                <a href="#"><i class="fa fa-heart"></i></a>
+            <!--        <div class="pro-size">-->
+            <!--            <label>color <span>*</span></label>-->
+            <!--            <select>-->
+            <!--                <option value="1">Black</option>-->
+            <!--                <option value="1">White</option>-->
+            <!--                <option value="1">Red</option>-->
+            <!--                <option value="1">Yellow</option>-->
+            <!--                <option value="1">Pink</option>-->
+            <!--            </select>-->
+            <!--        </div>-->
+            <div class="product-action">
+                <div class="cart-plus">
+
+                    <div class="cart-plus-minus"><input type="text" th:field="*{quantity}"/></div>
+
+                </div>
+                <!--            <div class="button-top">-->
+                <!--                <a href="#"><i class="fa fa-heart"></i></a>-->
+                <!--            </div>-->
+                <div class="button-cart">
+                    <button type="submit"><i class="fa fa-shopping-cart"></i> add to cart</button>
+                </div>
             </div>
-            <div class="button-cart">
-                <button><i class="fa fa-shopping-cart"></i> add to cart</button>
-            </div>
-        </div>
+        </form>
         <div class="product-share">
             <label>Share:</label>
             <span>

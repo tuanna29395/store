@@ -3,6 +3,7 @@ package com.anhtuan.store.controller;
 import com.anhtuan.store.commons.constants.ModelViewConst;
 import com.anhtuan.store.commons.constants.ViewHtmlConst;
 import com.anhtuan.store.dto.request.ProductSearchRqDto;
+import com.anhtuan.store.dto.request.ToppingReq;
 import com.anhtuan.store.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -29,6 +30,7 @@ public class ProductController {
     @GetMapping(value = "/{id}")
     public String detail(@PathVariable Integer id, Model model){
         model.addAttribute(ModelViewConst.Product.PRODUCT_DETAIL, productService.findById(id));
+        model.addAttribute(ModelViewConst.Carts.TOPPING, new ToppingReq(1,1));
 
         return ViewHtmlConst.Products.DETAIL;
 

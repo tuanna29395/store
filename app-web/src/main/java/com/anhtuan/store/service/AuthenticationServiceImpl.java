@@ -25,7 +25,7 @@ public class AuthenticationServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserEntity user = userRepository.findByEmailAndDeleteFlag(username, UserStatus.NOT_DELETE.getValue())
+        UserEntity user = userRepository.findByEmailAndDeletedFlag(username, UserStatus.NOT_DELETE.getValue())
                 .orElseThrow(() -> new UsernameNotFoundException(ErrorMessage.User.USER_NOT_FOUND));
         Set<RoleEntity> roles = new HashSet<>();
         roles.add(user.getRole());
@@ -42,7 +42,7 @@ public class AuthenticationServiceImpl implements UserDetailsService {
     }
 
     private UserDetails buildUserForAuthentication(UserEntity user, List<GrantedAuthority> authorities) {
-        boolean active = user.getDeleteFlag() != 1;
+        boolean active = user.getDeletedFlag() != 1;
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(),
                 active, true, true, true, authorities);
     }
