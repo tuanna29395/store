@@ -4,6 +4,7 @@ import com.anhtuan.store.commons.constants.ErrorMessage;
 import com.anhtuan.store.commons.enums.DeleteFlag;
 import com.anhtuan.store.commons.enums.ProductStatus;
 import com.anhtuan.store.dto.request.ToppingReq;
+import com.anhtuan.store.dto.response.CartIdDto;
 import com.anhtuan.store.dto.response.ProductResponseDto;
 import com.anhtuan.store.dto.response.SizeDto;
 import com.anhtuan.store.exception.Exception;
@@ -42,9 +43,9 @@ public class CartServiceImpl implements CartService {
     public static final String CART_NAME = "myCartItems";
 
     @Override
-    public Map<Integer, CartItemDto> addProductToCart(HttpSession session, Integer productId, ToppingReq toppingReq) {
+    public Map<CartIdDto, CartItemDto> addProductToCart(HttpSession session, Integer productId, ToppingReq toppingReq) {
 
-        HashMap<Integer, CartItemDto> cartItems = (HashMap<Integer, CartItemDto>) session.getAttribute(CART_NAME);
+        HashMap<CartIdDto, CartItemDto> cartItems = (HashMap<CartIdDto, CartItemDto>) session.getAttribute(CART_NAME);
         if (cartItems == null) {
             cartItems = new HashMap<>();
         }
@@ -58,20 +59,21 @@ public class CartServiceImpl implements CartService {
 
         ProductResponseDto productDto = commonService.transformProductEntityToDto(product);
         SizeDto sizeDto = modelMapper.map(sizeEntity, SizeDto.class);
-        if (cartItems.containsKey(productId)) {
-            CartItemDto item = cartItems.get(productId);
+        CartIdDto cartIdDto = new CartIdDto(productId, toppingReq.getSizeId());
+        if (cartItems.containsKey(cartIdDto)) {
+            CartItemDto item = cartItems.get(cartIdDto);
             item.setProduct(productDto);
             item.setQuantity(item.getQuantity() + toppingReq.getQuantity());
             item.setSize(sizeDto);
             item.setAmount(item.getAmount());
-            cartItems.put(productId, item);
+            cartItems.put(cartIdDto, item);
         } else {
             CartItemDto item = new CartItemDto();
             item.setProduct(productDto);
             item.setQuantity(toppingReq.getQuantity());
             item.setSize(sizeDto);
             item.setAmount(item.getAmount());
-            cartItems.put(productId, item);
+            cartItems.put(cartIdDto, item);
 
         }
 

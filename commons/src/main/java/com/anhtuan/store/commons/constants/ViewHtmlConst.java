@@ -14,5 +14,6 @@ public interface ViewHtmlConst {
 
     interface Carts {
         String LIST = "/cart/list";
+        String REDIRECT_CARTS = "redirect:/carts";
     }
 }

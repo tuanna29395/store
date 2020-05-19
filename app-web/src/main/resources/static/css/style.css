@@ -435,8 +435,8 @@ position: relative;}
 }
  .del-icon {
   float: right;
-  margin-top: 20px;
-  padding-right: 10px;
+  /*margin-top: 20px;*/
+  /*padding-right: 10px;*/
 }
 .del-icon i {
   cursor: pointer;

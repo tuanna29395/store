@@ -21,7 +21,7 @@
             nec est tristique auctor. Donec
             non est at libero vulputate rutrum. Morbi ornare lectus quis justo gravida semper. Nulla tellus mi,
             vulputate adipiscing cursus eu, suscipit id nulla.</p>
-        <form th:action="@{'/cart/add/' + ${item.id}}" th:object="${toppingRq}" method="GET">
+        <form th:action="@{'/carts/add/' + ${item.id}}" th:object="${toppingRq}" method="GET">
             <div class="pro-size">
                 <label>size <span>*</span></label>
                 <select th:field="*{sizeId}">

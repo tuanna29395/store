@@ -53,7 +53,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private static final String[] ANT_MATCHERS_FREE_ENDPOINT = new String[]{
             "/",
             "/login*",
-            "/cart/**",
+            "/carts/**",
             "/products/**",
             "/api/reset-password/**",
             "/users/*",

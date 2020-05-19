@@ -1,5 +1,6 @@
 package com.anhtuan.store.controller;
 
+import com.anhtuan.store.commons.constants.ModelViewConst;
 import com.anhtuan.store.commons.constants.ViewHtmlConst;
 import com.anhtuan.store.dto.request.ToppingReq;
 import com.anhtuan.store.service.CartService;
@@ -13,14 +14,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpSession;
 
 @Controller
-@RequestMapping(value = "/cart")
+@RequestMapping(value = "/carts")
 public class CartController {
     @Autowired
     private CartService cartService;
 
     @GetMapping(value = "/add/{productId}")
-    public String addProduct(Model model, HttpSession session, @PathVariable("productId") Integer productId,ToppingReq toppingReq) {
+    public String addProduct(Model model, HttpSession session, @PathVariable("productId") Integer productId, ToppingReq toppingReq) {
         session.setAttribute("myCartItems", cartService.addProductToCart(session, productId, toppingReq));
+        return ViewHtmlConst.Carts.REDIRECT_CARTS;
+    }
+
+    @GetMapping
+    public String list(HttpSession session, Model model) {
+        model.addAttribute(ModelViewConst.Carts.LIST, cartService.getAll(session));
         return ViewHtmlConst.Carts.LIST;
     }
 }
