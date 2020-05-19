@@ -176,7 +176,7 @@
                         </div>
                     </div>
                     <div class="col-md-2 col-sm-8 col-xs-7 header-right">
-                        <script id="total-cart" type="text/x-jQuery-tmpl">
+                        <script id="total-item-cart" type="text/x-jQuery-tmpl">
                       <div class="total-cart">
                             <a href="cart.html">
                                 <i class="fa fa-shopping-cart"></i>
@@ -186,54 +186,41 @@
 
                         </script>
                         <script id="item-cart" type="text/x-jQuery-tmpl">
-                        <ul>
                             <li>
                                 <div class="cart-img">
                                     <a href="#">
-                                        <img alt="" src="">
+                                        <img alt="" src="${imageUrl}">
                                     </a>
                                 </div>
                                 <div class="cart-info">
                                     <h4>
-                                        <a href="#">Vestibulum suscipit</a>
+                                        <a href="#">${productName}</a>
                                     </h4>
-                                    <span>£165.00
-                                        <span>x 1</span>
+                                    <span>₫${productPrice} + Size( ${sizeName} ₫${sizePrice})
+                                        <span>x ${quantity}</span>
                                     </span>
                                 </div>
                                 <div class="del-icon">
                                     <i class="fa fa-times-circle"></i>
                                 </div>
                             </li>
-                            <li>
-                                <div class="cart-img">
-                                    <a href="#">
-                                        <img alt="" src="">
-                                    </a>
-                                </div>
-                                <div class="cart-info">
-                                    <h4>
-                                        <a href="#">Vestibulum suscipit</a>
-                                    </h4>
-                                    <span>£165.00
-                                        <span>x 1</span>
-                                    </span>
-                                </div>
-                                <div class="del-icon">
-                                    <i class="fa fa-times-circle"></i>
-                                </div>
-                            </li>
+
+                        </script>
+
+                        <script id="total-price-cart" type="text/x-jQuery-tmpl">
                             <li class="cart-border">
                                 <div class="subtotal-text">Subtotal:</div>
-                                <div class="subtotal-price">£300.00</div>
+                                <div class="subtotal-price">₫ ${totalAmount}</div>
                             </li>
                             <li>
                                 <a class="cart-button" href="checkout.html">view cart</a>
                                 <a class="checkout" href="checkout.html">checkout</a>
                             </li>
-
                         </script>
                         <div class="my-cart">
+                            <ul class="item-cart">
+
+                            </ul>
 <!--                            <div class="total-cart">-->
 <!--                                <a href="cart.html">-->
 <!--                                    <i class="fa fa-shopping-cart"></i>-->

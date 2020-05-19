@@ -9,18 +9,20 @@
                         <th class="product-thumbnail">Image</th>
                         <th class="product-name">Product</th>
                         <th class="product-price">Price</th>
+                        <th class="product-size">Size</th>
                         <th class="product-quantity">Quantity</th>
                         <th class="product-subtotal">Total</th>
                         <th class="product-remove">Remove</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="item:${session.myCartItems}">
-                        <td class="product-thumbnail"><a href="#"><img th:src="${'/images/product/'+ item.value.product.imageUrl}" alt=""></a></td>
-                        <td class="product-name"><a href="#" ><span th:text="${item.value.product.name}"></span></a></td>
-                        <td class="product-price"><span class="amount"><span th:text="₫"></span> <span th:text="${item.value.product.salePrice}"></span></span></td>
-                        <td class="product-quantity"><input type="number" th:value="${item.value.quantity}"></td>
-                        <td class="product-subtotal"><span th:text="₫"></span> <span th:text="${item.value.getAmount()}"></span></td>
+                    <tr th:each="item:${items}">
+                        <td class="product-thumbnail"><a href="#"><img th:src="${'/images/product/'+ item.product.imageUrl}" alt=""></a></td>
+                        <td class="product-name"><a href="#" ><span th:text="${item.product.name}"></span></a></td>
+                        <td class="product-price"><span class="amount"><span th:text="₫"></span> <span th:text="${item.product.salePrice}"></span></span></td>
+                        <td class="size"><span class="amount"><span th:text="${item.size.name}"></span> (<span th:text="${item.size.price}"></span>)</span></td>
+                        <td class="product-quantity"><input type="number" th:value="${item.quantity}"></td>
+                        <td class="product-subtotal"><span th:text="₫"></span> <span th:text="${item.getAmount()}"></span></td>
                         <td class="product-remove"><a href="#"><i class="fa fa-times"></i></a></td>
                     </tr>
                     </tbody>
