@@ -24,24 +24,19 @@
         <form th:action="@{'/carts/add/' + ${item.id}}" th:object="${toppingRq}" method="GET">
             <div class="pro-size">
                 <label>size <span>*</span></label>
-                <select th:field="*{sizeId}">
-                    <option th:value="1">Default</option>
-                    <option th:value="2">small</option>
-                    <option th:value="3">Medium</option>
-                    <option th:value="4">Large</option>
-                    <option th:value="5">extra large</option>
+                <select th:field="*{sizeId}" class="size-option">
+<!--                    <option th:value="1">Default</option>-->
+<!--                    <option th:value="2">small</option>-->
+<!--                    <option th:value="3">Medium</option>-->
+<!--                    <option th:value="4">Large</option>-->
+<!--                    <option th:value="5">extra large</option>-->
                 </select>
             </div>
-            <!--        <div class="pro-size">-->
-            <!--            <label>color <span>*</span></label>-->
-            <!--            <select>-->
-            <!--                <option value="1">Black</option>-->
-            <!--                <option value="1">White</option>-->
-            <!--                <option value="1">Red</option>-->
-            <!--                <option value="1">Yellow</option>-->
-            <!--                <option value="1">Pink</option>-->
-            <!--            </select>-->
-            <!--        </div>-->
+            <script id="size-option-item" type="text/x-jQuery-tmpl">
+
+                    <option value="${sizeId}">${sizeName}</option>
+
+            </script>
             <div class="product-action">
                 <div class="cart-plus">
 
