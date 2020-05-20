@@ -23,14 +23,14 @@ public class ProductController {
     public String listProduct(ProductSearchRqDto searchRqDto, Pageable pageable, Model model) {
         model.addAttribute(ModelViewConst.Product.PRODUCT_PAGEABLE, productService.search(searchRqDto, pageable));
         model.addAttribute(ModelViewConst.Product.SEARCH_DTO, searchRqDto);
-
+        model.addAttribute(ModelViewConst.Carts.TOPPING, new ToppingReq());
         return ViewHtmlConst.Products.LIST;
     }
 
     @GetMapping(value = "/{id}")
-    public String detail(@PathVariable Integer id, Model model){
+    public String detail(@PathVariable Integer id, Model model) {
         model.addAttribute(ModelViewConst.Product.PRODUCT_DETAIL, productService.findById(id));
-        model.addAttribute(ModelViewConst.Carts.TOPPING, new ToppingReq(1,1));
+        model.addAttribute(ModelViewConst.Carts.TOPPING, new ToppingReq());
 
         return ViewHtmlConst.Products.DETAIL;
 

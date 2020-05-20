@@ -26,9 +26,13 @@
                                             class="fa fa-search"></i></a>
                                     <a href="#"><i class="fa fa-heart"></i></a>
                                 </div>
-                                <div class="button-cart">
-                                    <button><i class="fa fa-shopping-cart"></i> add to cart</button>
-                                </div>
+                                <form th:action="@{'/carts/add/' + ${item.id}}" th:object="${toppingRq}" method="GET">
+                                    <input hidden th:field="*{sizeId}">
+                                    <div class="button-cart">
+                                        <button type="submit"><i class="fa fa-shopping-cart"></i> add to cart</button>
+                                    </div>
+                                </form>
+
                             </div>
                         </div>
                         <div class="product-content">
@@ -78,9 +82,12 @@
                                             class="fa fa-search"></i></a>
                                     <a href="#"><i class="fa fa-heart"></i></a>
                                 </div>
-                                <div class="button-cart">
-                                    <button><i class="fa fa-shopping-cart"></i> add to cart</button>
-                                </div>
+                                <form th:action="@{'/carts/add/' + ${item.id}}" th:object="${toppingRq}" method="GET">
+                                    <input hidden th:field="*{sizeId}">
+                                    <div class="button-cart">
+                                        <button type="submit"><i class="fa fa-shopping-cart"></i> add to cart</button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>

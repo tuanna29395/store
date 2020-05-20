@@ -1,12 +1,12 @@
 package com.anhtuan.store.dto.request;
 
+import com.anhtuan.store.commons.enums.SizeType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @Data
-@AllArgsConstructor
 public class ToppingReq {
-    private Integer sizeId;
-    private Integer quantity;
+    private Integer sizeId = SizeType.DEFAULT.getVal();
+    private Integer quantity = 1;
 }

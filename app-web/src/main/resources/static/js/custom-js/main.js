@@ -8,7 +8,6 @@ function renderCartShopping() {
         url: "/api/cart",
         type: "GET",
         success: function (response) {
-            console.log(response);
             $(".total-cart").remove();
             let item = {};
             let total = response.length;
@@ -25,7 +24,7 @@ function renderCartShopping() {
                 data.amount = item.amount;
                 data.sizeName = item.size.name;
                 data.sizePrice = item.size.price;
-                totalAmount+= item.amount;
+                totalAmount += item.amount;
                 $("#item-cart").tmpl(data).appendTo(".item-cart");
             });
             item.totalAmount = totalAmount;
