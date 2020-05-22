@@ -13,4 +13,5 @@ public interface CartService  {
 
     List<CartItemDto> getAll(HttpSession session);
 
+    Map<CartIdDto, CartItemDto> removeItem(HttpSession session, CartIdDto cartIdDto);
 }

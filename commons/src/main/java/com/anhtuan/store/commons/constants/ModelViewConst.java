@@ -13,6 +13,10 @@ public interface ModelViewConst {
 
     interface Carts{
         String TOPPING = "toppingRq";
-        String LIST  ="items";
+        String LIST  = "items";
+    }
+
+    interface Sizes{
+        String LIST = "sizes";
     }
 }

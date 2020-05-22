@@ -60,29 +60,37 @@ public class CartServiceImpl implements CartService {
         ProductResponseDto productDto = commonService.transformProductEntityToDto(product);
         SizeDto sizeDto = modelMapper.map(sizeEntity, SizeDto.class);
         CartIdDto cartIdDto = new CartIdDto(productId, toppingReq.getSizeId());
+        CartItemDto item;
         if (cartItems.containsKey(cartIdDto)) {
-            CartItemDto item = cartItems.get(cartIdDto);
+            item = cartItems.get(cartIdDto);
             item.setProduct(productDto);
             item.setQuantity(item.getQuantity() + toppingReq.getQuantity());
-            item.setSize(sizeDto);
-            item.setAmount(item.getAmount());
-            cartItems.put(cartIdDto, item);
         } else {
-            CartItemDto item = new CartItemDto();
+            item = new CartItemDto();
             item.setProduct(productDto);
             item.setQuantity(toppingReq.getQuantity());
-            item.setSize(sizeDto);
-            item.setAmount(item.getAmount());
-            cartItems.put(cartIdDto, item);
 
         }
+        item.setSize(sizeDto);
+        item.setAmount(item.getAmount());
+        cartItems.put(cartIdDto, item);
 
         return cartItems;
     }
 
     @Override
     public List<CartItemDto> getAll(HttpSession session) {
-        HashMap<Integer, CartItemDto> cartItems = (HashMap<Integer, CartItemDto>) session.getAttribute(CART_NAME);
+        HashMap<CartIdDto, CartItemDto> cartItems = (HashMap<CartIdDto, CartItemDto>) session.getAttribute(CART_NAME);
         return cartItems == null ? new ArrayList<>() : new ArrayList<>(cartItems.values());
+    }
+
+    @Override
+    public Map<CartIdDto, CartItemDto> removeItem(HttpSession session, CartIdDto cartIdDto) {
+        HashMap<CartIdDto, CartItemDto> cartItems = (HashMap<CartIdDto, CartItemDto>) session.getAttribute(CART_NAME);
+        if (cartItems == null) {
+            cartItems = new HashMap<>();
+        }
+        cartItems.remove(cartIdDto);
+        return cartItems;
     }
 }
