@@ -1,9 +1,21 @@
 $(document).ready(function () {
-
-    renderSizeOption();
+    showAllCartItem();
+    //renderSizeOption();
 });
 
-function renderSizeOption() {
+function showAllCartItem() {
+    $.ajax({
+        url: "/api/cart",
+        type: "GET",
+        success: function (response) {
+            response.forEach(function (item) {
+                fillCartItem(item);
+            })
+        }
+    });
+}
+
+function renderSizeOption(cartItem) {
 
     $.ajax({
         url: "/api/sizes",
@@ -14,16 +26,45 @@ function renderSizeOption() {
                 let data = {}
                 data.sizeId = item.id;
                 data.sizeName = item.name;
-                data.className = "size-" + item.id;
                 data.sizePrice = item.price;
-                $("#size-option-item-cart").tmpl(data).appendTo(".size-option");
+                let classAppendTo = `.size-option-${cartItem.productId}-${cartItem.productId}`;
+                $("#size-option-item-cart").tmpl(data).appendTo(classAppendTo);
             })
-            let currentSizeId = $(".size-id").val();
-            $(`.size-option option[value='${currentSizeId}']`).attr('selected','selected');
+            $(`.size-option option[value='${cartItem.sizeId}']`).attr('selected', 'selected');
         }
     })
 }
 
-function setSelectedSize() {
+function renderCartItem() {
 
+}
+
+function onclickDeleteCartItem() {
+    $('.remove-cart-item').on('click', function () {
+        confirmWarning("Bạn có muốn xóa sản phẩm này khỏi giỏ hàng?", function () {
+            $.ajax()
+        })
+    })
+}
+
+function callAjaxDeleteItem(data) {
+    $.ajax({
+        method: 'POST',
+        url: '/api/cart/delete',
+        contentType: 'application/json',
+        data: JSON.stringify(data),
+        success: function (response) {
+            response.forEach(function (item) {
+                fillCartItem(item);
+            })
+        }, error: function () {
+            alertDanger({message: $.i18n('Delete style fail')})
+        }
+    });
+}
+
+function fillCartItem(data) {
+    let item = convertToCartItemData(data);
+    $("#item-cart-list").tmpl(item).appendTo(".content-item-cart");
+    renderSizeOption(item);
 }

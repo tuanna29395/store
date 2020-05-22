@@ -1,9 +1,11 @@
 package com.anhtuan.store.controller.api;
 
+import com.anhtuan.store.dto.response.CartIdDto;
 import com.anhtuan.store.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,5 +20,10 @@ public class CartApiController {
     @GetMapping
     public ResponseEntity<?> getAll(HttpSession session) {
         return ResponseEntity.ok(cartService.getAll(session));
+    }
+
+    @PostMapping(value = "/delete")
+    public ResponseEntity<?> delete(CartIdDto cartIdDto, HttpSession session) {
+        return ResponseEntity.ok(cartService.removeItem(session, cartIdDto));
     }
 }
