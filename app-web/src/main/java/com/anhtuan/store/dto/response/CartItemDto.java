@@ -15,7 +15,7 @@ public class CartItemDto {
     private SizeDto size;
     private Integer amount;
 
-    public Integer getAmount() {
+    public Integer calculateAmount() {
         int priceSize = size.getId() == null ? 0 : size.getPrice();
         return (convertPrice(product.getSalePrice()) + priceSize) * quantity;
     }

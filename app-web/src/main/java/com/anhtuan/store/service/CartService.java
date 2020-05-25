@@ -1,5 +1,6 @@
 package com.anhtuan.store.service;
 
+import com.anhtuan.store.dto.request.CartItemReqUpdateDto;
 import com.anhtuan.store.dto.request.ToppingReq;
 import com.anhtuan.store.dto.response.CartIdDto;
 import com.anhtuan.store.dto.response.CartItemDto;
@@ -13,5 +14,7 @@ public interface CartService  {
 
     List<CartItemDto> getAll(HttpSession session);
 
-    Map<CartIdDto, CartItemDto> removeItem(HttpSession session, CartIdDto cartIdDto);
+    void removeItem(HttpSession session, CartIdDto cartIdDto);
+
+    void updateItem(HttpSession session, CartItemReqUpdateDto dto);
 }

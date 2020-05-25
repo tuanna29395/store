@@ -8,11 +8,11 @@ function baseConfirm(data, callback, cancelCallback) {
     data.button = data.confirmText;
     data.buttons = {
         cancel: {
-            text: $.i18n('btn_cancel'),
+            text: $.i18n('cancel'),
             visible: true,
         },
         confirm: {
-            text: $.i18n('btn_ok'),
+            text: $.i18n('ok'),
             visible: true,
         }
     };

@@ -5,10 +5,11 @@ $(document).ready(function () {
 
 function renderCartShopping() {
     $.ajax({
-        url: "/api/cart",
+        url: "/api/carts",
         type: "GET",
         success: function (response) {
             $(".total-cart").remove();
+            $(".item-cart").empty();
             let item = {};
             let total = response.length;
             if (!total) total = 0;
@@ -36,5 +37,6 @@ function convertToCartItemData(dataOriginal) {
     data.sizePrice = dataOriginal.size.price;
     data.productId = dataOriginal.product.id;
     data.sizeId = dataOriginal.size.id;
+    data.removeItemId = `.size-option-${data.productId}-${data.sizeId}`
     return data;
 }

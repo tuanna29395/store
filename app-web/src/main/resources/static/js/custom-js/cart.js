@@ -1,13 +1,14 @@
 $(document).ready(function () {
     showAllCartItem();
-    //renderSizeOption();
+    onclickDeleteCartItem();
 });
 
 function showAllCartItem() {
     $.ajax({
-        url: "/api/cart",
+        url: "/api/carts",
         type: "GET",
         success: function (response) {
+            $(".content-item-cart").empty();
             response.forEach(function (item) {
                 fillCartItem(item);
             })
@@ -22,43 +23,44 @@ function renderSizeOption(cartItem) {
         type: "GET",
         success: function (response) {
             $('.size-option').empty();
+            let classAppendTo = "";
             response.forEach(function (item) {
                 let data = {}
                 data.sizeId = item.id;
                 data.sizeName = item.name;
                 data.sizePrice = item.price;
-                let classAppendTo = `.size-option-${cartItem.productId}-${cartItem.productId}`;
+                classAppendTo = `.size-option-${cartItem.productId}-${cartItem.sizeId}`;
                 $("#size-option-item-cart").tmpl(data).appendTo(classAppendTo);
             })
-            $(`.size-option option[value='${cartItem.sizeId}']`).attr('selected', 'selected');
+            $(`${classAppendTo} option[value='${cartItem.sizeId}']`).attr('selected', 'selected');
         }
     })
 }
 
-function renderCartItem() {
-
-}
-
 function onclickDeleteCartItem() {
-    $('.remove-cart-item').on('click', function () {
-        confirmWarning("Bạn có muốn xóa sản phẩm này khỏi giỏ hàng?", function () {
-            $.ajax()
-        })
+    $(".content-item-cart").on('click', '.remove-cart-item', function () {
+        let value = convertStringToArray($(this).data('cart-id'));
+        let data = {
+            productId: value[0],
+            sizeId: value[1]
+        }
+        confirmWarning({message: "Bạn có muốn xóa sản phẩm khỏi giỏ hàng không?"}, function () {
+            callAjaxDeleteItem(data);
+        });
+
     })
 }
 
 function callAjaxDeleteItem(data) {
     $.ajax({
         method: 'POST',
-        url: '/api/cart/delete',
+        url: '/api/carts/delete',
         contentType: 'application/json',
-        data: JSON.stringify(data),
-        success: function (response) {
-            response.forEach(function (item) {
-                fillCartItem(item);
-            })
-        }, error: function () {
-            alertDanger({message: $.i18n('Delete style fail')})
+        data:  JSON.stringify(data),
+        success: function () {
+            $('.processing').show();
+            showAllCartItem();
+            renderCartShopping();
         }
     });
 }
@@ -67,4 +69,10 @@ function fillCartItem(data) {
     let item = convertToCartItemData(data);
     $("#item-cart-list").tmpl(item).appendTo(".content-item-cart");
     renderSizeOption(item);
+}
+
+function convertStringToArray(data) {
+    return data.split(',').map(function (item) {
+        return parseInt(item, 10);
+    });
 }

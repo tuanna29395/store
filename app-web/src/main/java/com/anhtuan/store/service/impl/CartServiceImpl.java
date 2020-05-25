@@ -3,6 +3,7 @@ package com.anhtuan.store.service.impl;
 import com.anhtuan.store.commons.constants.ErrorMessage;
 import com.anhtuan.store.commons.enums.DeleteFlag;
 import com.anhtuan.store.commons.enums.ProductStatus;
+import com.anhtuan.store.dto.request.CartItemReqUpdateDto;
 import com.anhtuan.store.dto.request.ToppingReq;
 import com.anhtuan.store.dto.response.CartIdDto;
 import com.anhtuan.store.dto.response.ProductResponseDto;
@@ -72,7 +73,7 @@ public class CartServiceImpl implements CartService {
 
         }
         item.setSize(sizeDto);
-        item.setAmount(item.getAmount());
+        item.setAmount(item.calculateAmount());
         cartItems.put(cartIdDto, item);
 
         return cartItems;
@@ -85,12 +86,62 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public Map<CartIdDto, CartItemDto> removeItem(HttpSession session, CartIdDto cartIdDto) {
+    public void removeItem(HttpSession session, CartIdDto cartIdDto) {
         HashMap<CartIdDto, CartItemDto> cartItems = (HashMap<CartIdDto, CartItemDto>) session.getAttribute(CART_NAME);
         if (cartItems == null) {
-            cartItems = new HashMap<>();
+            return;
         }
         cartItems.remove(cartIdDto);
-        return cartItems;
+    }
+
+    @Override
+    public void updateItem(HttpSession session, CartItemReqUpdateDto dto) {
+        HashMap<CartIdDto, CartItemDto> cartItems = (HashMap<CartIdDto, CartItemDto>) session.getAttribute(CART_NAME);
+        if (cartItems == null) {
+            return;
+        }
+//kiem tra da ton tai thằng cart item mới chưa .
+// nếu tồn tại rồi update lại và xóa thằng cũ đi
+        //nếu chưa tồn tại tạo mới .xóa thằng cũ đi
+        CartIdDto cartIdOld = new CartIdDto(dto.getProductId(), dto.getSizeIdOld());
+        CartItemDto cartItemOld = cartItems.get(cartIdOld);
+        if (cartItemOld == null) return;
+
+        if (dto.getSizeIdNew() != null) {
+            CartIdDto cartIdNew = new CartIdDto(dto.getProductId(), dto.getSizeIdNew());
+            if (cartItems.containsKey(cartIdNew)) {
+
+                CartItemDto cartItemNew = cartItems.get(cartIdNew);
+                Integer idSizeNew = dto.getSizeIdNew();
+
+                SizeEntity sizeEntity = sizeRepository.findById(idSizeNew).orElseThrow(() -> Exception.dataNotFound().build("Size not found"));
+                cartItemNew.setSize(modelMapper.map(sizeEntity, SizeDto.class));
+                cartItemNew.setProduct(cartItemOld.getProduct());
+
+                if (dto.getQuantity() != null) {
+                    cartItemNew.setQuantity(dto.getQuantity());
+                } else {
+                    cartItemNew.setQuantity(cartItemOld.getQuantity());
+                }
+
+                cartItemNew.setAmount(cartItemNew.calculateAmount());
+
+                cartItems.remove(cartIdOld);
+                cartItems.put(cartIdNew, cartItemNew);
+
+            }
+
+        } else {
+            if (dto.getQuantity() != null) {
+                CartItemDto cartItemDto = new CartItemDto();
+                cartItemDto.setProduct(cartItemOld.getProduct());
+                cartItemDto.setQuantity(dto.getQuantity());
+                cartItemDto.setSize(cartItemOld.getSize());
+                cartItemDto.setAmount(cartItemDto.calculateAmount());
+                cartItems.put(cartIdOld, cartItemDto);
+            }
+
+        }
+
     }
 }
