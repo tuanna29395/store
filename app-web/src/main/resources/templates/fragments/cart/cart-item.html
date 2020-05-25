@@ -16,25 +16,25 @@
                     </tr>
                     </thead>
                     <tbody class="content-item-cart">
-<!--                    <tr th:each="item:${items}">-->
-<!--                        <td class="product-thumbnail"><a href="#"><img-->
-<!--                                th:src="${'/images/product/'+ item.product.imageUrl}" alt=""></a></td>-->
-<!--                        <td class="product-name"><a href="#"><span th:text="${item.product.name}"></span></a></td>-->
-<!--                        <td class="product-price"><span class="amount"><span th:text="₫"></span> <span-->
-<!--                                th:text="${item.product.salePrice}"></span></span></td>-->
-<!--                        <td class="size-item">-->
-<!--                            <select class="size-option">-->
+                    <!--                    <tr th:each="item:${items}">-->
+                    <!--                        <td class="product-thumbnail"><a href="#"><img-->
+                    <!--                                th:src="${'/images/product/'+ item.product.imageUrl}" alt=""></a></td>-->
+                    <!--                        <td class="product-name"><a href="#"><span th:text="${item.product.name}"></span></a></td>-->
+                    <!--                        <td class="product-price"><span class="amount"><span th:text="₫"></span> <span-->
+                    <!--                                th:text="${item.product.salePrice}"></span></span></td>-->
+                    <!--                        <td class="size-item">-->
+                    <!--                            <select class="size-option">-->
 
-<!--                            </select>-->
+                    <!--                            </select>-->
 
-<!--                        </td>-->
+                    <!--                        </td>-->
 
-<!--                        <input hidden class="size-id-" th:value="${item.size.id}"/>-->
-<!--                        <td class="product-quantity"><input type="number" th:value="${item.quantity}"></td>-->
-<!--                        <td class="product-subtotal"><span th:text="₫"></span> <span-->
-<!--                                th:text="${item.getAmount()}"></span></td>-->
-<!--                        <td class="product-remove"><i class="fa fa-times remove-cart-item" th:value="${item.product.id + ',' + item.size.id}"></i></td>-->
-<!--                    </tr>-->
+                    <!--                        <input hidden class="size-id-" th:value="${item.size.id}"/>-->
+                    <!--                        <td class="product-quantity"><input type="number" th:value="${item.quantity}"></td>-->
+                    <!--                        <td class="product-subtotal"><span th:text="₫"></span> <span-->
+                    <!--                                th:text="${item.getAmount()}"></span></td>-->
+                    <!--                        <td class="product-remove"><i class="fa fa-times remove-cart-item" th:value="${item.product.id + ',' + item.size.id}"></i></td>-->
+                    <!--                    </tr>-->
                     </tbody>
                 </table>
             </div>
@@ -48,27 +48,33 @@
                         <td class="product-name"><a href="#"><span>${productName}</span></a></td>
                         <td class="product-price"><span class="amount"><span>₫</span> <span>${productPrice}</span></span></td>
                         <td class="size-item">
-                            <select class="size-option-${productId}-${sizeId}">
+                            <select class="size-option-${productId}-${sizeId} size-option">
 
                             </select>
 
                         </td>
 
-                        <td class="product-quantity"><input type="number" value="${quantity}"></td>
+                        <td class="product-quantity"><input type="number" class="quantity" value="${quantity}"></td>
                         <td class="product-subtotal"><span th:text="₫"></span> <span>${amount}</span></td>
-                        <td class="product-remove"><i class="fa fa-times remove-cart-item" value="${productId + ',' + sizeId}"></i></td>
+                        <td class="product-remove"><i class="fa fa-times remove-cart-item" id="${removeItemId}" data-cart-id="${productId + ',' + sizeId}"></i></td>
                     </tr>
+
+
+
             </script>
 
             <script id="size-option-item-cart" type="text/x-jQuery-tmpl">
                                 <option class="" value="${sizeId}">${sizeName}: <span>₫</span><span>${sizePrice}</span></option>
 
-                            </script>
+
+
+
+            </script>
             <div class="row">
                 <div class="col-md-8 col-sm-7 col-xs-12">
                     <div class="buttons-cart">
                         <input type="submit" value="Update Cart">
-                        <a href="#">Continue Shopping</a>
+                        <a th:href="@{/products}">Continue Shopping</a>
                     </div>
                     <div class="coupon">
                         <h3>Coupon</h3>

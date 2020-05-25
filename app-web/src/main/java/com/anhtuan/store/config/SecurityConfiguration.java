@@ -44,6 +44,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     };
 
+    private static final String[] ANT_MATCHERS_ENDPOINT = new String[] {
+            "/api/carts/delete",
+            "/users/*",
+    };
+
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(authenticationServiceImpl).passwordEncoder(passwordEncoder());
@@ -56,13 +61,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             "/products/**",
             "/api/reset-password/**",
             "/users/*",
-            "/api/**"
+            "/api/**",
+            "/api/carts/**",
+
     };
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf()
-                .ignoringAntMatchers("/users/*")
+                .ignoringAntMatchers(ANT_MATCHERS_ENDPOINT)
                 .and()
                 .authorizeRequests()
                 .antMatchers(ANT_MATCHERS_RESOURCES).permitAll()
@@ -73,7 +80,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .loginPage("/login")
                 .usernameParameter("email-login")
                 .passwordParameter("password-login")
-                .successHandler(new MyCustomLoginSuccessHandler("/products"))
+                .defaultSuccessUrl("/products")
                 .failureUrl("/login-error")
                 .and()
                 .logout()
