@@ -35,7 +35,7 @@ public class CartApiController {
     @PostMapping("/update")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void update(@RequestBody CartItemReqUpdateDto dtoUpdate, HttpSession session) {
-
+        cartService.updateItem(session, dtoUpdate);
     }
 
 }

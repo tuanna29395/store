@@ -13,6 +13,7 @@
                         <th class="product-quantity">Quantity</th>
                         <th class="product-subtotal">Total</th>
                         <th class="product-remove">Remove</th>
+                        <th class="product-update">Update</th>
                     </tr>
                     </thead>
                     <tbody class="content-item-cart">
@@ -53,10 +54,10 @@
                             </select>
 
                         </td>
-
                         <td class="product-quantity"><input type="number" class="quantity" value="${quantity}"></td>
                         <td class="product-subtotal"><span th:text="₫"></span> <span>${amount}</span></td>
                         <td class="product-remove"><i class="fa fa-times remove-cart-item" id="${removeItemId}" data-cart-id="${productId + ',' + sizeId}"></i></td>
+                        <td><button type="button" class="btn btn-success update-cart-item" data-cart-id="${productId + ',' + sizeId}">Update</button></td>
                     </tr>
 
 
@@ -64,10 +65,8 @@
             </script>
 
             <script id="size-option-item-cart" type="text/x-jQuery-tmpl">
+
                                 <option class="" value="${sizeId}">${sizeName}: <span>₫</span><span>${sizePrice}</span></option>
-
-
-
 
             </script>
             <div class="row">

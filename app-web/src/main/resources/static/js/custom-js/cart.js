@@ -1,6 +1,7 @@
 $(document).ready(function () {
     showAllCartItem();
     onclickDeleteCartItem();
+    onclickUpdateCart();
 });
 
 function showAllCartItem() {
@@ -22,10 +23,9 @@ function renderSizeOption(cartItem) {
         url: "/api/sizes",
         type: "GET",
         success: function (response) {
-            $('.size-option').empty();
             let classAppendTo = "";
             response.forEach(function (item) {
-                let data = {}
+                let data = {};
                 data.sizeId = item.id;
                 data.sizeName = item.name;
                 data.sizePrice = item.price;
@@ -39,11 +39,11 @@ function renderSizeOption(cartItem) {
 
 function onclickDeleteCartItem() {
     $(".content-item-cart").on('click', '.remove-cart-item', function () {
-        let value = convertStringToArray($(this).data('cart-id'));
+        let productSizeIds = convertStringToArray($(this).data('cart-id'));
         let data = {
-            productId: value[0],
-            sizeId: value[1]
-        }
+            productId: productSizeIds[0],
+            sizeId: productSizeIds[1]
+        };
         confirmWarning({message: "Bạn có muốn xóa sản phẩm khỏi giỏ hàng không?"}, function () {
             callAjaxDeleteItem(data);
         });
@@ -56,7 +56,7 @@ function callAjaxDeleteItem(data) {
         method: 'POST',
         url: '/api/carts/delete',
         contentType: 'application/json',
-        data:  JSON.stringify(data),
+        data: JSON.stringify(data),
         success: function () {
             $('.processing').show();
             showAllCartItem();
@@ -75,4 +75,39 @@ function convertStringToArray(data) {
     return data.split(',').map(function (item) {
         return parseInt(item, 10);
     });
+}
+
+function onclickUpdateCart() {
+    $(".content-item-cart").on('click', '.update-cart-item', function () {
+        let productSizeIds = convertStringToArray($(this).data('cart-id'));
+        let productId = productSizeIds[0];
+        let sizeIdOld = productSizeIds[1];
+        let sizeIdNew = $(`.item-${productId}-${sizeIdOld}`).find('.size-option').val();
+        let quantity = $(`.item-${productId}-${sizeIdOld}`).find('.quantity').val();
+        let data = {
+            productId: productId,
+            sizeIdOld: sizeIdOld,
+            sizeIdNew: sizeIdNew,
+            quantity: quantity,
+        };
+
+        callAjaxUpdateCartItem(data)
+
+    })
+
+}
+
+function callAjaxUpdateCartItem(data) {
+    $.ajax({
+        method: 'POST',
+        url: '/api/carts/update',
+        contentType: 'application/json',
+        data: JSON.stringify(data),
+        success: function () {
+            $('.processing').show();
+            showAllCartItem();
+            renderCartShopping();
+        }
+    })
+
 }
