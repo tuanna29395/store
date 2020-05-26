@@ -44,8 +44,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     };
 
-    private static final String[] ANT_MATCHERS_ENDPOINT = new String[] {
+    private static final String[] ANT_MATCHERS_ENDPOINT = new String[]{
             "/api/carts/delete",
+            "/api/carts/update",
             "/users/*",
     };
 
@@ -80,7 +81,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .loginPage("/login")
                 .usernameParameter("email-login")
                 .passwordParameter("password-login")
-                .defaultSuccessUrl("/products")
+                .successHandler(new MyCustomLoginSuccessHandler("/products"))
                 .failureUrl("/login-error")
                 .and()
                 .logout()

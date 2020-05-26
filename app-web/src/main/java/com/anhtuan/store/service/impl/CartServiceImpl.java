@@ -100,34 +100,48 @@ public class CartServiceImpl implements CartService {
         if (cartItems == null) {
             return;
         }
-//kiem tra da ton tai thằng cart item mới chưa .
-// nếu tồn tại rồi update lại và xóa thằng cũ đi
-        //nếu chưa tồn tại tạo mới .xóa thằng cũ đi
+        Integer idSizeNew = dto.getSizeIdNew();
+        SizeEntity sizeEntityNew = sizeRepository.findById(idSizeNew).orElseThrow(() -> Exception.dataNotFound().build("Size not found"));
+        SizeDto sizeNewDto = modelMapper.map(sizeEntityNew, SizeDto.class);
         CartIdDto cartIdOld = new CartIdDto(dto.getProductId(), dto.getSizeIdOld());
         CartItemDto cartItemOld = cartItems.get(cartIdOld);
         if (cartItemOld == null) return;
-
+        if (dto.getQuantity() == 0) {
+            cartItems.remove(cartIdOld);
+            return;
+        }
         if (dto.getSizeIdNew() != null) {
             CartIdDto cartIdNew = new CartIdDto(dto.getProductId(), dto.getSizeIdNew());
             if (cartItems.containsKey(cartIdNew)) {
 
                 CartItemDto cartItemNew = cartItems.get(cartIdNew);
-                Integer idSizeNew = dto.getSizeIdNew();
 
-                SizeEntity sizeEntity = sizeRepository.findById(idSizeNew).orElseThrow(() -> Exception.dataNotFound().build("Size not found"));
-                cartItemNew.setSize(modelMapper.map(sizeEntity, SizeDto.class));
+                cartItemNew.setSize(sizeNewDto);
                 cartItemNew.setProduct(cartItemOld.getProduct());
-
-                if (dto.getQuantity() != null) {
+                if (idSizeNew == cartIdOld.getSizeId()) {
                     cartItemNew.setQuantity(dto.getQuantity());
                 } else {
-                    cartItemNew.setQuantity(cartItemOld.getQuantity());
+                    cartItemNew.setQuantity(cartItemNew.getQuantity() + dto.getQuantity());
                 }
+
 
                 cartItemNew.setAmount(cartItemNew.calculateAmount());
 
                 cartItems.remove(cartIdOld);
                 cartItems.put(cartIdNew, cartItemNew);
+            } else {
+                CartItemDto cartItemNew = new CartItemDto();
+                cartItemNew.setSize(sizeNewDto);
+                cartItemNew.setProduct(cartItemOld.getProduct());
+                if (dto.getQuantity() != null) {
+                    cartItemNew.setQuantity(dto.getQuantity());
+                } else {
+                    cartItemNew.setQuantity(cartItemOld.getQuantity());
+                }
+                cartItemNew.setAmount(cartItemNew.calculateAmount());
+
+                cartItems.put(cartIdNew, cartItemNew);
+                cartItems.remove(cartIdOld);
 
             }
 
