@@ -106,56 +106,42 @@ public class CartServiceImpl implements CartService {
         CartIdDto cartIdOld = new CartIdDto(dto.getProductId(), dto.getSizeIdOld());
         CartItemDto cartItemOld = cartItems.get(cartIdOld);
         if (cartItemOld == null) return;
-        if (dto.getQuantity() == 0) {
+        if (0 == dto.getQuantity()) {
             cartItems.remove(cartIdOld);
             return;
         }
-        if (dto.getSizeIdNew() != null) {
-            CartIdDto cartIdNew = new CartIdDto(dto.getProductId(), dto.getSizeIdNew());
-            if (cartItems.containsKey(cartIdNew)) {
+        CartIdDto cartIdNew = new CartIdDto(dto.getProductId(), dto.getSizeIdNew());
+        if (cartItems.containsKey(cartIdNew)) {
 
-                CartItemDto cartItemNew = cartItems.get(cartIdNew);
+            CartItemDto cartItemNew = cartItems.get(cartIdNew);
 
-                cartItemNew.setSize(sizeNewDto);
-                cartItemNew.setProduct(cartItemOld.getProduct());
-                if (idSizeNew == cartIdOld.getSizeId()) {
-                    cartItemNew.setQuantity(dto.getQuantity());
-                } else {
-                    cartItemNew.setQuantity(cartItemNew.getQuantity() + dto.getQuantity());
-                }
-
-
-                cartItemNew.setAmount(cartItemNew.calculateAmount());
-
-                cartItems.remove(cartIdOld);
-                cartItems.put(cartIdNew, cartItemNew);
+            cartItemNew.setSize(sizeNewDto);
+            cartItemNew.setProduct(cartItemOld.getProduct());
+            if (idSizeNew.equals(cartIdOld.getSizeId())) {
+                cartItemNew.setQuantity(dto.getQuantity());
             } else {
-                CartItemDto cartItemNew = new CartItemDto();
-                cartItemNew.setSize(sizeNewDto);
-                cartItemNew.setProduct(cartItemOld.getProduct());
-                if (dto.getQuantity() != null) {
-                    cartItemNew.setQuantity(dto.getQuantity());
-                } else {
-                    cartItemNew.setQuantity(cartItemOld.getQuantity());
-                }
-                cartItemNew.setAmount(cartItemNew.calculateAmount());
-
-                cartItems.put(cartIdNew, cartItemNew);
-                cartItems.remove(cartIdOld);
-
+                cartItemNew.setQuantity(cartItemNew.getQuantity() + dto.getQuantity());
             }
 
+
+            cartItemNew.setAmount(cartItemNew.calculateAmount());
+
+            cartItems.remove(cartIdOld);
+            cartItems.put(cartIdNew, cartItemNew);
         } else {
+            CartItemDto cartItemNew = new CartItemDto();
+            cartItemNew.setSize(sizeNewDto);
+            cartItemNew.setProduct(cartItemOld.getProduct());
             if (dto.getQuantity() != null) {
-                CartItemDto cartItemDto = new CartItemDto();
-                cartItemDto.setProduct(cartItemOld.getProduct());
-                cartItemDto.setQuantity(dto.getQuantity());
-                cartItemDto.setSize(cartItemOld.getSize());
-                cartItemDto.setAmount(cartItemDto.calculateAmount());
-                cartItems.put(cartIdOld, cartItemDto);
+                cartItemNew.setQuantity(dto.getQuantity());
+            } else {
+                cartItemNew.setQuantity(cartItemOld.getQuantity());
             }
+            cartItemNew.setAmount(cartItemNew.calculateAmount());
+
+            cartItems.put(cartIdNew, cartItemNew);
+            cartItems.remove(cartIdOld);
 
         }
-
     }
 }

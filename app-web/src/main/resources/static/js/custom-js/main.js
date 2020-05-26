@@ -17,10 +17,10 @@ function renderCartShopping() {
             let totalAmount = 0;
             $("#total-item-cart").tmpl(item).appendTo(".my-cart");
             response.forEach(function (item) {
-                totalAmount += item.amount;
+                totalAmount += parseInt(item.amount.replace(',',""));
                 $("#item-cart").tmpl(convertToCartItemData(item)).appendTo(".item-cart");
             });
-            item.totalAmount = totalAmount;
+            item.totalAmount = new Intl.NumberFormat('vn', { style: 'currency', currency: 'VND' }).format(totalAmount);
             $("#total-price-cart").tmpl(item).appendTo(".item-cart");
         }
     })

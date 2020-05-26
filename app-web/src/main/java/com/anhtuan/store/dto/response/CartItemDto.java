@@ -13,14 +13,15 @@ public class CartItemDto {
     private ProductResponseDto product;
     private Integer quantity;
     private SizeDto size;
-    private Integer amount;
+    private String amount;
 
-    public Integer calculateAmount() {
+    public String calculateAmount() {
         int priceSize = size.getId() == null ? 0 : size.getPrice();
-        return (convertPrice(product.getSalePrice()) + priceSize) * quantity;
+
+        return String.format("%,d", (convertPrice(product.getSalePrice()) + priceSize) * quantity);
     }
 
-    private Integer convertPrice(String price){
-      return   Integer.parseInt(price.replace(",",""));
+    private Integer convertPrice(String price) {
+        return Integer.parseInt(price.replace(",", ""));
     }
 }

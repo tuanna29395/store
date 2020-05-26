@@ -10,9 +10,13 @@ function showAllCartItem() {
         type: "GET",
         success: function (response) {
             $(".content-item-cart").empty();
+            let totalAmount = 0;
             response.forEach(function (item) {
+                totalAmount += parseInt(item.amount.replace(',',""));
                 fillCartItem(item);
             })
+            totalAmount = new Intl.NumberFormat('vn', { style: 'currency', currency: 'VND' }).format(totalAmount);
+            showTotalAmountCart(totalAmount);
         }
     });
 }
@@ -110,4 +114,8 @@ function callAjaxUpdateCartItem(data) {
         }
     })
 
+}
+
+function showTotalAmountCart(totalAmount) {
+$(".total-amount").text(totalAmount);
 }
