@@ -1,9 +1,10 @@
 const PATH_IMAGE = "/images/product/";
 $(document).ready(function () {
-    renderCartShopping();
+    renderCartShoppingHeader();
+    onclickRemoveItemCartHeader();
 });
 
-function renderCartShopping() {
+function renderCartShoppingHeader() {
     $.ajax({
         url: "/api/carts",
         type: "GET",
@@ -26,6 +27,30 @@ function renderCartShopping() {
     })
 }
 
+function onclickRemoveItemCartHeader() {
+    $('.item-cart').on('click', '.remove-cart-item', function () {
+        let productSizeIds = convertStringToArray($(this).data('cart-id'));
+        let data = {
+            productId: productSizeIds[0],
+            sizeId: productSizeIds[1]
+        };
+        callAjaxRemoveItemCarHeader(data);
+    })
+}
+
+function callAjaxRemoveItemCarHeader(data) {
+    $.ajax({
+        method: 'POST',
+        url: '/api/carts/delete',
+        contentType: 'application/json',
+        data: JSON.stringify(data),
+        success: function () {
+            $('.processing').show();
+            renderCartShoppingHeader();
+        }
+    });
+}
+
 function convertToCartItemData(dataOriginal) {
     let data = {};
     data.imageUrl = PATH_IMAGE + dataOriginal.product.imageUrl;
@@ -39,4 +64,10 @@ function convertToCartItemData(dataOriginal) {
     data.sizeId = dataOriginal.size.id;
     data.removeItemId = `.size-option-${data.productId}-${data.sizeId}`
     return data;
+}
+
+function convertStringToArray(data) {
+    return data.split(',').map(function (item) {
+        return parseInt(item, 10);
+    });
 }

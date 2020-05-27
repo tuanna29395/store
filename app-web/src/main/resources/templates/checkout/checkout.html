@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/main-layout-none-slide}">
+<head>
+    <title th:text="'Products | Checkout' ">Page Title</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div th:replace="fragments/checkout/top-panel :: top"></div>
+    <div class="checkout-area">
+        <div class="container">
+            <div class="row">
+                <form action="#">
+                    <div th:replace="fragments/checkout/info-user :: info-user"></div>
+                    <div th:replace="fragments/checkout/info-order :: info-order"></div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+</body>
+<div layout:fragment="footer">
+    <div th:replace="fragments/partials/footer :: jquery-tmpl"></div>
+</div>
+</html>
