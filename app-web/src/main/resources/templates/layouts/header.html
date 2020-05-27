@@ -8,7 +8,7 @@
                     <div class="col-md-2 col-sm-4 col-xs-5">
                         <div class="logo">
                             <a href="index.html">
-                                <img th:src="@{/static/images/logo-white-text.png}" alt=""/>
+                                <img th:src="@{/images/logo-white-text.png}" alt=""/>
                             </a>
                         </div>
                     </div>
@@ -74,7 +74,7 @@
                                             <span class="mega-menu-img">
                                                 <a href="shop.html">
                                                     <img alt=""
-                                                         th:src="@{static/images/banner/banner-tratraicaytuoi.png}">
+                                                         th:src="@{/images/banner/banner-tratraicaytuoi.png}">
                                                 </a>
                                             </span>
                                             </div>
@@ -106,7 +106,7 @@
                                         </span>
                                             <span class="mega-menu-img">
                                             <a href="shop.html">
-                                                <img alt="" src="../../static/images/banner/banner-tratraicaytuoi.png">
+                                                <img alt="" th:src="@{/images/banner/banner-tratraicaytuoi.png}">
                                             </a>
                                         </span>
                                         </div>
@@ -200,7 +200,7 @@
                                         <span>x ${quantity}</span>
                                     </span>
                                 </div>
-                                <div class="del-icon">
+                                <div class="del-icon remove-cart-item" data-cart-id="${productId + ',' + sizeId}">
                                     <i class="fa fa-times-circle"></i>
                                 </div>
                             </li>
@@ -213,8 +213,8 @@
                                 <div class="subtotal-price">${totalAmount}</div>
                             </li>
                             <li>
-                                <a class="cart-button" href="checkout.html">view cart</a>
-                                <a class="checkout" href="checkout.html">checkout</a>
+                                <a class="cart-button" href="/carts">view cart</a>
+                                <a class="checkout" href="/checkout">checkout</a>
                             </li>
                         </script>
                         <div class="my-cart">

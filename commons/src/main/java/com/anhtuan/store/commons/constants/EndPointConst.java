@@ -5,4 +5,8 @@ public interface EndPointConst {
     interface User{
         String USER_REGISTER = "/users/sign-up";
     }
+
+    interface Products{
+        String PRODUCT_LIST = "/products";
+    }
 }

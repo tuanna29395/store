@@ -64,7 +64,7 @@ function callAjaxDeleteItem(data) {
         success: function () {
             $('.processing').show();
             showAllCartItem();
-            renderCartShopping();
+            renderCartShoppingHeader();
         }
     });
 }
@@ -73,12 +73,6 @@ function fillCartItem(data) {
     let item = convertToCartItemData(data);
     $("#item-cart-list").tmpl(item).appendTo(".content-item-cart");
     renderSizeOption(item);
-}
-
-function convertStringToArray(data) {
-    return data.split(',').map(function (item) {
-        return parseInt(item, 10);
-    });
 }
 
 function onclickUpdateCart() {
@@ -110,7 +104,7 @@ function callAjaxUpdateCartItem(data) {
         success: function () {
             $('.processing').show();
             showAllCartItem();
-            renderCartShopping();
+            renderCartShoppingHeader();
         }
     })
 

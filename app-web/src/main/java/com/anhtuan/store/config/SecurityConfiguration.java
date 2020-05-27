@@ -11,12 +11,16 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     AuthenticationServiceImpl authenticationServiceImpl;
+
+    @Autowired
+    private AuthenticationSuccessHandler authenticationSuccessHandler;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -81,7 +85,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .loginPage("/login")
                 .usernameParameter("email-login")
                 .passwordParameter("password-login")
-                .successHandler(new MyCustomLoginSuccessHandler("/products"))
+                .successHandler(authenticationSuccessHandler)
                 .failureUrl("/login-error")
                 .and()
                 .logout()
