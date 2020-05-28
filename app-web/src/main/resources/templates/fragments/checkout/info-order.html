@@ -10,28 +10,20 @@
                     <th class="product-total">Total</th>
                 </tr>
                 </thead>
-                <tbody>
+                <tbody th:each="item:${cartInfo}">
                 <tr class="cart_item">
                     <td class="product-name">
-                        Vestibulum suscipit <strong class="product-quantity"> × 1</strong>
+                        <span th:text="${item.product.name}"></span> <span>Size: </span> <span th:text="${item.size.name}"></span> <strong class="product-quantity"> × <span th:text="${item.quantity}"></span></strong>
                     </td>
                     <td class="product-total">
-                        <span class="amount">£165.00</span>
-                    </td>
-                </tr>
-                <tr class="cart_item">
-                    <td class="product-name">
-                        Vestibulum dictum magna	<strong class="product-quantity"> × 1</strong>
-                    </td>
-                    <td class="product-total">
-                        <span class="amount">£50.00</span>
+                        <span class="amount" th:text="${item.amount}">£165.00</span>
                     </td>
                 </tr>
                 </tbody>
                 <tfoot>
                 <tr class="cart-subtotal">
                     <th>Cart Subtotal</th>
-                    <td><span class="amount">£215.00</span></td>
+                    <td><span>₫ </span><span class="amount" th:text="${totalCart}">£215.00</span></td>
                 </tr>
                 <tr class="shipping">
                     <th>Shipping</th>

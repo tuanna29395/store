@@ -17,4 +17,6 @@ public interface CartService  {
     void removeItem(HttpSession session, CartIdDto cartIdDto);
 
     void updateItem(HttpSession session, CartItemReqUpdateDto dto);
+
+    String totalCart(HttpSession session);
 }

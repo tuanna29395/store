@@ -20,7 +20,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     AuthenticationServiceImpl authenticationServiceImpl;
 
     @Autowired
-    private AuthenticationSuccessHandler authenticationSuccessHandler;
+    private RefererRedirectionAuthenticationSuccessHandler refererRedirectionAuthenticationSuccessHandler;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -85,8 +85,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .loginPage("/login")
                 .usernameParameter("email-login")
                 .passwordParameter("password-login")
-                .successHandler(authenticationSuccessHandler)
+                .successHandler(refererRedirectionAuthenticationSuccessHandler)
                 .failureUrl("/login-error")
+                .defaultSuccessUrl("/products")
                 .and()
                 .logout()
                 .logoutUrl("/logout")
