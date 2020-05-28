@@ -2,12 +2,14 @@ package com.anhtuan.store.service;
 
 import com.anhtuan.store.commons.constants.ErrorMessage;
 import com.anhtuan.store.commons.enums.UserStatus;
+import com.anhtuan.store.config.Principal;
 import com.anhtuan.store.model.RoleEntity;
 import com.anhtuan.store.model.UserEntity;
 import com.anhtuan.store.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -41,9 +43,14 @@ public class AuthenticationServiceImpl implements UserDetailsService {
         return new ArrayList<>(roles);
     }
 
-    private UserDetails buildUserForAuthentication(UserEntity user, List<GrantedAuthority> authorities) {
-        boolean active = user.getDeletedFlag() != 1;
-        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(),
-                active, true, true, true, authorities);
+    private Principal buildUserForAuthentication(UserEntity user, List<GrantedAuthority> authorities) {
+        return new Principal(user.getId(),
+                user.getUsername(),
+                user.getEmail(),
+                user.getPassword(),
+                user.getRole(),
+                user.getFullName(),
+                user.getAddress(),
+                user.getPhoneNumber());
     }
 }

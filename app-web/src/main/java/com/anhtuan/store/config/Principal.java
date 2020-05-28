@@ -1,6 +1,7 @@
 package com.anhtuan.store.config;
 
 import com.anhtuan.store.model.RoleEntity;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -10,10 +11,11 @@ import java.util.Collection;
 import java.util.Collections;
 
 @Data
+@AllArgsConstructor
 public class Principal implements UserDetails {
     private Integer id;
 
-    private String name;
+    private String userName;
 
     private String email;
 
@@ -21,7 +23,11 @@ public class Principal implements UserDetails {
 
     private RoleEntity role;
 
-    private Integer status;
+    private String fullName;
+
+    private String address;
+
+    private String phoneNumber;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -55,6 +61,7 @@ public class Principal implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return status == 0;
+        return true;
     }
+
 }

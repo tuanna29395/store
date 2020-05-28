@@ -12,7 +12,7 @@ import java.util.Date;
 @Data
 public class UserEntity {
     @Id
-    @GeneratedValue(strategy =GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(nullable = false, unique = true)
@@ -21,6 +21,12 @@ public class UserEntity {
     private String password;
 
     private String username;
+
+    private String fullName;
+
+    private String address;
+
+    private String phoneNumber;
 
     @OneToOne
     @JoinColumn(name = "role_id")
