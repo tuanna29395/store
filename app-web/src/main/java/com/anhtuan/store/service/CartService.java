@@ -9,7 +9,7 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Map;
 
-public interface CartService  {
+public interface CartService {
     Map<CartIdDto, CartItemDto> addProductToCart(HttpSession session, Integer productId, ToppingReq toppingReq);
 
     List<CartItemDto> getAll(HttpSession session);
@@ -19,4 +19,6 @@ public interface CartService  {
     void updateItem(HttpSession session, CartItemReqUpdateDto dto);
 
     String totalCart(HttpSession session);
+
+    Integer calculateTotalCart(HttpSession session);
 }

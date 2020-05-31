@@ -4,8 +4,7 @@ import lombok.Data;
 
 @Data
 public class OrderRqDto {
-    private String firstName;
-    private String lastName;
+    private String fullName;
     private String address;
     private String phoneNumber;
 }

@@ -30,3 +30,8 @@ server:
   servlet:
     session:
       timeout: 60m
+paypal:
+  mode: sandbox
+  client:
+    app: AfWb_YBTZwt9J37nCed5XRMuJ29CTAHoOKG6iqtWGL7Yit4RdVi30XQw-ZDswmynnGSp8kvFYBqN9JKA
+    secret: EE8-9h5ewxUO1ZXgLIRIZ5_GrFSzVvFHjeplMWsJnBuboarsTEu5pMYEXFarls586ZjjUHqULJXzRI9L
