@@ -9,4 +9,8 @@ public interface EndPointConst {
     interface Products{
         String PRODUCT_LIST = "/products";
     }
+
+    interface Checkouts{
+        String CHECKOUT = "/checkout";
+    }
 }

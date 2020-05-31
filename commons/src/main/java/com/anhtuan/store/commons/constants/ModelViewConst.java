@@ -24,6 +24,7 @@ public interface ModelViewConst {
         String USER_INFO = "userInfo";
         String CART_INFO = "cartInfo";
         String TOTAL_CART = "totalCart";
+        String ORDER_INFO = "orderInfo";
 
     }
 }

@@ -10,7 +10,7 @@
     <div class="checkout-area">
         <div class="container">
             <div class="row">
-                <form action="#">
+                <form th:action="@{/checkout/process}" method="POST" th:object="${orderInfo}">
                     <div th:replace="fragments/checkout/info-user :: info-user"></div>
                     <div th:replace="fragments/checkout/info-order :: info-order"></div>
                 </form>

@@ -148,10 +148,15 @@ public class CartServiceImpl implements CartService {
     @Override
     public String totalCart(HttpSession session) {
         HashMap<CartIdDto, CartItemDto> cartItems = (HashMap<CartIdDto, CartItemDto>) session.getAttribute(CART_NAME);
-        cartItems.values().forEach(cartItemDto -> {
-
-        });
+        if (Objects.isNull(cartItems)) return "0";
         return String.format("%,d", cartItems.values().stream().mapToInt(this::calculateAmount).sum());
+    }
+
+    @Override
+    public Integer calculateTotalCart(HttpSession session) {
+        HashMap<CartIdDto, CartItemDto> cartItems = (HashMap<CartIdDto, CartItemDto>) session.getAttribute(CART_NAME);
+        if (Objects.isNull(cartItems)) return 0;
+        return cartItems.values().stream().mapToInt(this::calculateAmount).sum();
     }
 
     private Integer calculateAmount(CartItemDto cartItemDto) {

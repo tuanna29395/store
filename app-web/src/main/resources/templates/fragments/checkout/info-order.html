@@ -16,36 +16,18 @@
                         <span th:text="${item.product.name}"></span> <span>Size: </span> <span th:text="${item.size.name}"></span> <strong class="product-quantity"> × <span th:text="${item.quantity}"></span></strong>
                     </td>
                     <td class="product-total">
-                        <span class="amount" th:text="${item.amount}">£165.00</span>
+                        <span>₫ </span><span class="amount" th:text="${item.amount}">£165.00</span>
                     </td>
                 </tr>
                 </tbody>
                 <tfoot>
                 <tr class="cart-subtotal">
                     <th>Cart Subtotal</th>
-                    <td><span>₫ </span><span class="amount" th:text="${totalCart}">£215.00</span></td>
-                </tr>
-                <tr class="shipping">
-                    <th>Shipping</th>
-                    <td>
-                        <ul>
-                            <li>
-                                <input type="radio">
-                                <label>
-                                    Flat Rate: <span class="amount">£7.00</span>
-                                </label>
-                            </li>
-                            <li>
-                                <input type="radio">
-                                <label>Free Shipping:</label>
-                            </li>
-                            <li></li>
-                        </ul>
-                    </td>
+                    <td><span>₫ </span><span class="amount" th:text="${totalCart}">Cart Subtotal</span></td>
                 </tr>
                 <tr class="order-total">
                     <th>Order Total</th>
-                    <td><strong><span class="amount">£215.00</span></strong>
+                    <td><strong><span>₫ </span><span class="amount" th:text="${totalCart}">Order Total</span></strong>
                     </td>
                 </tr>
                 </tfoot>

@@ -19,6 +19,6 @@ public class OrderApiController {
     @PostMapping
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void order(OrderRqDto dto, Principal user) {
-        orderService.orderProduct(dto, user);
+//        orderService.orderProduct(dto, user);
     }
 }
