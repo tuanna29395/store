@@ -13,4 +13,8 @@ public interface Messages {
       String USER = "User";
    }
 
+   interface Checkouts{
+      String PAYMENT_SUCCESS = "Thanh Toán Thành Công ! ";
+   }
+
 }

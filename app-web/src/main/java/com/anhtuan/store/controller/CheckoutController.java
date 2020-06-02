@@ -1,6 +1,7 @@
 package com.anhtuan.store.controller;
 
 import com.anhtuan.store.commons.constants.EndPointConst;
+import com.anhtuan.store.commons.constants.Messages;
 import com.anhtuan.store.commons.constants.ModelViewConst;
 import com.anhtuan.store.commons.constants.ViewHtmlConst;
 import com.anhtuan.store.config.Principal;
@@ -11,6 +12,7 @@ import com.anhtuan.store.payment.utils.Utils;
 import com.anhtuan.store.service.CartService;
 import com.anhtuan.store.service.OrderService;
 import com.anhtuan.store.service.impl.PaypalService;
+import com.anhtuan.store.support.MessageHelper;
 import com.paypal.api.payments.Links;
 import com.paypal.api.payments.Payment;
 import com.paypal.base.rest.PayPalRESTException;
@@ -24,6 +26,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -34,6 +37,8 @@ import javax.servlet.http.HttpSession;
 public class CheckoutController extends BaseController {
     public static final String URL_PAYPAL_SUCCESS = "checkout/process/success";
     public static final String URL_PAYPAL_CANCEL = "process/cancel";
+    private static final Integer USD = 23251;
+
     @Autowired
     private CartService cartService;
 
@@ -62,7 +67,7 @@ public class CheckoutController extends BaseController {
 
         try {
             Payment payment = paypalService.createPayment(
-                    cartService.calculateTotalCart(session),
+                    Double.valueOf(cartService.calculateTotalCart(session)) / Double.valueOf(USD),
                     "USD",
                     PaypalPaymentMethod.paypal,
                     PaypalPaymentIntent.sale,
@@ -71,13 +76,13 @@ public class CheckoutController extends BaseController {
                     successUrl);
             for (Links links : payment.getLinks()) {
                 if (links.getRel().equals("approval_url")) {
+                    orderService.orderProduct(orderRqDto, principal, session);
                     return "redirect:" + links.getHref();
                 }
             }
         } catch (PayPalRESTException e) {
             log.error(e.getMessage());
         }
-        orderService.orderProduct(orderRqDto, principal, session);
 
         return redirect(EndPointConst.Checkouts.CHECKOUT);
     }
@@ -88,15 +93,17 @@ public class CheckoutController extends BaseController {
     }
 
     @GetMapping(value = "/process/success")
-    public String successPay(@RequestParam("paymentId") String paymentId, @RequestParam("PayerID") String payerId) {
+    public String successPay(@RequestParam("paymentId") String paymentId, @RequestParam("PayerID") String payerId, RedirectAttributes ra) {
         try {
             Payment payment = paypalService.executePayment(paymentId, payerId);
             if (payment.getState().equals("approved")) {
-                return ViewHtmlConst.Checkout.CHECKOUT;
+                MessageHelper.addSuccessAttribute(ra, Messages.Checkouts.PAYMENT_SUCCESS);
+                return redirect(EndPointConst.Checkouts.CHECKOUT);
             }
         } catch (PayPalRESTException e) {
             log.error(e.getMessage());
         }
-        return ViewHtmlConst.Checkout.CHECKOUT;
+        MessageHelper.addSuccessAttribute(ra, Messages.Checkouts.PAYMENT_SUCCESS);
+        return redirect(EndPointConst.Checkouts.CHECKOUT);
     }
 }

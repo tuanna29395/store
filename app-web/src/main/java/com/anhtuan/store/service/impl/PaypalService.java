@@ -23,7 +23,7 @@ public class PaypalService {
     private APIContext apiContext;
 
     public Payment createPayment(
-            Integer total,
+            Double total,
             String currency,
             PaypalPaymentMethod method,
             PaypalPaymentIntent intent,
@@ -32,7 +32,7 @@ public class PaypalService {
             String successUrl) throws PayPalRESTException {
         Amount amount = new Amount();
         amount.setCurrency(currency);
-        amount.setTotal(String.format("%d", total));
+        amount.setTotal(String.format("%.2f", total));
 
         Transaction transaction = new Transaction();
         transaction.setDescription(description);
@@ -57,7 +57,7 @@ public class PaypalService {
         return payment.create(apiContext);
     }
 
-    public Payment executePayment(String paymentId, String payerId) throws PayPalRESTException{
+    public Payment executePayment(String paymentId, String payerId) throws PayPalRESTException {
         Payment payment = new Payment();
         payment.setId(paymentId);
         PaymentExecution paymentExecute = new PaymentExecution();
