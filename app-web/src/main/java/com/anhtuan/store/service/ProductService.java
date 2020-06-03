@@ -9,4 +9,8 @@ public interface ProductService {
     Page<ProductResponseDto> search(ProductSearchRqDto searchRqDto, Pageable pageable);
 
     ProductResponseDto findById(Integer productId);
+
+    Long getMaxPrice();
+
+    Long getMinPrice();
 }
