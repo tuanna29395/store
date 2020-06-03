@@ -44,6 +44,16 @@ public class ProductServiceImpl implements ProductService {
         return commonService.transformProductEntityToDto(productEntity);
     }
 
+    @Override
+    public Long getMaxPrice() {
+        return (long) productRepository.findTopByOrderBySalePriceDesc();
+    }
+
+    @Override
+    public Long getMinPrice() {
+        return (long) productRepository.findTopByOrderBySalePriceAsc();
+    }
+
     private BooleanBuilder buildCondition(ProductSearchRqDto searchRqDto) {
         BooleanBuilder condition = new BooleanBuilder();
         QProductEntity productEntity = QProductEntity.productEntity;
