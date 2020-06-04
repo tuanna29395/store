@@ -63,6 +63,12 @@ public class ProductServiceImpl implements ProductService {
         if (Objects.nonNull(searchRqDto.getName())) {
             condition.and(productEntity.name.containsIgnoreCase(searchRqDto.getName()));
         }
+        if (Objects.nonNull(searchRqDto.getMinPrice())){
+            condition.and(productEntity.salePrice.goe(searchRqDto.getMinPrice()));
+        }
+        if (Objects.nonNull(searchRqDto.getMaxPrice())){
+            condition.and(productEntity.salePrice.loe(searchRqDto.getMaxPrice()));
+        }
         condition.and(productEntity.deleteFlag.eq(DeleteFlag.NOT_DELETE.getVal()));
         return condition;
     }

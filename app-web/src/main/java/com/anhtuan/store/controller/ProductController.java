@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -20,7 +21,7 @@ public class ProductController {
     private ProductService productService;
 
     @GetMapping
-    public String listProduct(ProductSearchRqDto searchRqDto, Pageable pageable, Model model) {
+    public String listProduct(@ModelAttribute(ModelViewConst.Product.SEARCH_DTO)ProductSearchRqDto searchRqDto, Pageable pageable, Model model) {
         model.addAttribute(ModelViewConst.Product.PRODUCT_PAGEABLE, productService.search(searchRqDto, pageable));
         model.addAttribute(ModelViewConst.Product.SEARCH_DTO, searchRqDto);
         model.addAttribute(ModelViewConst.Carts.TOPPING, new ToppingReq());

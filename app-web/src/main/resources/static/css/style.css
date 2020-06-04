@@ -1240,9 +1240,8 @@ ul.footer-contact li i {
   font-weight: bold;
   height: 30px;
   letter-spacing: 3px;
-  margin-left: 28px;
   text-align: center;
-  width: 130px;
+  width: 60%;
 }
 .price_slider_amount > input[type="submit"] {
   background: #252525 none repeat scroll 0 0;

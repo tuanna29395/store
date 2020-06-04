@@ -1,7 +1,7 @@
 (function ($) {
     "use strict";
-let minPrice = getMinPrice();
-let maxPrice = getMaxPrice();
+    let minPrice = getMinPrice();
+    let maxPrice = getMaxPrice();
     /*----------------------------
      jQuery MeanMenu
     ------------------------------ */
@@ -130,9 +130,9 @@ let maxPrice = getMaxPrice();
         $.ajax({
             url: "/api/product/maxPrice",
             type: "GET",
-			async: false,
-			success: function (response) {
-				maxPrice = response;
+            async: false,
+            success: function (response) {
+                maxPrice = response;
 
             }
         });
@@ -141,19 +141,41 @@ let maxPrice = getMaxPrice();
     }
 
     function getMinPrice() {
-		let minPrice = 0;
+        let minPrice = 0;
         $.ajax({
             url: "/api/product/minPrice",
             type: "GET",
-			async: false,
-			success: function (response) {
-				minPrice = response;
+            async: false,
+            success: function (response) {
+                minPrice = response;
             }
         });
 
         return minPrice;
     }
 
+    function getUrlParameter(sParam) {
+        let sPageURL = window.location.search.substring(1),
+            sURLVariables = sPageURL.split('&'),
+            sParameterName,
+            i;
+
+        for (i = 0; i < sURLVariables.length; i++) {
+            sParameterName = sURLVariables[i].split('=');
+
+            if (sParameterName[0] === sParam) {
+                return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+            }
+        }
+    }
+function isFilterPrice(){
+    let maxPrice = getUrlParameter('maxPrice');
+    let minPrice = getUrlParameter('minPrice');
+    if (maxPrice && minPrice){
+        return true;
+    }
+    return false;
+}
     /*----------------------------
      price-slider active
     ------------------------------ */
@@ -164,10 +186,18 @@ let maxPrice = getMaxPrice();
         values: [minPrice, maxPrice],
         slide: function (event, ui) {
             $("#amount").val("₫" + ui.values[0] + " - ₫" + ui.values[1]);
+            $('#product-min-price').val(ui.values[0]);
+            $('#product-max-price').val(ui.values[1]);
         }
     });
     $("#amount").val("₫" + $("#slider-range").slider("values", 0) +
         " - ₫" + $("#slider-range").slider("values", 1));
+    $('#product-min-price').val($("#slider-range").slider("values", 0));
+    $('#product-max-price').val($("#slider-range").slider("values", 1));
+    if (isFilterPrice()){
+        $("#amount").val("₫" + getUrlParameter('minPrice') +
+            " - ₫" + getUrlParameter('maxPrice'));
+    }
 
     /*--------------------------
      scrollUp
@@ -253,4 +283,4 @@ let maxPrice = getMaxPrice();
         $button.parent().find("input").val(newVal);
     });
 
-})(jQuery); 
+})(jQuery);
