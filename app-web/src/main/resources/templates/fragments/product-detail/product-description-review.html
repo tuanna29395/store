@@ -63,30 +63,34 @@
                                         <input type="email" placeholder="your email"/>
                                         <div class="your-rating">
                                             <h5>Your Rating</h5>
-                                            <span>
-																		<a href="#"><i class="fa fa-star"></i></a>
-																		<a href="#"><i class="fa fa-star"></i></a>
-																	</span>
-                                            <span>
-																		<a href="#"><i class="fa fa-star"></i></a>
-																		<a href="#"><i class="fa fa-star"></i></a>
-																		<a href="#"><i class="fa fa-star"></i></a>
-																	</span>
-                                            <span>
-																		<a href="#"><i class="fa fa-star"></i></a>
-																		<a href="#"><i class="fa fa-star"></i></a>
-																		<a href="#"><i class="fa fa-star"></i></a>
-																		<a href="#"><i class="fa fa-star"></i></a>
-																	</span>
-                                            <span>
-																		<a href="#"><i class="fa fa-star"></i></a>
-																		<a href="#"><i class="fa fa-star"></i></a>
-																		<a href="#"><i class="fa fa-star"></i></a>
-																		<a href="#"><i class="fa fa-star"></i></a>
-																		<a href="#"><i class="fa fa-star"></i></a>
-																	</span>
+                                            <span class="number-start" th:value="1">
+                                                <a ><i class="fa fa-star"></i></a>
+                                            </span>
+                                            <span class="number-start" th:value="2">
+                                                <a href="#"><i class="fa fa-star"></i></a>
+                                                <a href="#"><i class="fa fa-star"></i></a>
+                                            </span>
+                                            <span class="number-start" th:value="3">
+                                                <a href="#"><i class="fa fa-star"></i></a>
+                                                <a href="#"><i class="fa fa-star"></i></a>
+                                                <a href="#"><i class="fa fa-star"></i></a>
+                                            </span>
+                                            <span class="number-start" th:value="4">
+                                                <a ><i class="fa fa-star"></i></a>
+                                                <a ><i class="fa fa-star"></i></a>
+                                                <a ><i class="fa fa-star"></i></a>
+                                                <a ><i class="fa fa-star"></i></a>
+                                            </span>
+                                            <span class="number-start" th:value="5">
+                                                <a href="#"><i class="fa fa-star"></i></a>
+                                                <a href="#"><i class="fa fa-star"></i></a>
+                                                <a href="#"><i class="fa fa-star"></i></a>
+                                                <a href="#"><i class="fa fa-star"></i></a>
+                                                <a href="#"><i class="fa fa-star"></i></a>
+                                            </span>
                                         </div>
                                         <textarea id="product-message" cols="30" rows="10" placeholder="Your Rating"></textarea>
+                                        <input name="star" id="start" />
                                         <input type="submit" value="submit" />
                                     </form>
                                 </div>
