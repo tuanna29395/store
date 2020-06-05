@@ -18,6 +18,7 @@ import com.anhtuan.store.service.CartService;
 import com.anhtuan.store.service.CommonService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
@@ -52,7 +53,7 @@ public class CartServiceImpl implements CartService {
         }
         ProductEntity product = productRepository.findByIdAndAndDeleteFlagAndStatus(productId, DeleteFlag.NOT_DELETE.getVal(), ProductStatus.IN_STOCK.getVal())
                 .orElseThrow(() -> Exception.dataNotFound()
-                        .build(String.format(ErrorMessage.Product.PRODUCT_NOT_FOUND, productId)));
+                        .build(String.format(ErrorMessage.Product.PRODUCT_NOT_FOUND, productId), HttpStatus.NOT_FOUND.value()));
         SizeEntity sizeEntity = new SizeEntity();
 
         if (Objects.nonNull(toppingReq) && toppingReq.getSizeId() != null)
