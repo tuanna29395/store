@@ -30,6 +30,9 @@ server:
   servlet:
     session:
       timeout: 60m
+  error:
+    whitelabel:
+      enabled: false
 paypal:
   mode: sandbox
   client:

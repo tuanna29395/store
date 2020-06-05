@@ -50,6 +50,13 @@ public class Exception extends RuntimeException {
             return createCorrespondingException(errorObject);
         }
 
+        public Exception build(String errorMessage, Integer code) {
+            ErrorObject errorObject = new ErrorObject();
+            errorObject.setMessage(errorMessage);
+            errorObject.setCode(code);
+            return createCorrespondingException(errorObject);
+        }
+
         private Exception createCorrespondingException(ErrorObject errorObject) {
             if (exceptionClass == DataNotFoundException.class) {
                 return new DataNotFoundException(errorObject);
