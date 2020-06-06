@@ -3473,3 +3473,6 @@ input[type=checkbox] {
 .size-option{
     text-transform: capitalize;
 }
+.start-color{
+    color: red;
+}

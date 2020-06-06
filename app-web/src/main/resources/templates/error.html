@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/main-layout-none-slide}">
 <head>
-    <title th:text="'Error |' ">Page Title</title>
+    <title th:text="'404 |' ">Page Title</title>
 </head>
 <body>
 
@@ -14,7 +14,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="four-zero-content">
-                                <h1><span th:text="${error.getCode()}">404</span> <span th:text="${error.getMessage()}">not found!</span></h1>
+                                <h1><span th:text="${errorObject.getCode()}">404</span> <p th:text="${errorObject.getMessage()}">not found!</p></h1>
                                 <p>The page you are looking for is not found! Please check the url again. </p>
                                 <a href="index.html">back to home page</a>
                             </div>

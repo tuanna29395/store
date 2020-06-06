@@ -4,7 +4,14 @@ $(document).ready(function () {
     };
     changePageSize();
     renderSizeOption();
+    onclickSelectStar();
 });
+
+function onclickSelectStar() {
+    $('.number-start').on('click', function () {
+        $(this).find("i").addClass('start-color');
+    })
+}
 
 function getUrlParamCategory() {
     let hash, categoryId;
