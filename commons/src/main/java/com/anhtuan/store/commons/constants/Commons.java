@@ -5,4 +5,8 @@ public interface Commons {
     String ID = "{id}";
     String SESSION_URL_PRIOR_LOGIN = "url_prior_login";
     String SLASH = "/";
+    String DATETIME_PATTERN = "MM/dd/yyyy HH:mm";
+    String JS_DATETIME_PATTERN = "MM/DD/YYYY HH:mm";
+    String DATE_PATTERN = "MM/dd/yyyy";
+    String JS_DATE_PATTERN = "MM/DD/YYYY";
 }

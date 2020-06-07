@@ -3,6 +3,7 @@ package com.anhtuan.store.controller;
 import com.anhtuan.store.commons.constants.ModelViewConst;
 import com.anhtuan.store.commons.constants.ViewHtmlConst;
 import com.anhtuan.store.dto.request.ProductSearchRqDto;
+import com.anhtuan.store.dto.request.ReviewReqDto;
 import com.anhtuan.store.dto.request.ToppingReq;
 import com.anhtuan.store.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,7 @@ public class ProductController {
     private ProductService productService;
 
     @GetMapping
-    public String listProduct(@ModelAttribute(ModelViewConst.Product.SEARCH_DTO)ProductSearchRqDto searchRqDto, Pageable pageable, Model model) {
+    public String listProduct(@ModelAttribute(ModelViewConst.Product.SEARCH_DTO) ProductSearchRqDto searchRqDto, Pageable pageable, Model model) {
         model.addAttribute(ModelViewConst.Product.PRODUCT_PAGEABLE, productService.search(searchRqDto, pageable));
         model.addAttribute(ModelViewConst.Product.SEARCH_DTO, searchRqDto);
         model.addAttribute(ModelViewConst.Carts.TOPPING, new ToppingReq());

@@ -5,11 +5,22 @@ $(document).ready(function () {
     changePageSize();
     renderSizeOption();
     onclickSelectStar();
+    getReviews();
+    // onclickAddReview();
 });
 
 function onclickSelectStar() {
-    $('.number-start').on('click', function () {
-        $(this).find("i").addClass('start-color');
+    $('.number-star').on('click', function () {
+        let numberStar = $(this).data("star");
+
+        $(".your-rating").find(".number-star i").each(function () {
+            $(this).removeClass('color-red');
+            $(this).addClass('color-star');
+        });
+
+        $(this).find("i").removeClass('color-star');
+        $(this).find("i").addClass('color-red');
+        $("#star").val(numberStar);
     })
 }
 
@@ -80,12 +91,65 @@ function renderSizeOption() {
         success: function (response) {
             $('.size-option').empty();
             response.forEach(function (item) {
-                let data = {}
+                let data = {};
                 data.sizeId = item.id;
                 data.sizeName = item.name;
 
                 $("#size-option-item").tmpl(data).appendTo(".size-option");
             })
+        }
+    })
+}
+
+function getReviews() {
+    let productId = $("#product-id").val();
+    $.ajax({
+        url: `/review/${productId}/reviews`,
+        type: "GET",
+        success: function (response) {
+            $(".review-content").empty();
+            response.content.forEach(function (item) {
+                let data = transformReviewItem(item)
+                $("#item-review").tmpl(data).appendTo(".review-content");
+            });
+        }
+    })
+}
+
+function transformReviewItem(item) {
+    let data = {};
+    data.userName = item.user.username;
+    data.createdAt = moment(item.createdAt).format(DATE_PATTERN);
+
+    data.content = item.reviewContent;
+    data.numberStar = new Array(item.numberStar);
+
+    return data;
+}
+
+function onclickAddReview() {
+    $('#add-review').on('click', function () {
+        callAjaxAddReview();
+    })
+
+}
+
+function callAjaxAddReview() {
+    let productId = $("#product-id").val();
+    let numberStar = $("#star").val();
+    let reviewContent = $("#product-message").val();
+    let data = {
+        numberStar: numberStar,
+        reviewContent: reviewContent
+    };
+    $.ajax({
+        url: `/review/${productId}/add`,
+        type: "POST",
+        contentType: 'application/json',
+        data: JSON.stringify(data),
+        success: function (response) {
+            $("#item-review").tmpl(transformReviewItem(response)).prepend(".review-content");
+
         }
     })
 }

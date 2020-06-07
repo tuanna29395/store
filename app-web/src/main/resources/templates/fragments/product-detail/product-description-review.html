@@ -35,62 +35,87 @@
                         <div class="product-tab-desc">
                             <div class="product-page-comments">
                                 <h2>1 review for Integer consequat ante lectus</h2>
-                                <ul>
-                                    <li>
-                                        <div class="product-comments">
-                                            <img src="img/author.jpg" alt="" />
-                                            <div class="product-comments-content">
-                                                <p><strong>admin</strong> -
-                                                    <span>March 7, 2015:</span>
-                                                    <span class="pro-comments-rating">
-																				<i class="fa fa-star"></i>
-																				<i class="fa fa-star"></i>
-																				<i class="fa fa-star"></i>
-																				<i class="fa fa-star"></i>
-																			</span>
-                                                </p>
-                                                <div class="desc">
-                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam fringilla augue nec est tristique auctor. Donec non est at libero vulputate rutrum.
+                                <div class="review-content">
+
+                                </div>
+                                <script id="item-review" type="text/x-jQuery-tmpl">
+                                     <ul>
+                                        <li>
+                                            <div class="product-comments">
+                                                <img />
+                                                <div class="product-comments-content">
+                                                    <p><strong>${userName}</strong> -
+                                                        <span>${createdAt}</span>
+                                                        <span class="pro-comments-rating">
+                                                                {{each(i) numberStar}}
+                                                                    <i class="fa fa-star color-star"></i>
+                                                                {{/each}}
+                                                        </span>
+                                                    </p>
+                                                    <div class="desc">
+                                                        ${content}
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </li>
-                                </ul>
+                                        </li>
+                                    </ul>
+                                </script>
+<!--                                <ul>-->
+<!--                                    <li>-->
+<!--                                        <div class="product-comments">-->
+<!--                                            <img src="img/author.jpg" alt="" />-->
+<!--                                            <div class="product-comments-content">-->
+<!--                                                <p><strong>admin</strong> - -->
+<!--                                                    <span>March 7, 2015:</span>-->
+<!--                                                    <span class="pro-comments-rating">-->
+<!--																				<i class="fa fa-star color-star"></i>-->
+<!--																				<i class="fa fa-star color-star"></i>-->
+<!--																				<i class="fa fa-star color-star"></i>-->
+<!--																				<i class="fa fa-star color-star"></i>-->
+<!--																			</span>-->
+<!--                                                </p>-->
+<!--                                                <div class="desc">-->
+<!--                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam fringilla augue nec est tristique auctor. Donec non est at libero vulputate rutrum.-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                    </li>-->
+<!--                                </ul>-->
                                 <div class="review-form-wrapper">
                                     <h3>Add a review</h3>
-                                    <form action="#">
+                                    <form th:action="@{/review/{productId}/add(productId=${productDetail.id})}" th:method="POST" th:object="${reviewInfo}">
                                         <input type="text" placeholder="your name"/>
                                         <input type="email" placeholder="your email"/>
                                         <div class="your-rating">
                                             <h5>Your Rating</h5>
-                                            <span class="number-start" th:value="1">
-                                                <a ><i class="fa fa-star"></i></a>
+                                            <span class="number-star" data-star="1">
+                                                <a ><i class="fa fa-star color-star"></i></a>
                                             </span>
-                                            <span class="number-start" th:value="2">
-                                                <a href="#"><i class="fa fa-star"></i></a>
-                                                <a href="#"><i class="fa fa-star"></i></a>
+                                            <span class="number-star" data-star="2">
+                                                <a ><i class="fa fa-star color-star"></i></a>
+                                                <a ><i class="fa fa-star color-star"></i></a>
                                             </span>
-                                            <span class="number-start" th:value="3">
-                                                <a href="#"><i class="fa fa-star"></i></a>
-                                                <a href="#"><i class="fa fa-star"></i></a>
-                                                <a href="#"><i class="fa fa-star"></i></a>
+                                            <span class="number-star" data-star="3">
+                                                <a ><i class="fa fa-star color-star"></i></a>
+                                                <a ><i class="fa fa-star color-star"></i></a>
+                                                <a ><i class="fa fa-star color-star"></i></a>
                                             </span>
-                                            <span class="number-start" th:value="4">
-                                                <a ><i class="fa fa-star"></i></a>
-                                                <a ><i class="fa fa-star"></i></a>
-                                                <a ><i class="fa fa-star"></i></a>
-                                                <a ><i class="fa fa-star"></i></a>
+                                            <span class="number-star" data-star="4">
+                                                <a ><i class="fa fa-star color-star"></i></a>
+                                                <a ><i class="fa fa-star color-star"></i></a>
+                                                <a ><i class="fa fa-star color-star"></i></a>
+                                                <a ><i class="fa fa-star color-star"></i></a>
                                             </span>
-                                            <span class="number-start" th:value="5">
-                                                <a href="#"><i class="fa fa-star"></i></a>
-                                                <a href="#"><i class="fa fa-star"></i></a>
-                                                <a href="#"><i class="fa fa-star"></i></a>
-                                                <a href="#"><i class="fa fa-star"></i></a>
-                                                <a href="#"><i class="fa fa-star"></i></a>
+                                            <span class="number-star" data-star="5">
+                                                <a ><i class="fa fa-star color-star"></i></a>
+                                                <a ><i class="fa fa-star color-star"></i></a>
+                                                <a ><i class="fa fa-star color-star"></i></a>
+                                                <a ><i class="fa fa-star color-star"></i></a>
+                                                <a ><i class="fa fa-star color-star"></i></a>
                                             </span>
                                         </div>
-                                        <textarea id="product-message" cols="30" rows="10" placeholder="Your Rating"></textarea>
-                                        <input name="star" id="start" />
+                                        <textarea id="product-message" name="content" cols="30" rows="10" placeholder="Your Rating"></textarea>
+                                        <input name="numberStar" id="star" hidden />
                                         <input type="submit" value="submit" />
                                     </form>
                                 </div>

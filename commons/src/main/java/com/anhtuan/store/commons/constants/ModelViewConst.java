@@ -1,6 +1,11 @@
 package com.anhtuan.store.commons.constants;
 
 public interface ModelViewConst {
+    String DISPLAY_DATETIME_FORMAT = "displayDatetimeFormat";
+    String DISPLAY_DATE_FORMAT = "displayDateFormat";
+    String JS_DISPLAY_DATETIME_FORMAT = "jsDisplayDatetimeFormat";
+    String JS_DISPLAY_DATE_FORMAT = "jsDisplayDateFormat";
+
     interface User {
         String USER_REGISTER_DTO = "userRegisterDto";
     }
@@ -26,5 +31,9 @@ public interface ModelViewConst {
         String TOTAL_CART = "totalCart";
         String ORDER_INFO = "orderInfo";
 
+    }
+
+    interface  Reviews {
+        String REVIEW_INFO = "reviewInfo";
     }
 }
