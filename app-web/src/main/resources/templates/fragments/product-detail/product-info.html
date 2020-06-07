@@ -3,6 +3,7 @@
      xmlns="http://www.w3.org/1999/html">
     <div class="product-content">
         <h3><a th:text="${item.name}">Product Name</a></h3>
+        <input id="product-id" th:value="${item.id}" hidden>
         <div class="price">
             <span th:text="₫"></span> <span th:text="${item.salePrice}"></span>
         </div>

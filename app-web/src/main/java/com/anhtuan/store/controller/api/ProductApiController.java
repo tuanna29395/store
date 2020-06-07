@@ -22,4 +22,5 @@ public class ProductApiController {
     public ResponseEntity<?> getMinPrice() {
         return ResponseEntity.ok(productService.getMinPrice());
     }
+
 }

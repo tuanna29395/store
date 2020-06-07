@@ -44,8 +44,12 @@
 <div th:replace="fragments/partials/footer :: jquery-i18n"></div>
 <div th:replace="fragments/partials/footer :: jquery-i18n-messagestore"></div>
 <div th:replace="fragments/partials/footer :: jquery-custom-main"></div>
+<div th:replace="fragments/partials/footer :: moment"></div>
 <script th:fragment="alert" type="text/javascript" th:src="@{/js/custom-js/alert.js}"></script>
-
+<script th:inline="javascript">
+    const DATETIME_PATTERN = [[${jsDisplayDatetimeFormat}]];
+    const DATE_PATTERN = [[${jsDisplayDateFormat}]];
+</script>
 <div th:remove="tag" layout:fragment="footer"></div>
 </body>
 </html>
