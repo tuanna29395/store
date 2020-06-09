@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
+import javax.servlet.http.HttpServletRequest;
+
 @ControllerAdvice
 public abstract class BaseController {
     String redirect(String action) {
@@ -27,5 +29,13 @@ public abstract class BaseController {
         model.addAttribute(ModelViewConst.DISPLAY_DATE_FORMAT, Commons.DATE_PATTERN);
         model.addAttribute(ModelViewConst.JS_DISPLAY_DATETIME_FORMAT, Commons.JS_DATETIME_PATTERN);
         model.addAttribute(ModelViewConst.JS_DISPLAY_DATE_FORMAT, Commons.JS_DATE_PATTERN);
+    }
+
+    protected String getBaseUrl(HttpServletRequest request) {
+        int port = request.getServerPort();
+        if (port != 80 && port != 443) {
+            return request.getScheme() + "://" + request.getServerName() + ":" + port;
+        }
+        return request.getScheme() + "://" + request.getServerName();
     }
 }
