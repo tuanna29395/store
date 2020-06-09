@@ -25,6 +25,19 @@ spring:
   devtools:
     restart:
       exclude: static/**,templates/**
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: neo29395@gmail.com
+    password: tdogedsfoniwotbw
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+    protocol: smtp
+    test-connection: false
 server:
   port: 8082
   servlet:

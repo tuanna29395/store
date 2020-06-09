@@ -36,4 +36,8 @@ public interface ModelViewConst {
     interface  Reviews {
         String REVIEW_INFO = "reviewInfo";
     }
+
+    interface Password {
+        String PASSWORD_FORGOT_DTO ="passwordForgotDto";
+    }
 }

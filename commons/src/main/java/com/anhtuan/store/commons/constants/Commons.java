@@ -9,4 +9,5 @@ public interface Commons {
     String JS_DATETIME_PATTERN = "MM/DD/YYYY HH:mm";
     String DATE_PATTERN = "MM/dd/yyyy";
     String JS_DATE_PATTERN = "MM/DD/YYYY";
+    String SUBJECT_MAIL_FORGOT_PASSWORD = "Mail request reset password";
 }

@@ -20,4 +20,9 @@ public interface ViewHtmlConst {
     interface Checkout {
         String CHECKOUT = "/checkout/checkout";
     }
+
+    interface Password {
+        String FORGOT_PASSWORD = "/password/forgot";
+        String REDIRECT_FORGOT_PASSWORD = "redirect:/password/forgot";
+    }
 }

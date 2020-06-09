@@ -69,6 +69,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             "/api/**",
             "/api/carts/**",
             "/review/{productId}/reviews",
+            "/password/**"
 
     };
 

@@ -2,15 +2,20 @@ package com.anhtuan.store.commons.constants;
 
 public interface EndPointConst {
     String LOGIN = "/login";
-    interface User{
+
+    interface User {
         String USER_REGISTER = "/users/sign-up";
     }
 
-    interface Products{
+    interface Products {
         String PRODUCT_LIST = "/products";
     }
 
-    interface Checkouts{
+    interface Checkouts {
         String CHECKOUT = "/checkout";
+    }
+
+    interface Password {
+        String RESET_PASSWORD_URL = "/password/reset?token=";
     }
 }
