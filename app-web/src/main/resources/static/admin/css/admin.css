@@ -1,0 +1,15 @@
+.img-icon-category {
+    max-width: 80px;
+}
+.img-slide-category {
+    max-width: 200px;
+}
+.text_error {
+    color: darkred;
+    font-size: 14px;
+    text-align: center;
+}
+.chk-table {
+    margin: auto;
+    position: relative;
+}
