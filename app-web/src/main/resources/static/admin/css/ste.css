@@ -1,0 +1,25 @@
+.img-icon-category {
+    background: gray;
+}
+
+.white-text {
+    color: #ffffff;
+}
+
+.display-img {
+    margin: 0;
+}
+
+.btn-action-img {
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+.show-image {
+    margin-right: 10px;
+}
+
+.size-img-pro {
+    max-width: 200px;
+    max-height: 200px;
+}
