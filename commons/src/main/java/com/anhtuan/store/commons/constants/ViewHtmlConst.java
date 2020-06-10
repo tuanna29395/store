@@ -5,6 +5,7 @@ public interface ViewHtmlConst {
 
     interface Users {
         String SIGN_UP_SIGN_IN = "login";
+        String USER_PROFILE = "user/profile";
     }
 
     interface Products {
@@ -28,6 +29,7 @@ public interface ViewHtmlConst {
     interface Password {
         String FORGOT_PASSWORD = "/password/forgot";
         String REDIRECT_FORGOT_PASSWORD = "redirect:/password/forgot";
+        String RESET_PASSWORD = "/password/reset";
     }
 
     interface AdminCategory {
