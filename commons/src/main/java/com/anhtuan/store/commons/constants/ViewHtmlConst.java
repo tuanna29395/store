@@ -28,5 +28,7 @@ public interface ViewHtmlConst {
 
     interface AdminCategory {
         String List = "/admin-category/list";
+        String CREATE = "/admin-category/create";
+        String EDIT = "/admin-category/update";
     }
 }

@@ -44,5 +44,6 @@ public interface ModelViewConst {
     interface Category {
         String CATEGORY_PAGEABLE ="categories";
         String CATEGORY_SEARCH = "categorySearchDto";
+        String CATEGORY_DTO= "categoryDto";
     }
 }

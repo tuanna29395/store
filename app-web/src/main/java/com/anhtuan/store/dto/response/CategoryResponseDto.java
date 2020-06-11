@@ -13,4 +13,5 @@ public class CategoryResponseDto {
     private Integer productCount;
     @DateTimeFormat(pattern = Commons.DATETIME_PATTERN)
     private Date updatedAt;
+    private Integer isEnabled;
 }

@@ -1,5 +1,6 @@
 package com.anhtuan.store.service;
 
+import com.anhtuan.store.dto.request.CategoryAddDto;
 import com.anhtuan.store.dto.request.CategorySearchDto;
 import com.anhtuan.store.dto.request.ProductSearchRqDto;
 import com.anhtuan.store.dto.response.CategoryResponseDto;
@@ -16,4 +17,10 @@ public interface CategoryService {
     Page<CategoryResponseDto> search(@RequestParam CategorySearchDto categorySearchDto, Pageable pageable);
 
     CategoryResponseDto findById(Integer id);
+
+    void add(CategoryAddDto dto);
+
+    void edit(CategoryAddDto dto, Integer id);
+
+    void delete(Integer id);
 }

@@ -1,7 +1,9 @@
 package com.anhtuan.store.service.impl;
 
 import com.anhtuan.store.commons.enums.DeleteFlag;
+import com.anhtuan.store.commons.enums.EnableFlag;
 import com.anhtuan.store.commons.enums.ProductStatus;
+import com.anhtuan.store.dto.request.CategoryAddDto;
 import com.anhtuan.store.dto.request.CategorySearchDto;
 import com.anhtuan.store.dto.response.CategoryResponseDto;
 import com.anhtuan.store.exception.Exception;
@@ -58,6 +60,28 @@ public class CategoryServiceImpl implements CategoryService {
                         .build("Category not found", HttpStatus.NOT_FOUND.value()));
 
         return modelMapper.map(categoryEntity, CategoryResponseDto.class);
+    }
+
+    @Override
+    public void add(CategoryAddDto dto) {
+        CategoryEntity entity = modelMapper.map(dto, CategoryEntity.class);
+        entity.setDeleteFlag(DeleteFlag.NOT_DELETE.getVal());
+        entity.setIsEnabled(EnableFlag.ENABLE.getVal());
+        categoryRepository.save(entity);
+    }
+
+    @Override
+    public void edit(CategoryAddDto dto, Integer id) {
+        CategoryEntity entity = categoryRepository.findById(id).get();
+        entity.setName(dto.getName());
+        categoryRepository.save(entity);
+    }
+
+    @Override
+    public void delete(Integer id) {
+        CategoryEntity entity = categoryRepository.findById(id).get();
+        entity.setDeleteFlag(DeleteFlag.DELETED.getVal());
+        categoryRepository.save(entity);
     }
 
     private CategoryResponseDto transformToCategoryResponseDto(CategoryEntity entity) {
