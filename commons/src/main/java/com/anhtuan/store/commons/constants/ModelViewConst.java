@@ -40,4 +40,9 @@ public interface ModelViewConst {
     interface Password {
         String PASSWORD_FORGOT_DTO ="passwordForgotDto";
     }
+
+    interface Category {
+        String CATEGORY_PAGEABLE ="categories";
+        String CATEGORY_SEARCH = "categorySearchDto";
+    }
 }

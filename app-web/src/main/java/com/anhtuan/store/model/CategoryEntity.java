@@ -22,4 +22,6 @@ public class CategoryEntity {
 
     @OneToMany(mappedBy = "parentCategory")
     private Set<CategoryEntity> subCategory;
+
+    private Integer deleteFlag;
 }
