@@ -25,4 +25,8 @@ public interface ViewHtmlConst {
         String FORGOT_PASSWORD = "/password/forgot";
         String REDIRECT_FORGOT_PASSWORD = "redirect:/password/forgot";
     }
+
+    interface AdminCategory {
+        String List = "/admin-category/list";
+    }
 }
