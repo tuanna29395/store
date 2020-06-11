@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 
 @ControllerAdvice
 public abstract class BaseController {
-    String redirect(String action) {
+    protected String redirect(String action) {
         return "redirect:" + action;
     }
 

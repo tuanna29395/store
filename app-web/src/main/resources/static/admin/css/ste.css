@@ -23,3 +23,9 @@
     max-width: 200px;
     max-height: 200px;
 }
+.error-custom{
+    color: red;
+    position: relative;
+    line-height: 1;
+    width: 12.5rem;
+}

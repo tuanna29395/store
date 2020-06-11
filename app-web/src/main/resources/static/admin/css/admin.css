@@ -13,3 +13,15 @@
     margin: auto;
     position: relative;
 }
+.toggleDisp a {
+    display:  inline-block;
+    width: 113px;
+    height: 35px;
+    background-image: url(/images/icon_disabled.png);
+    background-repeat: no-repeat;
+    margin: 0 auto;
+    vertical-align: top;
+}
+.toggleDisp a.active {
+    background-image: url(/images/icon_enabled.png);
+}
