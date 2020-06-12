@@ -1,8 +1,8 @@
 package com.anhtuan.store.service.impl;
 
 import com.anhtuan.store.commons.enums.DeleteFlag;
-import com.anhtuan.store.commons.enums.EnableFlag;
 import com.anhtuan.store.commons.enums.ProductStatus;
+import com.anhtuan.store.commons.enums.StatusType;
 import com.anhtuan.store.dto.request.CategoryAddDto;
 import com.anhtuan.store.dto.request.CategorySearchDto;
 import com.anhtuan.store.dto.response.CategoryResponseDto;
@@ -36,9 +36,19 @@ public class CategoryServiceImpl implements CategoryService {
     @Autowired
     private ProductRepository productRepository;
 
+    @Autowired
+    private CategoryService categoryService;
+
     @Override
-    public List<CategoryResponseDto> getAll() {
-        List<CategoryEntity> categories = categoryRepository.findAll();
+    public List<CategoryResponseDto> getAll(CategorySearchDto searchDto) {
+        BooleanBuilder condition = new BooleanBuilder();
+        QCategoryEntity categoryEntity = QCategoryEntity.categoryEntity;
+        if (searchDto.getStatus().equals(StatusType.NOT_DELETE.getVal())) {
+            condition.and(categoryEntity.status.ne(StatusType.DELETED.getVal()));
+        } else {
+            condition.and(categoryEntity.status.eq(searchDto.getStatus()));
+        }
+        List<CategoryEntity> categories = (List<CategoryEntity>) categoryRepository.findAll(condition);
         return categories.stream().map(this::transformToCategoryResponseDto).collect(Collectors.toList());
     }
 
@@ -65,8 +75,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public void add(CategoryAddDto dto) {
         CategoryEntity entity = modelMapper.map(dto, CategoryEntity.class);
-        entity.setDeleteFlag(DeleteFlag.NOT_DELETE.getVal());
-        entity.setIsEnabled(EnableFlag.ENABLE.getVal());
+        entity.setStatus(StatusType.ENABLE.getVal());
         categoryRepository.save(entity);
     }
 
@@ -80,7 +89,17 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public void delete(Integer id) {
         CategoryEntity entity = categoryRepository.findById(id).get();
-        entity.setDeleteFlag(DeleteFlag.DELETED.getVal());
+        entity.setStatus(StatusType.DELETED.getVal());
+        categoryRepository.save(entity);
+    }
+
+    @Override
+    public void updateEnableFlag(Integer categoryId, Integer status) {
+        CategoryEntity entity = categoryRepository.findByIdAndStatusNot(categoryId, StatusType.DELETED.getVal());
+        if (!Objects.nonNull(entity)) {
+            throw Exception.dataNotFound().build("Category not found", HttpStatus.NOT_FOUND.value());
+        }
+        entity.setStatus(status);
         categoryRepository.save(entity);
     }
 

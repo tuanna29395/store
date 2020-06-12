@@ -25,3 +25,6 @@
 .toggleDisp a.active {
     background-image: url(/images/icon_enabled.png);
 }
+.toggleDisp input {
+    display: none;
+}

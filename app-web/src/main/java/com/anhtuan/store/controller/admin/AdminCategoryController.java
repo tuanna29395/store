@@ -6,24 +6,14 @@ import com.anhtuan.store.commons.constants.ViewHtmlConst;
 import com.anhtuan.store.controller.BaseController;
 import com.anhtuan.store.dto.request.CategoryAddDto;
 import com.anhtuan.store.dto.request.CategorySearchDto;
-import com.anhtuan.store.dto.response.CategoryResponseDto;
-import com.anhtuan.store.model.CategoryEntity;
 import com.anhtuan.store.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.net.CacheResponse;
 
 @Controller
 @RequestMapping("/admin/categories")
@@ -33,8 +23,8 @@ public class AdminCategoryController extends BaseController {
     private CategoryService categoryService;
 
     @GetMapping
-    public String list(Model model) {
-        model.addAttribute(ModelViewConst.Category.CATEGORY_PAGEABLE, categoryService.getAll());
+    public String list(Model model, @ModelAttribute(ModelViewConst.Category.CATEGORY_SEARCH) CategorySearchDto searchDto) {
+        model.addAttribute(ModelViewConst.Category.CATEGORY_PAGEABLE, categoryService.getAll(searchDto));
         return ViewHtmlConst.AdminCategory.List;
     }
 
@@ -44,7 +34,7 @@ public class AdminCategoryController extends BaseController {
         return ViewHtmlConst.AdminCategory.CREATE;
     }
 
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    @PostMapping(value = "/add")
     public String submitAddCategory(Model model, @Valid @ModelAttribute(ModelViewConst.Category.CATEGORY_DTO) CategoryAddDto categoryAddDto, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             model.addAttribute(ModelViewConst.Category.CATEGORY_DTO, new CategoryAddDto());

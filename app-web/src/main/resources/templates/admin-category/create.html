@@ -13,7 +13,7 @@
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
             <div class="panel-body col-lg-8">
-                <form th:action="@{/admin/categories/add}" method="post" enctype="multipart/form-data">
+                <form th:action="@{/admin/categories/add}" method="post" th:object="${categoryDto}" enctype="multipart/form-data">
                     <br>
 
                     <div class="form-group row">
@@ -21,7 +21,7 @@
                             <p>Name:</p>
                         </div>
                         <div class="col-md-9">
-                            <input class="form-control form-control-sm"  name="name" required>
+                            <input class="form-control form-control-sm" th:field="*{name}" required>
                             <div>
                                 <label th:if="${#fields.hasErrors('name')}" th:errors="*{name}"
                                        class="error"></label>

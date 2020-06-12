@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/admin-main-layout}">
+<head>
+    <title th:text="'Category |' ">Page Title</title>
+</head>
+<body>
+
+<div>
+    <div class="container-fluid" layout:fragment="content">
+
+        <h2 class="h3 mb-4 text-gray-800" style="padding-left: 20px;">Index</h2>
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+            <h3>Index</h3>
+        </div>
+
+    </div>
+</div>
+</body>
+
+<div layout:fragment="footer">
+    <div th:replace="fragments/partials/footer :: jquery-tmpl"></div>
+</div>
+
+</html>

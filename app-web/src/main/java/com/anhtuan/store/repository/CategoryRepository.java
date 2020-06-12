@@ -7,4 +7,5 @@ import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import java.util.List;
 
 public interface CategoryRepository extends JpaRepository<CategoryEntity, Integer>, QuerydslPredicateExecutor<CategoryEntity> {
+    CategoryEntity findByIdAndStatusNot(Integer categoryID, Integer deleteFlag);
 }
