@@ -13,15 +13,14 @@
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <form action="" method="post">
+                <form th:action="@{/admin/categories}" th:method="get" th:object="${categorySearchDto}">
                     <div class="row">
-                        <input type="hidden" name="arr_chk" id="arr_chk" value="">
                         <div class="col-md-3">
-                            <select class="form-control form-control-sm" name="action" id="action">
-                                <option value="0">Choose action</option>
-                                <option value="">Delete</option>
-                                <option value="">Active</option>
-                                <option value="">Inactive</option>
+                            <select class="form-control form-control-sm" th:field="*{status}">
+                                <option th:selected="${categorySearchDto.status ==0}" th:value="0">Choose action</option>
+                                <option th:selected="${categorySearchDto.status ==1}"  th:value="1">Delete</option>
+                                <option th:selected="${categorySearchDto.status ==2}"  th:value="2">Active</option>
+                                <option th:selected="${categorySearchDto.status ==3}"  th:value="3">Inactive</option>
                             </select>
                         </div>
                         <div class="col-md-3">
@@ -31,7 +30,7 @@
                         </div>
                         <div class="col-md-6">
                             <a style="float: right" class="btn btn-primary btn-circle .btn-sm" title="Add"
-                               href="#">
+                               th:href="@{/admin/categories/add}">
                                 <i class="fas fa-plus"></i>
                             </a>
                         </div>
@@ -63,28 +62,20 @@
                             <td th:text="${item.id}">123</td>
                             <td th:text="${item.name}">Name1</td>
                             <td th:text="${#dates.format(item.updatedAt, displayDatetimeFormat)}">21-6-2020</td>
-                            <td class="toggleDisp change-status-theme">
+                            <td class="toggleDisp change-status-category" th:data-id="${item.id}" style="text-align: center;">
                                 <span>
                                     <a href="javascript: void(0);"
-                                       th:classappend="${item.isEnabled == 1} ? active : ''"></a>
-                                    <input th:data-original="${item.isEnabled}" hidden>
+                                       th:classappend="${item.status == 2} ? active : ''"></a>
+                                    <input th:data-original="${item.status}">
                                 </span>
                             </td>
                             <td>
                                 <a th:href="@{/admin/categories/{id}/edit(id=${item.id})}">
                                     <i class="fas fa-tools" title="Edit"></i>
                                 </a>
-                                <a th:href="@{/admin/categories/{id}/delete(id=${item.id})}" onclick="return confirmDelete()">
+                                <a style="padding-left: 20px;" th:href="@{/admin/categories/{id}/delete(id=${item.id})}" onclick="return confirmDelete()">
                                     <i class="fas fa-trash" title="Delete"></i>
                                 </a>
-
-                                <a href="#" onclick="return confirmInactive()">
-                                    <i class="fas fa-eye" title="Active"></i>
-                                </a>
-
-                                <!--                                <a href="#" onclick="return confirmActive()">-->
-                                <!--                                    <i class="fas fa-eye-slash" title="Inactive"></i>-->
-                                <!--                                </a>-->
                             </td>
                         </tr>
                         </th:block>
@@ -100,6 +91,7 @@
 
 <div layout:fragment="footer">
     <div th:replace="fragments/partials/footer :: jquery-tmpl"></div>
+    <script th:src="@{/admin/js/admin-category-list.js}"></script>
 </div>
 
 </html>

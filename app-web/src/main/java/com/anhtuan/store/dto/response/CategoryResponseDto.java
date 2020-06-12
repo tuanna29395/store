@@ -14,4 +14,6 @@ public class CategoryResponseDto {
     @DateTimeFormat(pattern = Commons.DATETIME_PATTERN)
     private Date updatedAt;
     private Integer isEnabled;
+
+    private Integer status;
 }

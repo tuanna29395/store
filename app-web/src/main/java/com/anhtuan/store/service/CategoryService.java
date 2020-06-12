@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.function.Predicate;
 
 public interface CategoryService {
-    List<CategoryResponseDto> getAll();
+    List<CategoryResponseDto> getAll(CategorySearchDto searchDto);
 
     Page<CategoryResponseDto> search(@RequestParam CategorySearchDto categorySearchDto, Pageable pageable);
 
@@ -23,4 +23,6 @@ public interface CategoryService {
     void edit(CategoryAddDto dto, Integer id);
 
     void delete(Integer id);
+
+    void updateEnableFlag(Integer categoryId, Integer status);
 }

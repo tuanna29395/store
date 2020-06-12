@@ -36,4 +36,6 @@ public class CategoryEntity {
     private Date updatedAt;
 
     private Integer isEnabled;
+
+    private Integer status;
 }
