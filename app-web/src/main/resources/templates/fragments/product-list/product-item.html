@@ -72,10 +72,7 @@
                                 <span th:text="₫"></span> <span th:text="${item.salePrice}"></span>
                                 <span class="old">₫90.11</span>
                             </div>
-                            <p th:text="${item.description}">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam fringilla augue nec est
-                                tristique auctor. Donec non est at libero vulputate rutrum. Morbi ornare lectus quis
-                                justo
-                                gravida semper. Nulla tellus mi, vulputate adipiscing cursus eu, suscipit id nulla.</p>
+                            <div th:utext="${item.description}"></div>
                             <div class="product-action">
                                 <div class="button-top">
                                     <a href="#" data-toggle="modal" data-target="#productModal"><i

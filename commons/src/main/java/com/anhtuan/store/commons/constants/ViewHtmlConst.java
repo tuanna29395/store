@@ -10,6 +10,9 @@ public interface ViewHtmlConst {
     interface Products {
         String LIST = "/products/list";
         String DETAIL = "products/detail";
+        String ADMIN_LIST = "/admin-product/list";
+        String ADMIN_CREATE = "/admin-product/create";
+
     }
 
     interface Carts {

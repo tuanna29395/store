@@ -10,7 +10,9 @@ import java.util.Optional;
 public interface ProductRepository extends JpaRepository<ProductEntity, Integer>, QuerydslPredicateExecutor<ProductEntity> {
     Integer countByCategoryIdAndStatusEquals(Integer categoryId, Integer status);
 
-    Optional<ProductEntity> findByIdAndAndDeleteFlagAndStatus(Integer productId, Integer deletedFlag, Integer status);
+    Optional<ProductEntity> findByIdAndDeleteFlagAndStatus(Integer productId, Integer deletedFlag, Integer status);
+
+    Optional<ProductEntity> findByIdAndDeleteFlag(Integer productId, Integer deletedFlag);
 
     @Query("SELECT max(salePrice) from ProductEntity")
     Integer findTopByOrderBySalePriceDesc();

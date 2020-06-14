@@ -14,6 +14,9 @@ public interface ModelViewConst {
         String PRODUCT_PAGEABLE = "products";
         String SEARCH_DTO = "searchDto";
         String PRODUCT_DETAIL = "productDetail";
+        String PRODUCT_ADD_EDIT_DTO = "productDto";
+        String CATEGORY_LIST = "categories";
+        String DISCOUNT_LIST = "discounts";
     }
 
     interface Carts {
@@ -33,17 +36,17 @@ public interface ModelViewConst {
 
     }
 
-    interface  Reviews {
+    interface Reviews {
         String REVIEW_INFO = "reviewInfo";
     }
 
     interface Password {
-        String PASSWORD_FORGOT_DTO ="passwordForgotDto";
+        String PASSWORD_FORGOT_DTO = "passwordForgotDto";
     }
 
     interface Category {
-        String CATEGORY_PAGEABLE ="categories";
+        String CATEGORY_PAGEABLE = "categories";
         String CATEGORY_SEARCH = "categorySearchDto";
-        String CATEGORY_DTO= "categoryDto";
+        String CATEGORY_DTO = "categoryDto";
     }
 }

@@ -51,7 +51,7 @@ public class CartServiceImpl implements CartService {
         if (cartItems == null) {
             cartItems = new HashMap<>();
         }
-        ProductEntity product = productRepository.findByIdAndAndDeleteFlagAndStatus(productId, DeleteFlag.NOT_DELETE.getVal(), ProductStatus.IN_STOCK.getVal())
+        ProductEntity product = productRepository.findByIdAndDeleteFlagAndStatus(productId, DeleteFlag.NOT_DELETE.getVal(), ProductStatus.IN_STOCK.getVal())
                 .orElseThrow(() -> Exception.dataNotFound()
                         .build(String.format(ErrorMessage.Product.PRODUCT_NOT_FOUND, productId), HttpStatus.NOT_FOUND.value()));
         SizeEntity sizeEntity = new SizeEntity();

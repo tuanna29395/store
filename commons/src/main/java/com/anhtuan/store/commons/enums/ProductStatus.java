@@ -6,7 +6,7 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum ProductStatus {
-    IN_STOCK(1),
-    OUT_OF_STOCK(0);
+    IN_STOCK(2),
+    OUT_OF_STOCK(3);
     private int val;
 }
