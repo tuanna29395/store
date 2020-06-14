@@ -36,9 +36,6 @@ public class CategoryServiceImpl implements CategoryService {
     @Autowired
     private ProductRepository productRepository;
 
-    @Autowired
-    private CategoryService categoryService;
-
     @Override
     public List<CategoryResponseDto> getAll(CategorySearchDto searchDto) {
         BooleanBuilder condition = new BooleanBuilder();
@@ -65,9 +62,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public CategoryResponseDto findById(Integer id) {
-        CategoryEntity categoryEntity = categoryRepository.findById(id)
-                .orElseThrow(() -> Exception.dataNotFound()
-                        .build("Category not found", HttpStatus.NOT_FOUND.value()));
+        CategoryEntity categoryEntity = categoryRepository.findByIdAndStatusNot(id, StatusType.DELETED.getVal());
 
         return modelMapper.map(categoryEntity, CategoryResponseDto.class);
     }

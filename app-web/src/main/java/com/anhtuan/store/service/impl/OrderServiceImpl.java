@@ -89,7 +89,7 @@ public class OrderServiceImpl implements OrderService {
         Set<OrderItemEntity> orderItemEntities = cartService.getAll(session).stream().map(cartItem -> {
             OrderItemEntity orderItemEntity = new OrderItemEntity();
 
-            ProductEntity productEntity = productRepository.findByIdAndAndDeleteFlagAndStatus(cartItem.getProduct().getId(), DeleteFlag.NOT_DELETE.getVal(), ProductStatus.IN_STOCK.getVal())
+            ProductEntity productEntity = productRepository.findByIdAndDeleteFlagAndStatus(cartItem.getProduct().getId(), DeleteFlag.NOT_DELETE.getVal(), ProductStatus.IN_STOCK.getVal())
                     .orElseThrow(() -> Exception.dataNotFound()
                             .build("Product not found"));
 

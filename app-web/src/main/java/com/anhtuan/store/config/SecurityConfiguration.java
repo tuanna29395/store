@@ -45,6 +45,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             "/templates/**",
             "/vendor/**",
             "/login-process",
+            "/ckeditor/**"
 
     };
 
