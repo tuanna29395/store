@@ -10,6 +10,7 @@ public interface EndPointConst {
     interface Products {
         String PRODUCT_LIST = "/products";
         String ADMIN_LIST = "/admin/products";
+        String ADMIN_EDIT = "/admin/products/%s/edit";
     }
 
     interface Checkouts {

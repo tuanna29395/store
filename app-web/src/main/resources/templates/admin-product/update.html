@@ -9,10 +9,10 @@
 <div>
     <div class="container-fluid" layout:fragment="content">
 
-        <h2 class="h3 mb-4 text-gray-800" style="padding-left: 20px;">Add Products</h2>
+        <h2 class="h3 mb-4 text-gray-800" style="padding-left: 20px;">Edit Products</h2>
         <!-- DataTales Example -->
         <div class="card shadow mb-4 ">
-            <form th:action="@{/admin/products/add}" th:object="${productDto}" method="post" enctype="multipart/form-data" >
+            <form th:action="@{/admin/products/{id}/edit(id=${productDto.id})}" th:object="${productDto}" method="post" enctype="multipart/form-data" >
                 <div class="row">
                     <div class="panel-body col-lg-8" style="padding-left: 24px">
                         <br>
@@ -33,7 +33,7 @@
                                     <option th:value="''">Please select one option</option>
                                     <th:block th:each="category:${categories}">
 
-                                        <option th:text="${category.name}" th:value= "${category.id}">
+                                        <option th:selected="${productDto.categoryId == category.id}" th:text="${category.name}" th:value= "${category.id}">
                                         </option>
                                     </th:block>
                                 </select>
@@ -63,9 +63,9 @@
                             <div class="col-md-9">
                                 <select class="form-control form-control-sm select2" th:field="*{discountId}">
                                     <option th:value="''">Please select one option</option>
-                                    <th:block th:each="discount:${discounts}">
-                                            <option th:text="${discount.description}" th:value= "${discount.id}">
-                                            </option>
+                                    <th:block th:if="${productDto.discountId !=null}" th:each="discount:${discounts}">
+                                        <option th:selected="${productDto.discount.id == discount.id}" th:text="${discount.description}">
+                                        </option>
                                     </th:block>
                                 </select>
                             </div>
@@ -94,10 +94,11 @@
                         <br>
                         <div class="show-image" id="img-pro-0">
                             <div class="form-group row">
-                                <input type="file" th:field="*{fileImage}" class="form-control-sm input-img-pro" id="input-img-pro-0" >
+                                <input type="file" th:field="*{fileImage}" class="form-control-sm input-img-pro" id="input-img-pro-0">
                             </div>
+                            <input th:field="*{imageUrl}" hidden>
                             <div class="form-group row display-img">
-                                <img class="size-img-pro" id="img-show-pro-0">
+                                <img class="size-img-pro" id="img-show-pro-0" th:src="@{'/images/product/' + ${productDto.imageUrl}}">
                             </div>
                         </div>
                     </div>

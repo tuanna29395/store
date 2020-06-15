@@ -18,7 +18,6 @@
                         <div class="col-md-3">
                             <select class="form-control form-control-sm" th:field="*{status}">
                                 <option th:selected="${categorySearchDto.status ==0}" th:value="0">Choose action</option>
-                                <option th:selected="${categorySearchDto.status ==1}"  th:value="1">Delete</option>
                                 <option th:selected="${categorySearchDto.status ==2}"  th:value="2">Active</option>
                                 <option th:selected="${categorySearchDto.status ==3}"  th:value="3">Inactive</option>
                             </select>

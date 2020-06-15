@@ -8,6 +8,7 @@ import com.anhtuan.store.dto.request.CategorySearchDto;
 import com.anhtuan.store.dto.request.ProductAddEditDto;
 import com.anhtuan.store.dto.request.ProductSearchRqDto;
 import com.anhtuan.store.service.CategoryService;
+import com.anhtuan.store.service.CommonService;
 import com.anhtuan.store.service.DiscountService;
 import com.anhtuan.store.service.ProductService;
 import lombok.SneakyThrows;
@@ -15,12 +16,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/admin/products")
@@ -32,6 +30,9 @@ public class AdminProductController extends BaseController {
     private CategoryService categoryService;
     @Autowired
     private DiscountService discountService;
+
+    @Autowired
+    private CommonService commonService;
 
     @GetMapping
     public String products(Model model, @ModelAttribute(ModelViewConst.Product.SEARCH_DTO) ProductSearchRqDto searchRqDto) {
@@ -53,7 +54,7 @@ public class AdminProductController extends BaseController {
     @SneakyThrows
     @PostMapping("/add")
     public String submitCreate(Model model,
-                               @ModelAttribute(ModelViewConst.Product.PRODUCT_ADD_EDIT_DTO) ProductAddEditDto productAddEditDto,BindingResult bindingResult) {
+                               @Valid @ModelAttribute(ModelViewConst.Product.PRODUCT_ADD_EDIT_DTO) ProductAddEditDto productAddEditDto, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             model.addAttribute(ModelViewConst.Product.PRODUCT_ADD_EDIT_DTO, productAddEditDto);
             model.addAttribute(ModelViewConst.Product.CATEGORY_LIST, categoryService.getAll(new CategorySearchDto()));
@@ -62,6 +63,36 @@ public class AdminProductController extends BaseController {
         }
         productService.createProduct(productAddEditDto);
 
+        return redirect(EndPointConst.Products.ADMIN_LIST);
+    }
+
+    @GetMapping("/{id}/edit")
+    public String showUpdateProductPage(Model model, @PathVariable Integer id) {
+        model.addAttribute(ModelViewConst.Product.PRODUCT_ADD_EDIT_DTO, productService.getProductAdminDetail(id));
+        model.addAttribute(ModelViewConst.Product.CATEGORY_LIST, categoryService.getAll(new CategorySearchDto()));
+        model.addAttribute(ModelViewConst.Product.DISCOUNT_LIST, discountService.getAll());
+        return ViewHtmlConst.Products.ADMIN_UPDATE;
+    }
+
+    @PostMapping("/{id}/edit")
+    public String submitEdit(Model model,
+                             @Valid @ModelAttribute(ModelViewConst.Product.PRODUCT_ADD_EDIT_DTO) ProductAddEditDto productAddEditDto,
+                             BindingResult bindingResult,
+                             @PathVariable Integer id) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute(ModelViewConst.Product.PRODUCT_ADD_EDIT_DTO, productService.getProductAdminDetail(id));
+            model.addAttribute(ModelViewConst.Product.CATEGORY_LIST, categoryService.getAll(new CategorySearchDto()));
+            model.addAttribute(ModelViewConst.Product.DISCOUNT_LIST, discountService.getAll());
+            return ViewHtmlConst.Products.ADMIN_UPDATE;
+        }
+
+        productService.update(productAddEditDto, id);
+        return redirect(String.format(EndPointConst.Products.ADMIN_EDIT,id));
+    }
+
+    @GetMapping("/{id}/delete")
+    public String delete(@PathVariable Integer id){
+        productService.delete(id);
         return redirect(EndPointConst.Products.ADMIN_LIST);
     }
 }

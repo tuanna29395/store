@@ -19,6 +19,8 @@ public interface ProductService {
 
     ProductResponseDto findById(Integer productId);
 
+    ProductAddEditDto getProductAdminDetail(Integer productId);
+
     Long getMaxPrice();
 
     Long getMinPrice();
@@ -34,4 +36,8 @@ public interface ProductService {
     void createProduct(ProductAddEditDto dto) throws IOException;
 
     String saveImageToFolder(MultipartFile file) throws IOException;
+    
+    void update(ProductAddEditDto dto, Integer id);
+
+    void delete(Integer id);
 }
