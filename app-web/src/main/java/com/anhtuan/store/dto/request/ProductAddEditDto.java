@@ -5,18 +5,20 @@ import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Data
 public class ProductAddEditDto {
+    private Integer id;
     @NotEmpty(message = "Name is invalid")
     private String name;
 
     private Integer categoryId;
 
-    @NotEmpty(message = "Origin price is invalid")
-    private Integer originPrice;
+    @NotNull(message = "Origin price is invalid")
+    private Integer originalPrice;
 
-    @NotEmpty(message = "Sale price is invalid")
+    @NotNull(message = "Sale price is invalid")
     private Integer salePrice;
 
     private Integer discountId;
@@ -26,4 +28,6 @@ public class ProductAddEditDto {
     private MultipartFile fileImage;
 
     private Integer status = StatusType.ENABLE.getVal();
+
+    private String imageUrl;
 }

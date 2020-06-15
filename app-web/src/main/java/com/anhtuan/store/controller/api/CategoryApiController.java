@@ -1,6 +1,7 @@
 package com.anhtuan.store.controller.api;
 
 import com.anhtuan.store.dto.request.CategoryChangeStatusDto;
+import com.anhtuan.store.dto.request.CategorySearchDto;
 import com.anhtuan.store.repository.CategoryRepository;
 import com.anhtuan.store.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +20,7 @@ public class CategoryApiController {
 
     @GetMapping
     public ResponseEntity<?> findAll() {
-//        return ResponseEntity.ok(categoryService.getAll());
-        return null;
+        return ResponseEntity.ok(categoryService.getAll(new CategorySearchDto()));
     }
 
     @PostMapping("/{id}/change-status")

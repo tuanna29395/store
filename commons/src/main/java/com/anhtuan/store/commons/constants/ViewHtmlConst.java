@@ -12,6 +12,7 @@ public interface ViewHtmlConst {
         String DETAIL = "products/detail";
         String ADMIN_LIST = "/admin-product/list";
         String ADMIN_CREATE = "/admin-product/create";
+        String ADMIN_UPDATE = "/admin-product/update";
 
     }
 

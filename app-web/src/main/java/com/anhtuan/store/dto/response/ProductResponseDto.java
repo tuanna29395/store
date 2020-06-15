@@ -28,4 +28,6 @@ public class ProductResponseDto {
     private Date updatedAt;
 
     private Integer status;
+
+    private DiscountResponseDto discount;
 }

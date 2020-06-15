@@ -24,13 +24,11 @@ import com.anhtuan.store.repository.DiscountRepository;
 import com.anhtuan.store.repository.ProductRepository;
 import com.anhtuan.store.repository.ReviewRepository;
 import com.anhtuan.store.repository.UserRepository;
-import com.anhtuan.store.service.CategoryService;
 import com.anhtuan.store.service.CommonService;
 import com.anhtuan.store.service.ProductService;
 import com.querydsl.core.BooleanBuilder;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -43,7 +41,6 @@ import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -72,7 +69,7 @@ ProductServiceImpl implements ProductService {
     @Autowired
     DiscountRepository discountRepository;
 
-    public static String UPLOAD_IMAGE_DIR = System.getProperty("user.dir") +"\\app-web\\src\\main\\resources\\static\\images\\product\\";
+    public static String UPLOAD_IMAGE_DIR = System.getProperty("user.dir") + "\\app-web\\src\\main\\resources\\static\\images\\product\\";
 
     @Override
     public Page<ProductResponseDto> search(ProductSearchRqDto searchRqDto, Pageable pageable) {
@@ -85,6 +82,14 @@ ProductServiceImpl implements ProductService {
                 .orElseThrow(() -> Exception.dataNotFound().build(String.format(ErrorMessage.Product.PRODUCT_NOT_FOUND, productId), HttpStatus.NOT_FOUND.value()));
 
         return commonService.transformProductEntityToDto(productEntity);
+    }
+
+    @Override
+    public ProductAddEditDto getProductAdminDetail(Integer productId) {
+        ProductEntity productEntity = productRepository.findByIdAndDeleteFlag(productId, DeleteFlag.NOT_DELETE.getVal())
+                .orElseThrow(() -> Exception.dataNotFound().build(String.format(ErrorMessage.Product.PRODUCT_NOT_FOUND, productId), HttpStatus.NOT_FOUND.value()));
+
+        return commonService.transformToAdminProductDtoUpdate(productEntity);
     }
 
     @Override
@@ -129,12 +134,12 @@ ProductServiceImpl implements ProductService {
     public List<ProductResponseDto> getAll(ProductSearchRqDto dto) {
         BooleanBuilder condition = new BooleanBuilder();
         QProductEntity productEntity = QProductEntity.productEntity;
-        if (dto.getStatus().equals(StatusType.DELETED.getVal()) || dto.getStatus().equals(StatusType.NOT_DELETE.getVal())) {
-            condition.and(productEntity.deleteFlag.eq(dto.getStatus()));
 
-        } else {
+        if (dto.getStatus()!=0) {
             condition.and(productEntity.status.eq(dto.getStatus()));
         }
+
+        condition.and(productEntity.deleteFlag.eq(StatusType.NOT_DELETE.getVal()));
         List<ProductEntity> entities = (List<ProductEntity>) productRepository.findAll(condition);
         return entities.stream().map(entity -> commonService.transformProductEntityToDto(entity)).collect(Collectors.toList());
     }
@@ -150,11 +155,11 @@ ProductServiceImpl implements ProductService {
 
     @Override
     public void createProduct(ProductAddEditDto dto) throws IOException {
-        CategoryEntity categoryEntity = categoryRepository.findByIdAndStatusNot(dto.getCategoryId(), StatusType.DELETED.getVal());
+        CategoryEntity categoryEntity = categoryRepository.findByIdAndDeleteFlag(dto.getCategoryId(), StatusType.DELETED.getVal());
 
         ProductEntity productEntity = new ProductEntity();
         productEntity.setName(dto.getName());
-        productEntity.setOriginalPrice(dto.getOriginPrice());
+        productEntity.setOriginalPrice(dto.getOriginalPrice());
         productEntity.setSalePrice(dto.getSalePrice());
         productEntity.setStatus(dto.getStatus());
         productEntity.setCategory(categoryEntity);
@@ -186,6 +191,46 @@ ProductServiceImpl implements ProductService {
         return fileName;
     }
 
+    @Override
+    public void update(ProductAddEditDto dto, Integer id) {
+        ProductEntity productEntity = productRepository.findByIdAndDeleteFlag(id, DeleteFlag.NOT_DELETE.getVal())
+                .orElseThrow(() -> Exception.dataNotFound().build(String.format(ErrorMessage.Product.PRODUCT_NOT_FOUND, id), HttpStatus.NOT_FOUND.value()));
+
+        CategoryEntity categoryEntity = categoryRepository.findByIdAndDeleteFlag(dto.getCategoryId(), StatusType.DELETED.getVal());
+
+        productEntity.setName(dto.getName());
+        productEntity.setOriginalPrice(dto.getOriginalPrice());
+        productEntity.setSalePrice(dto.getSalePrice());
+        productEntity.setStatus(dto.getStatus());
+        productEntity.setCategory(categoryEntity);
+        productEntity.setDescription(dto.getDescription());
+        productEntity.setDeleteFlag(DeleteFlag.NOT_DELETE.getVal());
+
+        if (Objects.nonNull(dto.getDiscountId())) {
+            DiscountEntity discountEntity = discountRepository.findByIdAndDeleteFlag(dto.getDiscountId(), DeleteFlag.NOT_DELETE.getVal());
+            productEntity.setDiscount(discountEntity);
+        }
+        String imageName = dto.getImageUrl();
+        try {
+            if (!dto.getFileImage().isEmpty()) {
+                imageName = saveImageToFolder(dto.getFileImage());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        productEntity.setImageUrl(imageName);
+        productRepository.save(productEntity);
+
+    }
+
+    @Override
+    public void delete(Integer id) {
+        ProductEntity productEntity = productRepository.findByIdAndDeleteFlag(id, DeleteFlag.NOT_DELETE.getVal())
+                .orElseThrow(() -> Exception.dataNotFound().build(String.format(ErrorMessage.Product.PRODUCT_NOT_FOUND, id), HttpStatus.NOT_FOUND.value()));
+        productEntity.setDeleteFlag(StatusType.DELETED.getVal());
+        productRepository.save(productEntity);
+    }
+
     private BooleanBuilder buildCondition(ProductSearchRqDto searchRqDto) {
         BooleanBuilder condition = new BooleanBuilder();
         QProductEntity productEntity = QProductEntity.productEntity;
@@ -202,7 +247,8 @@ ProductServiceImpl implements ProductService {
             condition.and(productEntity.salePrice.loe(searchRqDto.getMaxPrice()));
         }
         condition.and(productEntity.category.status.eq(StatusType.ENABLE.getVal())
-                .and(productEntity.deleteFlag.eq(DeleteFlag.NOT_DELETE.getVal())));
+                .and(productEntity.deleteFlag.eq(DeleteFlag.NOT_DELETE.getVal())))
+                .and(productEntity.status.eq(StatusType.ENABLE.getVal()));
         return condition;
     }
 

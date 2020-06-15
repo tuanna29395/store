@@ -54,6 +54,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             "/api/carts/update",
             "/users/*",
             "/api/categories/{id}/change-status",
+            "/api/product/{id}/change-status",
     };
 
     @Autowired
