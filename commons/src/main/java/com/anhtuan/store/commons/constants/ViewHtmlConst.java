@@ -35,4 +35,8 @@ public interface ViewHtmlConst {
         String CREATE = "/admin-category/create";
         String EDIT = "/admin-category/update";
     }
+
+    interface AdminOrder {
+        String LIST = "/admin-order/order";
+    }
 }

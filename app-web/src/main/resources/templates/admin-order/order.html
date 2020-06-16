@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/admin-main-layout}">
+<head>
+    <title th:text="'Products |' ">Page Title</title>
+</head>
+<body>
+
+<div>
+    <div class="container-fluid" layout:fragment="content">
+
+        <h2 class="h3 mb-4 text-gray-800" style="padding-left: 20px;">Manager Order</h2>
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                        <tr>
+                            <th>STT</th>
+                            <th>ID</th>
+                            <th>User Name</th>
+                            <th>Phone number</th>
+                            <th>Address</th>
+                            <th>Total Price</th>
+                            <th>Status Now</th>
+                            <th>Change Status</th>
+                            <th>Detail</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <th:block th:each="item,iter : ${orders}">
+                            <tr id="order-{{$order->id}}"
+                                th:classappend="${item.status == 3 ? 'order-cancel' : (item.status == 2 ? 'order-success':'')}">
+                                <td th:text="${iter.index + 1}">STT</td>
+                                <td th:text="${item.id}">CODE</td>
+                                <td th:text="${item.orderName}">User Name</td>
+                                <td th:text="${item.orderPhone}">Phone number</td>
+                                <td th:text="${item.orderAddress}">Address</td>
+                                <td ><span th:text="${item.totalPrice}" class="money">Total Price</span></td>
+                                <td th:text="${item.status}" id="status-{{$order->id}}">STATUS</td>
+                                <td>
+                                    <button data-id="{{ $order->id }}" type="button"
+                                            class="btn btn-success status-success"
+                                            id="btn-success-{{$order->id}}"
+                                    >
+                                        Success
+                                    </button>
+                                    <button data-id="{{ $order->id }}" type="button"
+                                            class="btn btn-warning status-cancel"
+                                            id="btn-cancel-{{$order->id}}">
+                                        Cancel
+                                    </button>
+                                </td>
+                                <td>
+                                    <button th:data-id="${item.id}" class="btn btn-info show-detail">Detail Order 1
+                                    </button>
+                                </td>
+                            </tr>
+                        </th:block>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div th:replace="fragments/order/order-item :: order-item"></div>
+    </div>
+</div>
+</body>
+
+<div layout:fragment="footer">
+    <div th:replace="fragments/partials/footer :: jquery-tmpl"></div>
+    <script th:src="@{/admin/js/admin-order.js}"></script>
+</div>
+
+</html>

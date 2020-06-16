@@ -9,6 +9,9 @@ import com.anhtuan.store.commons.enums.UserStatus;
 import com.anhtuan.store.config.Principal;
 import com.anhtuan.store.dto.request.OrderRqDto;
 import com.anhtuan.store.dto.response.CartItemDto;
+import com.anhtuan.store.dto.response.OrderItemResponseDto;
+import com.anhtuan.store.dto.response.OrderResponseDto;
+import com.anhtuan.store.dto.response.SizeDto;
 import com.anhtuan.store.exception.Exception;
 import com.anhtuan.store.model.OrderEntity;
 import com.anhtuan.store.model.OrderItemEntity;
@@ -22,7 +25,9 @@ import com.anhtuan.store.repository.ProductRepository;
 import com.anhtuan.store.repository.SizeRepository;
 import com.anhtuan.store.repository.UserRepository;
 import com.anhtuan.store.service.CartService;
+import com.anhtuan.store.service.CommonService;
 import com.anhtuan.store.service.OrderService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,6 +36,9 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+
+import static org.codehaus.groovy.runtime.DefaultGroovyMethods.collect;
+import static org.codehaus.groovy.runtime.DefaultGroovyMethods.disjoint;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -53,12 +61,30 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private CartService cartService;
 
+    @Autowired
+    private ModelMapper modelMapper;
+
+    @Autowired
+    private CommonService commonService;
+
     @Override
     @Transactional
     public void orderProduct(OrderRqDto dto, Principal principle, HttpSession session) {
 
         OrderEntity orderEntity = createOrder(dto, principle);
         createOrderItem(session, orderEntity);
+    }
+
+    @Override
+    public List<OrderResponseDto> getAll() {
+        return orderRepository.findAll().stream()
+                .map(this::transformToResponseDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<OrderItemResponseDto> getOrderItemById(Integer orderId) {
+        return orderItemsRepository.findByOrderId(orderId).stream().map(this::transformToOrderItemDto).collect(Collectors.toList());
     }
 
     private OrderEntity createOrder(OrderRqDto dto, Principal principle) {
@@ -109,7 +135,7 @@ public class OrderServiceImpl implements OrderService {
 
             orderItemEntity.setQuantity(cartItem.getQuantity());
             orderItemEntity.setSoldPrice(productEntity.getSalePrice());
-            orderItemEntity.setSizePrice(sizeEntity.getPrice());
+//            orderItemEntity.setSizePrice(sizeEntity.getPrice());
             orderItemEntity.setAmount(convertPrice(cartItem.getAmount()));
 
 
@@ -121,6 +147,32 @@ public class OrderServiceImpl implements OrderService {
 
     private Integer convertPrice(String price) {
         return Integer.parseInt(price.replace(",", ""));
+    }
+
+    private OrderResponseDto transformToResponseDto(OrderEntity entity) {
+        OrderResponseDto res = modelMapper.map(entity, OrderResponseDto.class);
+        res.setTotalPrice(orderRepository.calculateAmountById(entity.getId()));
+        res.setStatus(getStatus(entity.getStatus()));
+        return res;
+    }
+
+    private String getStatus(Integer status) {
+        OrderStatus orderStatus = OrderStatus.values()[status];
+        switch (orderStatus) {
+            case COMPLETED:
+                return "Completed";
+            case PROCESSING:
+                return "Processing";
+
+            default:
+                return "Cancel";
+        }
+    }
+
+    private OrderItemResponseDto transformToOrderItemDto(OrderItemEntity orderItemEntity) {
+        OrderItemResponseDto res = modelMapper.map(orderItemEntity, OrderItemResponseDto.class);
+        res.setProduct(commonService.transformProductEntityToDto(orderItemEntity.getProduct()));
+        return res;
     }
 
 }

@@ -64,7 +64,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public CategoryResponseDto findById(Integer id) {
-        CategoryEntity categoryEntity = categoryRepository.findByIdAndDeleteFlag(id, StatusType.DELETED.getVal());
+        CategoryEntity categoryEntity = categoryRepository.findByIdAndDeleteFlag(id, StatusType.NOT_DELETE.getVal());
 
         return modelMapper.map(categoryEntity, CategoryResponseDto.class);
     }

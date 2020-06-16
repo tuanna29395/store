@@ -43,8 +43,6 @@ public class OrderItemEntity {
     @JoinColumn(name = "size_id")
     private SizeEntity size;
 
-    private Integer sizePrice;
-
     private Integer quantity;
 
     private Integer soldPrice;
