@@ -27,6 +27,11 @@
     <i class="fas fa-angle-up"></i>
 </a>
 
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script th:src="@{/admin/js/simple.money.format.js}"></script>
+<script type="text/javascript">
+    $('.money').simpleMoneyFormat();
+</script>
 <script th:src="@{/admin/vendor/jquery/jquery.min.js}"></script>
 <script th:src="@{/admin/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
 <script th:src="@{/admin/vendor/jquery-easing/jquery.easing.min.js}"></script>
@@ -68,6 +73,7 @@
             } ]
         });
     });
+
 </script>
 <div th:remove="tag" layout:fragment="footer"></div>
 </body>

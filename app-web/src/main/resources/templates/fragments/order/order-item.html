@@ -1,0 +1,53 @@
+<div th:fragment="order-item" id="classModal" class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog"
+     aria-labelledby="myExtraLargeModalLabel" aria-hidden="true" xmlns:th="http://www.thymeleaf.org"
+     xmlns="http://www.w3.org/1999/html">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="classModalLabel">
+                    Info Order
+                </h4>
+            </div>
+            <div class="modal-body">
+                <table id="classTable" class="table table-bordered">
+                    <thead>
+                    <th>STT</th>
+                    <th>Image</th>
+                    <th>Name</th>
+                    <th>Size</th>
+                    <th>Quantity</th>
+                    <th>Sale price</th>
+                    <th>Discount (%)</th>
+                    </thead>
+                    <tbody class="order-item-detail">
+
+                    </tbody>
+                </table>
+
+                <div class="row">
+                    <div class="col-lg-4 show-inline">
+                        <strong>Total Origin Price:&emsp;</strong>
+                        <div id="total_origin_price"></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 show-inline">
+                        <strong>Total Discount:&emsp;</strong>
+                        <div id="total_discount"></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 show-inline">
+                        <strong>Total Price:&emsp;</strong>
+                        <div id="total_price"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -23,9 +23,25 @@
     max-width: 200px;
     max-height: 200px;
 }
-.error-custom{
+
+.error-custom {
     color: red;
     position: relative;
     line-height: 1;
     width: 12.5rem;
+}
+
+.order-cancel {
+    background-color: #d3d3d3;
+}
+
+.order-success {
+    background-color: lightgreen;
+}
+
+.img-order-item {
+    max-width: 80px;
+}
+.show-inline {
+    display: inherit;
 }

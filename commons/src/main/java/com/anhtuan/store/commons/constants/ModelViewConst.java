@@ -49,4 +49,8 @@ public interface ModelViewConst {
         String CATEGORY_SEARCH = "categorySearchDto";
         String CATEGORY_DTO = "categoryDto";
     }
+
+    interface Order{
+        String LIST = "orders";
+    }
 }
