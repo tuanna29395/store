@@ -135,7 +135,7 @@ ProductServiceImpl implements ProductService {
         BooleanBuilder condition = new BooleanBuilder();
         QProductEntity productEntity = QProductEntity.productEntity;
 
-        if (dto.getStatus()!=0) {
+        if (dto.getStatus() != 0) {
             condition.and(productEntity.status.eq(dto.getStatus()));
         }
 
@@ -196,7 +196,7 @@ ProductServiceImpl implements ProductService {
         ProductEntity productEntity = productRepository.findByIdAndDeleteFlag(id, DeleteFlag.NOT_DELETE.getVal())
                 .orElseThrow(() -> Exception.dataNotFound().build(String.format(ErrorMessage.Product.PRODUCT_NOT_FOUND, id), HttpStatus.NOT_FOUND.value()));
 
-        CategoryEntity categoryEntity = categoryRepository.findByIdAndDeleteFlag(dto.getCategoryId(), StatusType.DELETED.getVal());
+        CategoryEntity categoryEntity = categoryRepository.findByIdAndDeleteFlag(dto.getCategoryId(), StatusType.NOT_DELETE.getVal());
 
         productEntity.setName(dto.getName());
         productEntity.setOriginalPrice(dto.getOriginalPrice());
@@ -207,8 +207,12 @@ ProductServiceImpl implements ProductService {
         productEntity.setDeleteFlag(DeleteFlag.NOT_DELETE.getVal());
 
         if (Objects.nonNull(dto.getDiscountId())) {
-            DiscountEntity discountEntity = discountRepository.findByIdAndDeleteFlag(dto.getDiscountId(), DeleteFlag.NOT_DELETE.getVal());
-            productEntity.setDiscount(discountEntity);
+            if (dto.getDiscountId() != 0) {
+                DiscountEntity discountEntity = discountRepository.findByIdAndDeleteFlag(dto.getDiscountId(), DeleteFlag.NOT_DELETE.getVal());
+                productEntity.setDiscount(discountEntity);
+            } else {
+                productEntity.setDiscount(null);
+            }
         }
         String imageName = dto.getImageUrl();
         try {

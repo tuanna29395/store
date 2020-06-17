@@ -4,6 +4,7 @@ import com.anhtuan.store.dto.request.ProductAddEditDto;
 import com.anhtuan.store.dto.response.CategoryResponseDto;
 import com.anhtuan.store.dto.response.DiscountResponseDto;
 import com.anhtuan.store.dto.response.ProductResponseDto;
+import com.anhtuan.store.model.DiscountEntity;
 import com.anhtuan.store.model.ProductEntity;
 import com.anhtuan.store.service.CommonService;
 import org.modelmapper.ModelMapper;
@@ -22,8 +23,8 @@ public class CommonServiceImpl implements CommonService {
         ProductResponseDto res = modelMapper.map(productEntity, ProductResponseDto.class);
         CategoryResponseDto categoryResponseDto = modelMapper.map(productEntity.getCategory(), CategoryResponseDto.class);
         DiscountResponseDto discountResponseDto = new DiscountResponseDto();
-
-        if (Objects.nonNull(productEntity.getDiscount())) {
+        DiscountEntity discountEntity = productEntity.getDiscount();
+        if (Objects.nonNull(discountEntity)) {
             discountResponseDto = modelMapper.map(productEntity.getDiscount(), DiscountResponseDto.class);
         }
 
@@ -31,6 +32,10 @@ public class CommonServiceImpl implements CommonService {
         res.setSalePrice(String.format("%,d", salePrice));
         res.setCategory(categoryResponseDto);
         res.setDiscount(discountResponseDto);
+
+        if (isValidDiscount(discountEntity))
+            res.setDiscountPrice(String.format("%,d", salePrice * discountEntity.getPercent() / 100));
+
         return res;
     }
 
@@ -44,5 +49,12 @@ public class CommonServiceImpl implements CommonService {
         }
 
         return res;
+    }
+
+    @Override
+    public Boolean isValidDiscount(DiscountEntity discountEntity) {
+        if (!Objects.nonNull(discountEntity)) return false;
+
+        return discountEntity.getStartAt().getTime() <= System.currentTimeMillis() && System.currentTimeMillis() <= discountEntity.getEndAt().getTime();
     }
 }

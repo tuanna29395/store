@@ -62,9 +62,9 @@
                             </div>
                             <div class="col-md-9">
                                 <select class="form-control form-control-sm select2" th:field="*{discountId}">
-                                    <option th:value="''">Please select one option</option>
-                                    <th:block th:if="${productDto.discountId !=null}" th:each="discount:${discounts}">
-                                        <option th:selected="${productDto.discount.id == discount.id}" th:text="${discount.description}">
+                                    <option th:value="0">Please select one option</option>
+                                    <th:block th:each="discount:${discounts}">
+                                        <option th:selected="${productDto.discountId == discount.id}" th:text="${discount.description}" th:value= "${discount.id}">
                                         </option>
                                     </th:block>
                                 </select>

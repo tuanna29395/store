@@ -13,12 +13,7 @@ import com.anhtuan.store.dto.response.OrderItemResponseDto;
 import com.anhtuan.store.dto.response.OrderResponseDto;
 import com.anhtuan.store.dto.response.SizeDto;
 import com.anhtuan.store.exception.Exception;
-import com.anhtuan.store.model.OrderEntity;
-import com.anhtuan.store.model.OrderItemEntity;
-import com.anhtuan.store.model.OrderItemId;
-import com.anhtuan.store.model.ProductEntity;
-import com.anhtuan.store.model.SizeEntity;
-import com.anhtuan.store.model.UserEntity;
+import com.anhtuan.store.model.*;
 import com.anhtuan.store.repository.OrderItemsRepository;
 import com.anhtuan.store.repository.OrderRepository;
 import com.anhtuan.store.repository.ProductRepository;
@@ -33,12 +28,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpSession;
+import java.sql.Timestamp;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import static org.codehaus.groovy.runtime.DefaultGroovyMethods.collect;
-import static org.codehaus.groovy.runtime.DefaultGroovyMethods.disjoint;
+import static org.codehaus.groovy.runtime.DefaultGroovyMethods.*;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -119,6 +115,10 @@ public class OrderServiceImpl implements OrderService {
                     .orElseThrow(() -> Exception.dataNotFound()
                             .build("Product not found"));
 
+            DiscountEntity discountEntity = productEntity.getDiscount();
+            if (commonService.isValidDiscount(discountEntity)) {
+                orderItemEntity.setPercentDiscount(discountEntity.getPercent());
+            }
             SizeEntity sizeEntity = sizeRepository.findById(cartItem.getSize().getId())
                     .orElseThrow(() -> Exception.dataNotFound()
                             .build("Data not found"));
