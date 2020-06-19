@@ -17,8 +17,13 @@ public class CartItemDto {
 
     public String calculateAmount() {
         int priceSize = size.getId() == null ? 0 : size.getPrice();
+        String priceProduct = product.getSalePrice();
 
-        return String.format("%,d", (convertPrice(product.getSalePrice()) + priceSize) * quantity);
+        if (product.getIsDiscount()) {
+            priceProduct = product.getDiscountPrice();
+        }
+
+        return String.format("%,d", (convertPrice(priceProduct) + priceSize) * quantity);
     }
 
     private Integer convertPrice(String price) {

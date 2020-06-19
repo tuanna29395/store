@@ -93,17 +93,18 @@ public class CheckoutController extends BaseController {
     }
 
     @GetMapping(value = "/process/success")
-    public String successPay(@RequestParam("paymentId") String paymentId, @RequestParam("PayerID") String payerId, RedirectAttributes ra) {
+    public String successPay(@RequestParam("paymentId") String paymentId, @RequestParam("PayerID") String payerId, RedirectAttributes ra, HttpSession session) {
         try {
             Payment payment = paypalService.executePayment(paymentId, payerId);
             if (payment.getState().equals("approved")) {
                 MessageHelper.addSuccessAttribute(ra, Messages.Checkouts.PAYMENT_SUCCESS);
-                return redirect(EndPointConst.Checkouts.CHECKOUT);
+                cartService.removeAllItem(session);
+                return redirect(EndPointConst.Cart.CARTS);
             }
         } catch (PayPalRESTException e) {
             log.error(e.getMessage());
         }
         MessageHelper.addSuccessAttribute(ra, Messages.Checkouts.PAYMENT_SUCCESS);
-        return redirect(EndPointConst.Checkouts.CHECKOUT);
+        return redirect(EndPointConst.Cart.CARTS);
     }
 }

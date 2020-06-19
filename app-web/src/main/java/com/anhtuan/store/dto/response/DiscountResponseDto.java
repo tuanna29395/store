@@ -5,6 +5,6 @@ import lombok.Data;
 @Data
 public class DiscountResponseDto {
     private Integer id;
-    private Double percent;
+    private Integer percent;
     private String description;
 }

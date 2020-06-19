@@ -29,5 +29,5 @@ public class ProductResponseDto {
 
     private Integer status;
 
-    private DiscountResponseDto discount;
+    private Boolean isDiscount;
 }

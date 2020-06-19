@@ -95,7 +95,7 @@ public class OrderServiceImpl implements OrderService {
         orderEntity.setOrderName(dto.getFullName());
         orderEntity.setOrderPhone(dto.getPhoneNumber());
         orderEntity.setOrderAddress(dto.getAddress());
-        orderEntity.setStatus(OrderStatus.PROCESSING.getValue());
+        orderEntity.setStatus(OrderStatus.COMPLETED.getValue());
 
         return orderRepository.save(orderEntity);
     }

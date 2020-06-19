@@ -24,4 +24,8 @@ public interface EndPointConst {
     interface Category{
         String ADMIN_LIST = "/admin/categories";
     }
+
+    interface Cart {
+        String CARTS ="/carts";
+    }
 }

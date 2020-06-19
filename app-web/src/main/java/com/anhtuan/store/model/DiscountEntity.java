@@ -19,7 +19,7 @@ public class DiscountEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private float percent;
+    private Integer percent;
 
     private Date startAt;
 

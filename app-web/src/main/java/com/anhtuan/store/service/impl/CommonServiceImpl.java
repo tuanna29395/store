@@ -22,19 +22,18 @@ public class CommonServiceImpl implements CommonService {
     public ProductResponseDto transformProductEntityToDto(ProductEntity productEntity) {
         ProductResponseDto res = modelMapper.map(productEntity, ProductResponseDto.class);
         CategoryResponseDto categoryResponseDto = modelMapper.map(productEntity.getCategory(), CategoryResponseDto.class);
-        DiscountResponseDto discountResponseDto = new DiscountResponseDto();
         DiscountEntity discountEntity = productEntity.getDiscount();
-        if (Objects.nonNull(discountEntity)) {
-            discountResponseDto = modelMapper.map(productEntity.getDiscount(), DiscountResponseDto.class);
-        }
 
         Integer salePrice = productEntity.getSalePrice();
         res.setSalePrice(String.format("%,d", salePrice));
         res.setCategory(categoryResponseDto);
-        res.setDiscount(discountResponseDto);
 
-        if (isValidDiscount(discountEntity))
-            res.setDiscountPrice(String.format("%,d", salePrice * discountEntity.getPercent() / 100));
+        if (isValidDiscount(discountEntity)) {
+            res.setIsDiscount(true);
+            res.setDiscountPrice(String.format("%,d", (int) salePrice * (100 - discountEntity.getPercent()) / 100));
+        }else {
+            res.setIsDiscount(false);
+        }
 
         return res;
     }
