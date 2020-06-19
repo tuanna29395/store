@@ -160,8 +160,15 @@ public class CartServiceImpl implements CartService {
         return cartItems.values().stream().mapToInt(this::calculateAmount).sum();
     }
 
+    @Override
+    public void removeAllItem(HttpSession session) {
+        HashMap<CartIdDto, CartItemDto> cartItems = (HashMap<CartIdDto, CartItemDto>) session.getAttribute(CART_NAME);
+        cartItems.clear();
+    }
+
     private Integer calculateAmount(CartItemDto cartItemDto) {
-        return (convertPrice(cartItemDto.getProduct().getSalePrice()) + cartItemDto.getSize().getPrice()) * cartItemDto.getQuantity();
+        String priceProduct = cartItemDto.getProduct().getIsDiscount() ? cartItemDto.getProduct().getDiscountPrice() : cartItemDto.getProduct().getSalePrice();
+        return (convertPrice(priceProduct) + cartItemDto.getSize().getPrice()) * cartItemDto.getQuantity();
     }
 
     private Integer convertPrice(String price) {

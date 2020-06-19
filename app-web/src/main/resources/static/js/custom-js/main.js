@@ -53,9 +53,13 @@ function callAjaxRemoveItemCarHeader(data) {
 
 function convertToCartItemData(dataOriginal) {
     let data = {};
+    let productPrice = dataOriginal.product.salePrice;
+    if (dataOriginal.product.isDiscount){
+        productPrice = dataOriginal.product.discountPrice;
+    }
     data.imageUrl = PATH_IMAGE + dataOriginal.product.imageUrl;
     data.productName = dataOriginal.product.name;
-    data.productPrice = dataOriginal.product.salePrice;
+    data.productPrice = productPrice;
     data.quantity = dataOriginal.quantity;
     data.amount = dataOriginal.amount;
     data.sizeName = dataOriginal.size.name;

@@ -21,4 +21,6 @@ public interface CartService {
     String totalCart(HttpSession session);
 
     Integer calculateTotalCart(HttpSession session);
+
+    void removeAllItem(HttpSession httpSession);
 }

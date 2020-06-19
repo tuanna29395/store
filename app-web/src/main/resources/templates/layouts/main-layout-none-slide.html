@@ -15,9 +15,9 @@
 
 <div id="main">
     <div class="container-fluid">
-<!--        <th:block th:if="${message != null && errorObject == null}">-->
-<!--            <div th:replace="fragments/alert :: alert (type=${#strings.toLowerCase(message.type)}, message=${message.message})">&nbsp;</div>-->
-<!--        </th:block>-->
+        <th:block th:if="${message != null && errorObject == null}">
+            <div style="padding-top: 5px;" th:replace="fragments/alert :: alert (type=${#strings.toLowerCase(message.type)}, message=${message.message})">&nbsp;</div>
+        </th:block>
         <div class="row" id="aside_wrap">
             <div class="col-md-12">
                 <div th:remove="tag" layout:fragment="content"></div>

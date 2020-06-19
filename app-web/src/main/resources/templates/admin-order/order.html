@@ -25,7 +25,6 @@
                             <th>Address</th>
                             <th>Total Price</th>
                             <th>Status Now</th>
-                            <th>Change Status</th>
                             <th>Detail</th>
                         </tr>
                         </thead>
@@ -34,27 +33,14 @@
                             <tr id="order-{{$order->id}}"
                                 th:classappend="${item.status == 3 ? 'order-cancel' : (item.status == 2 ? 'order-success':'')}">
                                 <td th:text="${iter.index + 1}">STT</td>
-                                <td th:text="${item.id}">CODE</td>
-                                <td th:text="${item.orderName}">User Name</td>
+                                <td  th:text="${item.id}">CODE</td>
+                                <td th:text="${item.orderName}"><User></User> Name</td>
                                 <td th:text="${item.orderPhone}">Phone number</td>
                                 <td th:text="${item.orderAddress}">Address</td>
                                 <td ><span th:text="${item.totalPrice}" class="money">Total Price</span></td>
-                                <td th:text="${item.status}" id="status-{{$order->id}}">STATUS</td>
+                                <td  id="status-{{$order->id}}"><span th:text="${item.status}" class="label btn-success" th:classappend="${item.status == 'Completed' ? 'btn-success' : 'btn-danger'}">Default Label</span></td>
                                 <td>
-                                    <button data-id="{{ $order->id }}" type="button"
-                                            class="btn btn-success status-success"
-                                            id="btn-success-{{$order->id}}"
-                                    >
-                                        Success
-                                    </button>
-                                    <button data-id="{{ $order->id }}" type="button"
-                                            class="btn btn-warning status-cancel"
-                                            id="btn-cancel-{{$order->id}}">
-                                        Cancel
-                                    </button>
-                                </td>
-                                <td>
-                                    <button th:data-id="${item.id}" class="btn btn-info show-detail">Detail Order 1
+                                    <button th:data-id="${item.id}" class="btn btn-info show-detail">Detail Order
                                     </button>
                                 </td>
                             </tr>

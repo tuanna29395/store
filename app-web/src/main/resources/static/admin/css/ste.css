@@ -45,3 +45,6 @@
 .show-inline {
     display: inherit;
 }
+.card-body td{
+    text-align: center;
+}

@@ -60,5 +60,5 @@ public class OrderItemEntity {
     @Temporal(TemporalType.TIMESTAMP)
     private Date deletedAt;
 
-    private float percentDiscount;
+    private Integer percentDiscount;
 }

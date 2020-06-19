@@ -10,7 +10,7 @@ public class OrderItemResponseDto {
 
     private String soldPrice;
 
-    private float percentDiscount;
+    private Integer percentDiscount;
 
     private SizeDto size;
 
