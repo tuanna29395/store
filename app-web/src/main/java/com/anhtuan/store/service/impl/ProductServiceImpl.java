@@ -235,6 +235,13 @@ ProductServiceImpl implements ProductService {
         productRepository.save(productEntity);
     }
 
+    @Override
+    public List<ProductResponseDto> litProductBestSelling(Integer numberProduct) {
+        return productRepository.findByBestSellingProduct(numberProduct)
+                .stream().map(product -> commonService.transformProductEntityToDto(product))
+                .collect(Collectors.toList());
+    }
+
     private BooleanBuilder buildCondition(ProductSearchRqDto searchRqDto) {
         BooleanBuilder condition = new BooleanBuilder();
         QProductEntity productEntity = QProductEntity.productEntity;

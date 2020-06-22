@@ -1,24 +1,15 @@
 package com.anhtuan.store.service.impl;
 
 import com.anhtuan.store.commons.constants.ErrorMessage;
-import com.anhtuan.store.commons.enums.DeleteFlag;
-import com.anhtuan.store.commons.enums.OrderStatus;
-import com.anhtuan.store.commons.enums.PaymentType;
-import com.anhtuan.store.commons.enums.ProductStatus;
-import com.anhtuan.store.commons.enums.UserStatus;
+import com.anhtuan.store.commons.enums.*;
 import com.anhtuan.store.config.Principal;
 import com.anhtuan.store.dto.request.OrderRqDto;
 import com.anhtuan.store.dto.response.CartItemDto;
 import com.anhtuan.store.dto.response.OrderItemResponseDto;
 import com.anhtuan.store.dto.response.OrderResponseDto;
-import com.anhtuan.store.dto.response.SizeDto;
 import com.anhtuan.store.exception.Exception;
 import com.anhtuan.store.model.*;
-import com.anhtuan.store.repository.OrderItemsRepository;
-import com.anhtuan.store.repository.OrderRepository;
-import com.anhtuan.store.repository.ProductRepository;
-import com.anhtuan.store.repository.SizeRepository;
-import com.anhtuan.store.repository.UserRepository;
+import com.anhtuan.store.repository.*;
 import com.anhtuan.store.service.CartService;
 import com.anhtuan.store.service.CommonService;
 import com.anhtuan.store.service.OrderService;
@@ -28,13 +19,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpSession;
-import java.sql.Timestamp;
 import java.util.List;
-import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
-
-import static org.codehaus.groovy.runtime.DefaultGroovyMethods.*;
 
 @Service
 public class OrderServiceImpl implements OrderService {

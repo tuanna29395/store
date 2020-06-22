@@ -39,4 +39,8 @@ public interface ViewHtmlConst {
     interface AdminOrder {
         String LIST = "/admin-order/order";
     }
+
+    interface Charts{
+        String CHART_REVENUE = "/chart/chart-revenue";
+    }
 }

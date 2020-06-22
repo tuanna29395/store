@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(value = "/api/product")
 public class ProductApiController {
+    public final Integer NUMBER_PRODUCT_BEST_SELLING = 3;
+
     @Autowired
     private ProductService productService;
 
@@ -36,6 +38,11 @@ public class ProductApiController {
     public ResponseEntity<?> changeStatus(@PathVariable("id") Integer productId, @RequestBody ProductAddEditDto productAddEditDto) {
         productService.updateStatus(productId, productAddEditDto);
         return ResponseEntity.ok("");
+    }
+
+    @GetMapping(value = "/best-selling")
+    public ResponseEntity<?> listBestSelling() {
+        return ResponseEntity.ok(productService.litProductBestSelling(NUMBER_PRODUCT_BEST_SELLING));
     }
 
 }

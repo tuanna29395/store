@@ -3,7 +3,7 @@ $(document).ready(function () {
 });
 
 function showDetail() {
-    $('.show-detail').click(function () {
+    $('#dataTable').on('click', '.show-detail', function () {
         $('#classModal').modal('show');
         let orderId = $(this).data("id");
         $.ajax({
