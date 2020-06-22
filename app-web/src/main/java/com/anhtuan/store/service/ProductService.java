@@ -36,8 +36,10 @@ public interface ProductService {
     void createProduct(ProductAddEditDto dto) throws IOException;
 
     String saveImageToFolder(MultipartFile file) throws IOException;
-    
+
     void update(ProductAddEditDto dto, Integer id);
 
     void delete(Integer id);
+
+    List<ProductResponseDto> litProductBestSelling(Integer numberProduct);
 }

@@ -1,6 +1,6 @@
 package com.anhtuan.store.controller;
 
-import com.anhtuan.store.commons.constants.Commons;
+import com.anhtuan.store.commons.constants.EndPointConst;
 import com.anhtuan.store.commons.constants.ModelViewConst;
 import com.anhtuan.store.commons.constants.ViewHtmlConst;
 import com.anhtuan.store.dto.request.UserRegisterRqDto;
@@ -13,7 +13,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 @Controller
-public class HomeController {
+public class HomeController extends BaseController {
+    @RequestMapping("/")
+    public String index(){
+        return redirect(EndPointConst.Products.PRODUCT_LIST);
+    }
 
     @GetMapping("/login")
     public String login(HttpServletRequest request, Model model, HttpSession session) {

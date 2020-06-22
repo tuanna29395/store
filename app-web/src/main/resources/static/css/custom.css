@@ -5315,3 +5315,7 @@ p { word-break: break-all }
     height: 100%;
     display: none;
 }
+
+ .hide-original-price{
+     display: none;
+ }

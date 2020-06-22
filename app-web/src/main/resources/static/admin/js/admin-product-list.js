@@ -1,10 +1,6 @@
 $(document).ready(function () {
-    $(".change-status-category").on('click', function (event) {
-        event.stopPropagation();
-        if ($(this).data('disabled')) {
-            event.preventDefault();
-            return false;
-        }
+    $("#dataTable").on('click','.change-status-category', function (event) {
+        // event.stopPropagation();
         let tagValue = $(this).find("a");
         let inputValue = $(this).find("input");
         let newStatus = inputValue.data('original') === 2 ? 3 : 2;
