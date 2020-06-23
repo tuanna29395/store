@@ -19,26 +19,12 @@
                 theme: "light2",
                 animationEnabled: true,
                 title: {
-                    text: "CanvasJS Charts in Thymeleaf"
+                    text: "Revenue statistics by month"
                 },
-                data:[{
-                    dataPoints: [
-                        { x: 1, y: 71 },
-                        { x: 2, y: 55 },
-                        { x: 3, y: 50 },
-                        { x: 4, y: 65 },
-                        { x: 5, y: 71 },
-                        { x: 6, y: 68 },
-                        { x: 7, y: 38 },
-                        { x: 8, y: 92, indexLabel: "Highest" },
-                        { x: 9, y: 54 },
-                        { x: 10, y: 60 },
-                        { x: 11, y: 21 },
-                        { x: 12, y: 50 },
-                    ]
+                data: [{
+                    dataPoints: []
                 }]
             });
-            chart.render();
 
             /*
              To get data from Service and to update chart, perform a AJAX request to get data, update the chart with received data and re-render the chart
@@ -55,6 +41,17 @@
              +]*/
             /*});*/
             /*]]>*/
+            $.get("/api/statistic", function (data) {
+                let list = [];
+                data.forEach(function (item) {
+                    let point = {};
+                    point.x = item.month
+                    point.y = item.revenue
+                    list.push(point);
+                })
+                chart.options.data[0].dataPoints = list
+                chart.render();
+            })
         </script>
 
 
