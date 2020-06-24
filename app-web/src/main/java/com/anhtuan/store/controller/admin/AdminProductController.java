@@ -1,6 +1,7 @@
 package com.anhtuan.store.controller.admin;
 
 import com.anhtuan.store.commons.constants.EndPointConst;
+import com.anhtuan.store.commons.constants.Messages;
 import com.anhtuan.store.commons.constants.ModelViewConst;
 import com.anhtuan.store.commons.constants.ViewHtmlConst;
 import com.anhtuan.store.controller.BaseController;
@@ -11,12 +12,14 @@ import com.anhtuan.store.service.CategoryService;
 import com.anhtuan.store.service.CommonService;
 import com.anhtuan.store.service.DiscountService;
 import com.anhtuan.store.service.ProductService;
+import com.anhtuan.store.support.MessageHelper;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 
@@ -78,7 +81,8 @@ public class AdminProductController extends BaseController {
     public String submitEdit(Model model,
                              @Valid @ModelAttribute(ModelViewConst.Product.PRODUCT_ADD_EDIT_DTO) ProductAddEditDto productAddEditDto,
                              BindingResult bindingResult,
-                             @PathVariable Integer id) {
+                             @PathVariable Integer id,
+                             RedirectAttributes ra) {
         if (bindingResult.hasErrors()) {
             model.addAttribute(ModelViewConst.Product.PRODUCT_ADD_EDIT_DTO, productService.getProductAdminDetail(id));
             model.addAttribute(ModelViewConst.Product.CATEGORY_LIST, categoryService.getAll(new CategorySearchDto()));
@@ -87,11 +91,12 @@ public class AdminProductController extends BaseController {
         }
 
         productService.update(productAddEditDto, id);
-        return redirect(String.format(EndPointConst.Products.ADMIN_EDIT,id));
+        MessageHelper.addSuccessAttribute(ra, String.format(Messages.UPDATE_SUCCESS, Messages.PRODUCT));
+        return redirect(String.format(EndPointConst.Products.ADMIN_EDIT, id));
     }
 
     @GetMapping("/{id}/delete")
-    public String delete(@PathVariable Integer id){
+    public String delete(@PathVariable Integer id) {
         productService.delete(id);
         return redirect(EndPointConst.Products.ADMIN_LIST);
     }
