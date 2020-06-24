@@ -1,20 +1,24 @@
 .img-icon-category {
     max-width: 80px;
 }
+
 .img-slide-category {
     max-width: 200px;
 }
+
 .text_error {
     color: darkred;
     font-size: 14px;
     text-align: center;
 }
+
 .chk-table {
     margin: auto;
     position: relative;
 }
+
 .toggleDisp a {
-    display:  inline-block;
+    display: inline-block;
     width: 113px;
     height: 35px;
     background-image: url(/images/icon_disabled.png);
@@ -22,9 +26,23 @@
     margin: 0 auto;
     vertical-align: top;
 }
+
 .toggleDisp a.active {
     background-image: url(/images/icon_enabled.png);
 }
+
 .toggleDisp input {
     display: none;
+}
+
+.w45 {
+    width: 45px !important;
+}
+
+.alignC {
+    text-align: center !important;
+}
+
+.over-left {
+    float: left !important;
 }

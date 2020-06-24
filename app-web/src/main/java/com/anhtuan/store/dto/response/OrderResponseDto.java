@@ -2,6 +2,8 @@ package com.anhtuan.store.dto.response;
 
 import lombok.Data;
 
+import java.util.Date;
+
 @Data
 public class OrderResponseDto {
     private Integer id;
@@ -19,5 +21,7 @@ public class OrderResponseDto {
     private String status;
 
     private Long totalPrice;
+
+    private Date updatedAt;
 
 }

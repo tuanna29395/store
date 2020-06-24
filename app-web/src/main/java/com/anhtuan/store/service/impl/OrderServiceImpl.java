@@ -4,6 +4,7 @@ import com.anhtuan.store.commons.constants.ErrorMessage;
 import com.anhtuan.store.commons.enums.*;
 import com.anhtuan.store.config.Principal;
 import com.anhtuan.store.dto.request.OrderRqDto;
+import com.anhtuan.store.dto.request.SearchOrderDto;
 import com.anhtuan.store.dto.response.CartItemDto;
 import com.anhtuan.store.dto.response.OrderItemResponseDto;
 import com.anhtuan.store.dto.response.OrderResponseDto;
@@ -13,6 +14,8 @@ import com.anhtuan.store.repository.*;
 import com.anhtuan.store.service.CartService;
 import com.anhtuan.store.service.CommonService;
 import com.anhtuan.store.service.OrderService;
+import com.google.common.collect.Lists;
+import com.querydsl.core.BooleanBuilder;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -59,8 +62,16 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<OrderResponseDto> getAll() {
-        return orderRepository.findAll().stream()
+    public List<OrderResponseDto> getAll(SearchOrderDto dto) {
+        BooleanBuilder condition = new BooleanBuilder();
+        QOrderEntity orderEntity = QOrderEntity.orderEntity;
+        if (dto.getStatus() != null) {
+            condition.and(orderEntity.status.eq(dto.getStatus()));
+        }
+        if (dto.getFromDate() != null && dto.getEndDate() != null) {
+            condition.and(orderEntity.updatedAt.between(dto.getFromDate(), dto.getEndDate()));
+        }
+        return Lists.newArrayList(orderRepository.findAll(condition)).stream()
                 .map(this::transformToResponseDto)
                 .collect(Collectors.toList());
     }
