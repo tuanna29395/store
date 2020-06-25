@@ -2,6 +2,7 @@ package com.anhtuan.store.service.impl;
 
 import com.anhtuan.store.commons.constants.ErrorMessage;
 import com.anhtuan.store.commons.enums.*;
+import com.anhtuan.store.commons.utils.DateTimeUtils;
 import com.anhtuan.store.config.Principal;
 import com.anhtuan.store.dto.request.OrderRqDto;
 import com.anhtuan.store.dto.request.SearchOrderDto;
@@ -22,6 +23,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpSession;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -69,7 +71,9 @@ public class OrderServiceImpl implements OrderService {
             condition.and(orderEntity.status.eq(dto.getStatus()));
         }
         if (dto.getFromDate() != null && dto.getEndDate() != null) {
-            condition.and(orderEntity.updatedAt.between(dto.getFromDate(), dto.getEndDate()));
+            Date from = DateTimeUtils.addTime(dto.getFromDate(), 0, 0, 0);
+            Date end = DateTimeUtils.addTime(dto.getEndDate(), 23, 59, 59);
+            condition.and(orderEntity.updatedAt.between(from, end));
         }
         return Lists.newArrayList(orderRepository.findAll(condition)).stream()
                 .map(this::transformToResponseDto)
@@ -116,6 +120,8 @@ public class OrderServiceImpl implements OrderService {
             DiscountEntity discountEntity = productEntity.getDiscount();
             if (commonService.isValidDiscount(discountEntity)) {
                 orderItemEntity.setPercentDiscount(discountEntity.getPercent());
+            }else {
+                orderItemEntity.setPercentDiscount(0);
             }
             SizeEntity sizeEntity = sizeRepository.findById(cartItem.getSize().getId())
                     .orElseThrow(() -> Exception.dataNotFound()

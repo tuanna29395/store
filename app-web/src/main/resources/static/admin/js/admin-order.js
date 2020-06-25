@@ -32,10 +32,10 @@ function showDetail() {
                     let soldPrice = parseInt(item.soldPrice);
                     let sizePrice = parseInt(item.size.price);
 
-                    totalOriginPrice += soldPrice + sizePrice;
+                    totalOriginPrice += (soldPrice + sizePrice) * item.quantity;
                     if (percent) {
                         data.discount = percent;
-                        totalDiscount += soldPrice * percent / 100;
+                        totalDiscount += (soldPrice * percent / 100) * item.quantity;
                     }
                     let html = `<tr>
                             <td>${stt}</td>
