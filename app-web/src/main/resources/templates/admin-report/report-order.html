@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/admin-main-layout}">
 <head>
-    <title th:text="'Category |' ">Page Title</title>
+    <title th:text="'Report |' ">Page Title</title>
 </head>
 <body>
 
@@ -12,36 +12,34 @@
         <h2 class="h3 mb-4 text-gray-800" style="padding-left: 20px;">Report order</h2>
         <div class="card shadow mb-4">
             <div class="panel-body ">
-                <form th:action="@{/admin/categories/add}" method="post" th:object="${categoryDto}"
-                      enctype="multipart/form-data">
-                    <br>
+                <div class="form-group row" style="margin-top: 20px;">
+                    <div class="col-md-3" style="text-align: center;">
+                        <p>Created At:</p>
+                    </div>
+                    <div class="col-md-9" style="display: flex;">
+                        <div class='input-group date datetimepicker' style="width: 30%">
+                            <input type='text' class="form-control" id="start-date"
+                                   th:attr="data-date-format=${jsDisplayDateFormat}"/>
+                            <span class="input-group-addon"><span class="fa fa-calendar"></span></span>
 
-                    <div class="form-group row">
-                        <div class="col-md-3">
-                            <p>Created At:</p>
                         </div>
-                        <div class="col-md-9" style="display: flex;">
-                                <div class='input-group date datetimepicker' style="width: 30%">
-                                    <input type='text' class="form-control"/>
-                                    <span class="input-group-addon"><span class="fa fa-calendar"></span></span>
+                        <div class="w45 alignC over-left">～</div>
+                        <div class='input-group date datetimepicker' style="width: 30%">
+                            <input type='text' class="form-control" id="end-date"
+                                   th:attr="data-date-format=${jsDisplayDateFormat}"/>
+                            <span class="input-group-addon"><span class="fa fa-calendar"></span></span>
 
-                                </div>
-                            <div class="w45 alignC over-left">～</div>
-                                <div class='input-group date datetimepicker' style="width: 30%">
-                                    <input type='text' class="form-control"/>
-                                    <span class="input-group-addon"><span class="fa fa-calendar"></span></span>
-
-                                </div>
                         </div>
                     </div>
+                </div>
 
-                    <div class="form-group">
-                        <a th:href="@{/api/report/download/revenue.xlsx}" class="btn btn_update">DownLoad Report</a>
-                        <a class="btn btn-sm btn-cancel btn_update" style="background-color: #ddd"
-                           th:href="@{/admin/categories}">Close / Cancel</a>
-                    </div>
-
-                </form>
+                <div class="form-group">
+                    <a  id="download-report"
+                       class="btn btn-sm btn-download"
+                       style="background-color: #f6c23e;">DownLoad Report</a>
+                    <a class="btn btn-sm btn-cancel btn_update" style="background-color: #ddd"
+                       th:href="@{/admin/categories}">Close / Cancel</a>
+                </div>
             </div>
         </div>
         <!-- DataTales Example -->
@@ -52,6 +50,7 @@
 
 <div layout:fragment="footer">
     <div th:replace="fragments/partials/footer :: jquery-tmpl"></div>
+    <script src="/admin/js/admin-report-excel.js"></script>
     <script type="text/javascript">
         $(function () {
             $('.datetimepicker').datetimepicker({
