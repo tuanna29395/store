@@ -155,7 +155,7 @@ ProductServiceImpl implements ProductService {
 
     @Override
     public void createProduct(ProductAddEditDto dto) throws IOException {
-        CategoryEntity categoryEntity = categoryRepository.findByIdAndDeleteFlag(dto.getCategoryId(), StatusType.DELETED.getVal());
+        CategoryEntity categoryEntity = categoryRepository.findByIdAndDeleteFlag(dto.getCategoryId(), StatusType.NOT_DELETE.getVal());
 
         ProductEntity productEntity = new ProductEntity();
         productEntity.setName(dto.getName());
