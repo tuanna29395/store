@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/main-layout-none-slide}">
+<head>
+    <title th:text="'Forgot |' ">Page Title</title>
+</head>
+<body>
+
+<div>
+    <div class="shop-area" layout:fragment="content">
+        <div >
+            <div class="login-content " style="margin: auto; width: 30%;padding-top: 10px;padding-bottom: 10px;">
+                <h2 class="login-title">Reset password</h2>
+
+                <div th:if="${error}" class="alert alert-dismissible alert-danger">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    <span th:text="${error}"></span>
+                </div>
+
+                <form th:method="POST" th:action="@{/reset-password}" th:object="${passwordResetForm}">
+                    <label>Password</label>
+                    <input type="text" name="password" required/>
+                    <div>
+                        <label th:if="${#fields.hasErrors('password')}" th:errors="*{password}"
+                               class="error"></label>
+                    </div>
+                    <label>Re-Password</label>
+                    <input type="password" name="confirmPassword" required/>
+                    <div>
+                        <label th:if="${#fields.hasErrors('global')}" th:errors="*{global}"
+                               class="error"></label>
+                    </div>
+                    <input hidden name="token" />
+                    <input class="login-sub" type="submit" value="Reset"/>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+<div layout:fragment="footer">
+    <div th:replace="fragments/partials/footer :: jquery-tmpl"></div>
+    <script th:src="@{/js/custom-js/products.js}"></script>
+    <script th:src="@{/js/custom-js/category.js}"></script>
+</div>
+
+</html>

@@ -8,7 +8,7 @@ import javax.validation.constraints.NotEmpty;
 
 @FieldsValueMatch(
         field = "password",
-        fieldMatch = "passwordConfirmation",
+        fieldMatch = "confirmPassword",
         message = Messages.User.PASSWORD_CONFIRMATION_MATCH_REQUIRED
 )
 @Data

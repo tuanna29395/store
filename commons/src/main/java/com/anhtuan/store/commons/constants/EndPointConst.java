@@ -18,7 +18,7 @@ public interface EndPointConst {
     }
 
     interface Password {
-        String RESET_PASSWORD_URL = "/password/reset?token=";
+        String RESET_PASSWORD_URL = "/reset-password?token=";
     }
 
     interface Category{

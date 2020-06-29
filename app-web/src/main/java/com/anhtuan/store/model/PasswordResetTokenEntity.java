@@ -40,4 +40,8 @@ public class PasswordResetTokenEntity {
     @UpdateTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedAt;
+
+    public boolean isExpired() {
+        return new Date().after(this.expiryDate);
+    }
 }
