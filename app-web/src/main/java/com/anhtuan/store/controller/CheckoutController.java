@@ -4,6 +4,7 @@ import com.anhtuan.store.commons.constants.EndPointConst;
 import com.anhtuan.store.commons.constants.Messages;
 import com.anhtuan.store.commons.constants.ModelViewConst;
 import com.anhtuan.store.commons.constants.ViewHtmlConst;
+import com.anhtuan.store.commons.enums.PaymentType;
 import com.anhtuan.store.config.Principal;
 import com.anhtuan.store.dto.request.OrderRqDto;
 import com.anhtuan.store.payment.config.PaypalPaymentIntent;
@@ -51,6 +52,7 @@ public class CheckoutController extends BaseController {
     @GetMapping
     public String showPage(@AuthenticationPrincipal Principal principal, Model model, HttpSession session) {
         model.addAttribute(ModelViewConst.checkouts.USER_INFO, principal);
+        model.addAttribute(ModelViewConst.checkouts.ORDER_INFO, new OrderRqDto());
         model.addAttribute(ModelViewConst.checkouts.CART_INFO, cartService.getAll(session));
         model.addAttribute(ModelViewConst.checkouts.TOTAL_CART, cartService.totalCart(session));
         return ViewHtmlConst.Checkout.CHECKOUT;
@@ -60,11 +62,17 @@ public class CheckoutController extends BaseController {
     public String processCheckout(@AuthenticationPrincipal Principal principal,
                                   HttpSession session,
                                   @ModelAttribute(ModelViewConst.checkouts.ORDER_INFO) OrderRqDto orderRqDto,
-                                  HttpServletRequest request) {
+                                  HttpServletRequest request,
+                                  RedirectAttributes ra) {
 
         String cancelUrl = Utils.getBaseURL(request) + "/" + URL_PAYPAL_CANCEL;
         String successUrl = Utils.getBaseURL(request) + "/" + URL_PAYPAL_SUCCESS;
-
+        if (orderRqDto.getTypePayment().equals(PaymentType.PAY_WHEN_RECEIVED.getType())) {
+            orderService.orderProduct(orderRqDto, principal, session);
+            MessageHelper.addSuccessAttribute(ra, Messages.Checkouts.ORDER_SUCCESS);
+            cartService.removeAllItem(session);
+            return redirect(EndPointConst.Cart.CARTS);
+        }
         try {
             Payment payment = paypalService.createPayment(
                     Double.valueOf(cartService.calculateTotalCart(session)) / Double.valueOf(USD),

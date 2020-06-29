@@ -18,6 +18,7 @@ public interface Messages {
 
     interface Checkouts {
         String PAYMENT_SUCCESS = "Thanh Toán Thành Công ! ";
+        String ORDER_SUCCESS = "Đặt Hàng Thành Công ! ";
     }
 
 }
