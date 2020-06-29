@@ -106,12 +106,14 @@ function getReviews() {
     $.ajax({
         url: `/review/${productId}/reviews`,
         type: "GET",
+        async: false,
         success: function (response) {
             $(".review-content").empty();
             response.content.forEach(function (item) {
                 let data = transformReviewItem(item)
                 $("#item-review").tmpl(data).appendTo(".review-content");
             });
+            $("#number-review").text(response.content.length);
         }
     })
 }

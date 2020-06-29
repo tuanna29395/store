@@ -93,11 +93,16 @@ public class OrderServiceImpl implements OrderService {
                         .build(String.format(ErrorMessage.User.USER_NOT_FOUND, principle.getEmail())));
 
         orderEntity.setUser(userEntity);
-        orderEntity.setPayment(PaymentType.PAY_PAL.getValue());
+        if (dto.getTypePayment().equals(PaymentType.PAY_WHEN_RECEIVED.getType())) {
+            orderEntity.setPayment(PaymentType.PAY_WHEN_RECEIVED.getValue());
+            orderEntity.setStatus(OrderStatus.PROCESSING.getValue());
+        } else {
+            orderEntity.setPayment(PaymentType.PAY_PAL.getValue());
+            orderEntity.setStatus(OrderStatus.COMPLETED.getValue());
+        }
         orderEntity.setOrderName(dto.getFullName());
         orderEntity.setOrderPhone(dto.getPhoneNumber());
         orderEntity.setOrderAddress(dto.getAddress());
-        orderEntity.setStatus(OrderStatus.COMPLETED.getValue());
 
         return orderRepository.save(orderEntity);
     }
@@ -120,7 +125,7 @@ public class OrderServiceImpl implements OrderService {
             DiscountEntity discountEntity = productEntity.getDiscount();
             if (commonService.isValidDiscount(discountEntity)) {
                 orderItemEntity.setPercentDiscount(discountEntity.getPercent());
-            }else {
+            } else {
                 orderItemEntity.setPercentDiscount(0);
             }
             SizeEntity sizeEntity = sizeRepository.findById(cartItem.getSize().getId())

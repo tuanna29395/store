@@ -17,13 +17,10 @@
 											<i class="fa fa-star"></i>
 											<i class="fa fa-star-o"></i>
 										</span>
-            <span class="review-no">04 Review (s)</span>
+            <span class="review-no"><span class="number-review"></span> Review (s)</span>
             <span class="review-no add-review"><a href="#">Add your review</a></span>
         </div>
-        <p th:text="${item.description}">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam fringilla augue
-            nec est tristique auctor. Donec
-            non est at libero vulputate rutrum. Morbi ornare lectus quis justo gravida semper. Nulla tellus mi,
-            vulputate adipiscing cursus eu, suscipit id nulla.</p>
+        <div th:utext="${item.description}"></div>
         <form th:action="@{'/carts/add/' + ${item.id}}" th:object="${toppingRq}" method="GET">
             <div class="pro-size">
                 <label>size <span>*</span></label>

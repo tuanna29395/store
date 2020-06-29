@@ -12,17 +12,13 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 @Configuration
 @EnableWebSecurity
-@Order(2)
-public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+@Order(1)
+public class AdminSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     AuthenticationServiceImpl authenticationServiceImpl;
-
-    @Autowired
-    private RefererRedirectionAuthenticationSuccessHandler refererRedirectionAuthenticationSuccessHandler;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -37,7 +33,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/webjars/**");
     }
 
+    private static final String[] ANT_MATCHERS_SECURE_ENDPOINT = new String[]{
+            "/admin/**",
+    };
+
     private static final String[] ANT_MATCHERS_RESOURCES = new String[]{
+            "/admin/login",
+            "/admin/login-error",
+            "/admin/vendor/**",
+            "/admin/css/**",
+            "/admin/js/**",
             "/bootstrap/**",
             "/css/**",
             "/fonts/**",
@@ -47,16 +52,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             "/templates/**",
             "/vendor/**",
             "/login-process",
-            "/ckeditor/**"
-
-    };
-
-    private static final String[] ANT_MATCHERS_ENDPOINT = new String[]{
-            "/api/carts/delete",
-            "/api/carts/update",
-            "/users/*",
-            "/api/categories/{id}/change-status",
-            "/api/product/{id}/change-status",
+            "/ckeditor/**",
     };
 
     @Autowired
@@ -64,47 +60,28 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(authenticationServiceImpl).passwordEncoder(passwordEncoder());
     }
 
-    private static final String[] ANT_MATCHERS_FREE_ENDPOINT = new String[]{
-            "/",
-            "/login*",
-            "/carts/**",
-            "/products/**",
-            "/api/reset-password/**",
-            "/users/*",
-            "/api/**",
-            "/api/carts/**",
-            "/review/{productId}/reviews",
-            "/password/**",
-
-    };
-
-
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf()
-                .ignoringAntMatchers(ANT_MATCHERS_ENDPOINT)
-                .and()
-                .authorizeRequests()
+        http.csrf().and().
+                antMatcher("/admin/**").authorizeRequests()
                 .antMatchers(ANT_MATCHERS_RESOURCES).permitAll()
-                .antMatchers(ANT_MATCHERS_FREE_ENDPOINT).permitAll()
-                .anyRequest().authenticated()
+                    .antMatchers(ANT_MATCHERS_SECURE_ENDPOINT).hasAuthority("ADMIN")
                 .and()
                 .formLogin()
-                .loginPage("/login")
+                .loginPage("/admin/login")
                 .usernameParameter("email-login")
                 .passwordParameter("password-login")
-                .successHandler(refererRedirectionAuthenticationSuccessHandler)
-                .failureUrl("/login-error")
-                .defaultSuccessUrl("/products")
+                .defaultSuccessUrl("/admin")
+                .failureUrl("/admin/login-error")
                 .and()
                 .logout()
                 .logoutUrl("/logout")
-                .logoutSuccessUrl("/login")
+                .logoutSuccessUrl("/admin/login")
                 .invalidateHttpSession(true)
                 .deleteCookies("JSESSIONID")
                 .and()
                 .exceptionHandling().accessDeniedPage("/403");
-
     }
+
+
 }
