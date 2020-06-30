@@ -5,6 +5,7 @@ public interface ModelViewConst {
     String DISPLAY_DATE_FORMAT = "displayDateFormat";
     String JS_DISPLAY_DATETIME_FORMAT = "jsDisplayDatetimeFormat";
     String JS_DISPLAY_DATE_FORMAT = "jsDisplayDateFormat";
+    String LOGIN_FACEBOOK_URL = "loginFacebookUrl";
 
     interface User {
         String USER_REGISTER_DTO = "userRegisterDto";
@@ -50,7 +51,8 @@ public interface ModelViewConst {
         String CATEGORY_DTO = "categoryDto";
     }
 
-    interface Order{
+    interface Order {
         String LIST = "orders";
+        String REDIRECT = "orderRqDto";
     }
 }

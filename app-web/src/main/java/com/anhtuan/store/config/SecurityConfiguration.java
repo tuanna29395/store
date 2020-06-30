@@ -105,7 +105,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .invalidateHttpSession(true)
                 .deleteCookies("JSESSIONID")
                 .and()
+                .rememberMe()
+                .key("cookieSecret").tokenValiditySeconds(1296000)
+                .and()
                 .exceptionHandling().accessDeniedPage("/403");
+
+        http
+                .requiresChannel()
+                .anyRequest()
+                .requiresSecure();
 
     }
 }

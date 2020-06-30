@@ -29,6 +29,7 @@ public abstract class BaseController {
         model.addAttribute(ModelViewConst.DISPLAY_DATE_FORMAT, Commons.DATE_PATTERN);
         model.addAttribute(ModelViewConst.JS_DISPLAY_DATETIME_FORMAT, Commons.JS_DATETIME_PATTERN);
         model.addAttribute(ModelViewConst.JS_DISPLAY_DATE_FORMAT, Commons.JS_DATE_PATTERN);
+        model.addAttribute(ModelViewConst.LOGIN_FACEBOOK_URL,Commons.LOGIN_FACEBOOK_URL);
     }
 
     protected String getBaseUrl(HttpServletRequest request) {

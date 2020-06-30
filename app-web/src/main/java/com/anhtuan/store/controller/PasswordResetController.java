@@ -6,6 +6,7 @@ import com.anhtuan.store.model.UserEntity;
 import com.anhtuan.store.repository.PasswordResetTokenRepository;
 import com.anhtuan.store.repository.UserRepository;
 import com.anhtuan.store.service.UserService;
+import com.anhtuan.store.support.MessageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -77,6 +78,7 @@ public class PasswordResetController {
         user.setPassword(updatedPassword);
         userRepository.save(user);
         tokenRepository.delete(token);
+        MessageHelper.addSuccessAttribute(redirectAttributes, "Reset mật khẩu thành công");
 
         return "redirect:/login";
     }

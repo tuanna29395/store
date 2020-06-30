@@ -84,7 +84,7 @@ public class CheckoutController extends BaseController {
                     successUrl);
             for (Links links : payment.getLinks()) {
                 if (links.getRel().equals("approval_url")) {
-                    orderService.orderProduct(orderRqDto, principal, session);
+                    ra.addAttribute(ModelViewConst.Order.REDIRECT, orderRqDto);
                     return "redirect:" + links.getHref();
                 }
             }
@@ -101,12 +101,20 @@ public class CheckoutController extends BaseController {
     }
 
     @GetMapping(value = "/process/success")
-    public String successPay(@RequestParam("paymentId") String paymentId, @RequestParam("PayerID") String payerId, RedirectAttributes ra, HttpSession session) {
+    public String successPay(@RequestParam("paymentId") String paymentId,
+                             @RequestParam("PayerID") String payerId,
+                             RedirectAttributes ra, HttpSession session,
+                             @AuthenticationPrincipal Principal principal) {
         try {
             Payment payment = paypalService.executePayment(paymentId, payerId);
             if (payment.getState().equals("approved")) {
+
                 MessageHelper.addSuccessAttribute(ra, Messages.Checkouts.PAYMENT_SUCCESS);
+                OrderRqDto orderRqDto = (OrderRqDto) ra.getAttribute(ModelViewConst.Order.REDIRECT);
+
+                orderService.orderProduct(orderRqDto, principal, session);
                 cartService.removeAllItem(session);
+
                 return redirect(EndPointConst.Cart.CARTS);
             }
         } catch (PayPalRESTException e) {

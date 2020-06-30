@@ -10,4 +10,5 @@ public interface Commons {
     String DATE_PATTERN = "MM/dd/yyyy";
     String JS_DATE_PATTERN = "MM/DD/YYYY";
     String SUBJECT_MAIL_FORGOT_PASSWORD = "Mail request reset password";
+    String LOGIN_FACEBOOK_URL = "https://www.facebook.com/dialog/oauth?client_id=304352020704159&redirect_uri=https://localhost:8082/login-facebook";
 }

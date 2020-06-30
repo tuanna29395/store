@@ -30,7 +30,7 @@
                         <label th:if="${#fields.hasErrors('global')}" th:errors="*{global}"
                                class="error"></label>
                     </div>
-                    <input hidden name="token" />
+                    <input hidden th:field="*{token}" />
                     <input class="login-sub" type="submit" value="Reset"/>
                 </form>
             </div>
