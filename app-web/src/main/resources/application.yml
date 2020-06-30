@@ -41,15 +41,33 @@ spring:
     protocol: smtp
     test-connection: false
 server:
-  port: 8082
   servlet:
     session:
       timeout: 60m
   error:
     whitelabel:
       enabled: false
+  ssl:
+    key-store: classpath:keystore.p12
+    key-store-password: 123456
+    key-store-type: pkcs12
+    key-alias: tomcat
+    key-password: 123456
+  security:
+    require-ssl: true
+  port: 8082
 paypal:
   mode: sandbox
   client:
     app: AfWb_YBTZwt9J37nCed5XRMuJ29CTAHoOKG6iqtWGL7Yit4RdVi30XQw-ZDswmynnGSp8kvFYBqN9JKA
     secret: EE8-9h5ewxUO1ZXgLIRIZ5_GrFSzVvFHjeplMWsJnBuboarsTEu5pMYEXFarls586ZjjUHqULJXzRI9L
+facebook:
+  app:
+    id: 304352020704159
+    secret: 3c3b20999bf91bfc397a54fc3972f6c5
+  redirect:
+    uri: https://localhost:8082/login-facebook
+  link:
+    get:
+      token: https://graph.facebook.com/oauth/access_token?client_id=%s&client_secret=%s&redirect_uri=%s&code=%s
+

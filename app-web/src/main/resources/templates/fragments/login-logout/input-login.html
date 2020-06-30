@@ -3,7 +3,7 @@
         <h2 class="login-title">Login</h2>
         <p>Hello,Welcome to your account</p>
         <div class="social-sign">
-            <a href="#"><i class="fa fa-facebook"></i> Sign in with facebook</a>
+            <a th:href="${loginFacebookUrl}"><i class="fa fa-facebook"></i> Sign in with facebook</a>
             <a class="twitter" href="#"><i class="fa fa-twitter"></i> Sign in with twitter</a>
         </div>
         <form id="form-login" th:method="POST" th:action="@{/login}">
@@ -15,7 +15,7 @@
 
             <div class="login-lost">
                 <span class="log-rem">
-                    <input type="checkbox"/>
+                    <input type="checkbox" name="remember-me"/>
                     <label>Remember me!</label>
                 </span>
                 <span class="forgot-login">
