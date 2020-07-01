@@ -19,13 +19,13 @@
 
                 <form th:method="POST" th:action="@{/reset-password}" th:object="${passwordResetForm}">
                     <label>Password</label>
-                    <input type="text" name="password" required/>
+                    <input type="password" th:field="*{password}" required/>
                     <div>
                         <label th:if="${#fields.hasErrors('password')}" th:errors="*{password}"
                                class="error"></label>
                     </div>
                     <label>Re-Password</label>
-                    <input type="password" name="confirmPassword" required/>
+                    <input type="password" th:field="*{confirmPassword}" required/>
                     <div>
                         <label th:if="${#fields.hasErrors('global')}" th:errors="*{global}"
                                class="error"></label>

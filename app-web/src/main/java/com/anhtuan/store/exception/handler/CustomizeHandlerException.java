@@ -9,9 +9,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 @Slf4j
-public class CustomizeHandlerException {
+public class CustomizeHandlerException extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public final String handleException(Exception ex, Model model) {
@@ -32,6 +33,8 @@ public class CustomizeHandlerException {
 
         return getErrorPath();
     }
+
+
 
     @ExceptionHandler(AccessDeniedException.class)
     public String handleACLMethodException(AccessDeniedException ex, Model model) {

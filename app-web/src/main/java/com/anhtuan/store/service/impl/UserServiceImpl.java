@@ -6,6 +6,7 @@ import com.anhtuan.store.commons.enums.DeleteFlag;
 import com.anhtuan.store.commons.enums.Role;
 import com.anhtuan.store.dto.request.PasswordResetDto;
 import com.anhtuan.store.dto.request.UserRegisterRqDto;
+import com.anhtuan.store.dto.response.UserDto;
 import com.anhtuan.store.exception.Exception;
 import com.anhtuan.store.model.PasswordResetTokenEntity;
 import com.anhtuan.store.model.RoleEntity;
@@ -56,5 +57,10 @@ public class UserServiceImpl implements UserService {
         passwordResetTokenRepository.delete(tokenEntity);
         userEntity.setPassword(passwordEncoder.encode(passwordResetDto.getConfirmPassword()));
         userRepository.save(userEntity);
+    }
+
+    @Override
+    public UserDto getById(Integer id) {
+        return modelMapper.map(userRepository.findById(id), UserDto.class);
     }
 }

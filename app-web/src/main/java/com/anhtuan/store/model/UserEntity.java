@@ -41,4 +41,10 @@ public class UserEntity {
     @UpdateTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedAt;
+
+    private String avatar;
+
+    private Integer typeLogin;
+
+    private String userAppId;
 }

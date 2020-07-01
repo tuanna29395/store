@@ -15,7 +15,7 @@ public class AdminHomeController {
         return "admin-index";
     }
 
-    @GetMapping("/admin/login")
+    @RequestMapping("/admin/login")
     public String login(Model model) {
         model.addAttribute(ModelViewConst.User.USER_REGISTER_DTO, new UserRegisterRqDto());
         return "admin-login";

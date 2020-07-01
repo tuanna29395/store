@@ -88,7 +88,7 @@ public class OrderServiceImpl implements OrderService {
     private OrderEntity createOrder(OrderRqDto dto, Principal principle) {
         OrderEntity orderEntity = new OrderEntity();
 
-        UserEntity userEntity = userRepository.findByEmailAndDeletedFlag(principle.getEmail(), UserStatus.NOT_DELETE.getValue())
+        UserEntity userEntity = userRepository.findByIdAndDeletedFlag(principle.getId(), UserStatus.NOT_DELETE.getValue())
                 .orElseThrow(() -> Exception.dataNotFound()
                         .build(String.format(ErrorMessage.User.USER_NOT_FOUND, principle.getEmail())));
 

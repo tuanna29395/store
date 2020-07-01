@@ -29,6 +29,8 @@ public class Principal implements UserDetails {
 
     private String phoneNumber;
 
+    private Integer typeLogin;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Collections.singleton(new SimpleGrantedAuthority(role.getName()));

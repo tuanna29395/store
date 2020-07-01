@@ -54,7 +54,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private static final String[] ANT_MATCHERS_ENDPOINT = new String[]{
             "/api/carts/delete",
             "/api/carts/update",
-            "/users/*",
             "/api/categories/{id}/change-status",
             "/api/product/{id}/change-status",
     };
@@ -70,7 +69,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             "/carts/**",
             "/products/**",
             "/api/reset-password/**",
-            "/users/*",
+            "/users/sign-up",
             "/api/**",
             "/api/carts/**",
             "/review/{productId}/reviews",
