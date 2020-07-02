@@ -108,7 +108,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .rememberMe()
                 .key("cookieSecret").tokenValiditySeconds(1296000)
                 .and()
-                .exceptionHandling().accessDeniedPage("/403");
+                .exceptionHandling().accessDeniedPage("/login");
 
         http
                 .requiresChannel()

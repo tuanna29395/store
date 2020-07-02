@@ -66,8 +66,10 @@ public class AdminSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 antMatcher("/admin/**").authorizeRequests()
                 .antMatchers(ANT_MATCHERS_RESOURCES).permitAll()
                     .antMatchers(ANT_MATCHERS_SECURE_ENDPOINT).hasAuthority("ADMIN")
+                .anyRequest().authenticated()
                 .and()
                 .formLogin()
+                .loginProcessingUrl("/admin/admin-login")
                 .loginPage("/admin/login")
                 .usernameParameter("email-login")
                 .passwordParameter("password-login")
@@ -75,12 +77,12 @@ public class AdminSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .failureUrl("/admin/login-error")
                 .and()
                 .logout()
-                .logoutUrl("/logout")
+                .logoutUrl("/admin/logout")
                 .logoutSuccessUrl("/admin/login")
                 .invalidateHttpSession(true)
                 .deleteCookies("JSESSIONID")
                 .and()
-                .exceptionHandling().accessDeniedPage("/403");
+                .exceptionHandling().accessDeniedPage("/admin/login-error");
     }
 
 
