@@ -21,7 +21,7 @@ public class AdminHomeController {
         return "admin-login";
     }
 
-    @RequestMapping("/admin/login-error")
+    @GetMapping("/admin/login-error")
     public String loginError(Model model) {
         model.addAttribute(ModelViewConst.User.USER_REGISTER_DTO, new UserRegisterRqDto());
         model.addAttribute("loginError", true);
