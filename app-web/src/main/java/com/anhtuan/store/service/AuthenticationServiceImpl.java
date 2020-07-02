@@ -35,7 +35,7 @@ public class AuthenticationServiceImpl implements UserDetailsService {
         return buildUserForAuthentication(user, authorities);
     }
 
-    private List<GrantedAuthority> getUserAuthority(Set<RoleEntity> userRoles) {
+    public List<GrantedAuthority> getUserAuthority(Set<RoleEntity> userRoles) {
         Set<GrantedAuthority> roles = new HashSet<GrantedAuthority>();
         for (RoleEntity role : userRoles) {
             roles.add(new SimpleGrantedAuthority(role.getName()));
@@ -43,7 +43,7 @@ public class AuthenticationServiceImpl implements UserDetailsService {
         return new ArrayList<>(roles);
     }
 
-    private Principal buildUserForAuthentication(UserEntity user, List<GrantedAuthority> authorities) {
+    public Principal buildUserForAuthentication(UserEntity user, List<GrantedAuthority> authorities) {
         return new Principal(user.getId(),
                 user.getUsername(),
                 user.getEmail(),
@@ -51,6 +51,7 @@ public class AuthenticationServiceImpl implements UserDetailsService {
                 user.getRole(),
                 user.getFullName(),
                 user.getAddress(),
-                user.getPhoneNumber());
+                user.getPhoneNumber(),
+                user.getTypeLogin());
     }
 }

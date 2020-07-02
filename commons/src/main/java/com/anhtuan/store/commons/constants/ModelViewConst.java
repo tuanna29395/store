@@ -42,7 +42,8 @@ public interface ModelViewConst {
     }
 
     interface Password {
-        String PASSWORD_FORGOT_DTO = "passwordForgotDto";
+        String PASSWORD_FORGOT_DTO ="passwordForgotDto";
+        String PASSWORD_RESET_DTO ="passwordResetDto";
     }
 
     interface Category {

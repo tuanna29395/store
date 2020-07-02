@@ -64,12 +64,12 @@ public class PasswordResetController {
     @Transactional
     public String handlePasswordReset(@ModelAttribute("passwordResetForm") @Valid PasswordResetDto form,
                                       BindingResult result,
-                                      RedirectAttributes redirectAttributes) {
+                                      RedirectAttributes redirectAttributes,
+                                      Model model) {
 
         if (result.hasErrors()) {
-            redirectAttributes.addFlashAttribute(BindingResult.class.getName() + ".passwordResetForm", result);
-            redirectAttributes.addFlashAttribute("passwordResetForm", form);
-            return "redirect:/reset-password?token=" + form.getToken();
+            model.addAttribute("passwordResetForm", form);
+            return "password/reset";
         }
 
         PasswordResetTokenEntity token = tokenRepository.findByToken(form.getToken());

@@ -1,22 +1,20 @@
 package com.anhtuan.store.facebook.ulti;
 
+import com.anhtuan.store.dto.response.UserFbDto;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.restfb.DefaultFacebookClient;
 import com.restfb.FacebookClient;
+import com.restfb.Parameter;
 import com.restfb.Version;
+import com.restfb.json.JsonObject;
+import com.restfb.json.JsonValue;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.fluent.Request;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 @Component
 public class RestFB {
@@ -33,6 +31,8 @@ public class RestFB {
     @Value("${facebook.redirect.uri}")
     private String redirectUri;
 
+
+
     public String getToken(final String code) throws ClientProtocolException, IOException {
         String link = String.format(linkGetToken, appId,
                 secretKey, redirectUri, code);
@@ -42,24 +42,19 @@ public class RestFB {
         return node.textValue();
     }
 
-    public com.restfb.types.User getUserInfo(final String accessToken) {
+
+    public UserFbDto getUserInfo(final String accessToken) {
         FacebookClient facebookClient = new DefaultFacebookClient(accessToken, secretKey,
                 Version.LATEST);
-        return facebookClient.fetchObject("me", com.restfb.types.User.class);
-    }
-
-    public UserDetails buildUser(com.restfb.types.User user) {
-        boolean enabled = true;
-        boolean accountNonExpired = true;
-        boolean credentialsNonExpired = true;
-        boolean accountNonLocked = true;
-
-        List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-        authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
-        UserDetails userDetail = new User(user.getId() + user.getName(), "", enabled, accountNonExpired, credentialsNonExpired,
-                accountNonLocked, authorities);
-
-        return userDetail;
+        JsonObject userData = facebookClient.fetchObject("me", JsonObject.class, Parameter.with("fields", "picture,first_name,name,gender,id"));
+        UserFbDto userFbDto = new UserFbDto();
+        JsonObject pictureUser = (JsonObject) userData.get("picture");
+        JsonObject dataPicture = (JsonObject) pictureUser.get("data");
+        JsonValue urlPicture = dataPicture.get("url");
+        userFbDto.setUserName(userData.getString("name", ""));
+        userFbDto.setAvatar(urlPicture.asString());
+        userFbDto.setUserAppId(userData.get("id").asString());
+        return userFbDto;
     }
 
 

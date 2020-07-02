@@ -9,4 +9,9 @@ public interface UserRepository extends JpaRepository<UserEntity, Integer> {
     Optional<UserEntity> findByEmailAndDeletedFlag(String username, Integer deletedFlg);
 
     boolean existsByEmailIgnoreCaseAndDeletedFlagIsNull(String email);
+
+    UserEntity findByUserAppIdAndTypeLogin(String userAppId, Integer typeLogin);
+
+    Optional<UserEntity> findByIdAndDeletedFlag(Integer userId, Integer deletedFlag);
+
 }

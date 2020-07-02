@@ -67,6 +67,7 @@ public class CheckoutController extends BaseController {
 
         String cancelUrl = Utils.getBaseURL(request) + "/" + URL_PAYPAL_CANCEL;
         String successUrl = Utils.getBaseURL(request) + "/" + URL_PAYPAL_SUCCESS;
+        log.info(principal.toString());
         if (orderRqDto.getTypePayment().equals(PaymentType.PAY_WHEN_RECEIVED.getType())) {
             orderService.orderProduct(orderRqDto, principal, session);
             MessageHelper.addSuccessAttribute(ra, Messages.Checkouts.ORDER_SUCCESS);
