@@ -9,6 +9,7 @@ public interface ModelViewConst {
 
     interface User {
         String USER_REGISTER_DTO = "userRegisterDto";
+        String USER_PROFILE_DTO = "userProfileDto";
     }
 
     interface Product {

@@ -3,6 +3,7 @@ package com.anhtuan.store.controller;
 import com.anhtuan.store.commons.constants.*;
 import com.anhtuan.store.config.Principal;
 import com.anhtuan.store.dto.request.UserRegisterRqDto;
+import com.anhtuan.store.dto.response.UserDto;
 import com.anhtuan.store.repository.UserRepository;
 import com.anhtuan.store.service.UserService;
 import com.anhtuan.store.support.MessageHelper;
@@ -11,10 +12,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
@@ -48,8 +46,17 @@ public class UserController extends BaseController {
     }
 
     @GetMapping("/profile")
-    public String profile(Model model, @AuthenticationPrincipal Principal principal){
+    public String showPageProfile(Model model, @AuthenticationPrincipal Principal principal) {
+        model.addAttribute(ModelViewConst.User.USER_PROFILE_DTO, userService.getById(principal.getId()));
         return ViewHtmlConst.Users.USER_PROFILE;
     }
 
+    @PostMapping("/update/profile/{id}")
+    public String submitUpdateProfile(@PathVariable Integer id, @ModelAttribute("userProfileDto") UserDto userDto, RedirectAttributes ra) {
+        userService.update(id, userDto);
+        ra.addFlashAttribute("mess", "cập nhật thành công");
+        return redirect("/users/profile");
+    }
+
 }
+
