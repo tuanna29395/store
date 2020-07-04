@@ -11,4 +11,6 @@ public interface UserService {
     void resetPassword(PasswordResetDto passwordResetDto, UserEntity userEntity);
 
     UserDto getById(Integer id);
+
+    void update(Integer userId, UserDto dto);
 }

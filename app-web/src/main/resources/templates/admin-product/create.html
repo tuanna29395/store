@@ -12,7 +12,8 @@
         <h2 class="h3 mb-4 text-gray-800" style="padding-left: 20px;">Add Products</h2>
         <!-- DataTales Example -->
         <div class="card shadow mb-4 ">
-            <form th:action="@{/admin/products/add}" th:object="${productDto}" method="post" enctype="multipart/form-data" >
+            <form th:action="@{/admin/products/add}" th:object="${productDto}" method="post"
+                  enctype="multipart/form-data">
                 <div class="row">
                     <div class="panel-body col-lg-8" style="padding-left: 24px">
                         <br>
@@ -33,7 +34,7 @@
                                     <option th:value="''">Please select one option</option>
                                     <th:block th:each="category:${categories}">
 
-                                        <option th:text="${category.name}" th:value= "${category.id}">
+                                        <option th:text="${category.name}" th:value="${category.id}">
                                         </option>
                                     </th:block>
                                 </select>
@@ -45,7 +46,8 @@
                                 <p>Origin Price (vnd):</p>
                             </div>
                             <div class="col-md-9">
-                                <input type="number" class="form-control form-control-sm" th:field="*{originalPrice}" required>
+                                <input type="number" class="form-control form-control-sm" th:field="*{originalPrice}"
+                                       required>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -53,7 +55,8 @@
                                 <p>Sale Price (vnd):</p>
                             </div>
                             <div class="col-md-9">
-                                <input type="number" class="form-control form-control-sm" th:field="*{salePrice}" required>
+                                <input type="number" class="form-control form-control-sm" th:field="*{salePrice}"
+                                       required>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -64,8 +67,8 @@
                                 <select class="form-control form-control-sm select2" th:field="*{discountId}">
                                     <option th:value="''">Please select one option</option>
                                     <th:block th:each="discount:${discounts}">
-                                            <option th:text="${discount.description}" th:value= "${discount.id}">
-                                            </option>
+                                        <option th:text="${discount.description}" th:value="${discount.id}">
+                                        </option>
                                     </th:block>
                                 </select>
                             </div>
@@ -76,8 +79,10 @@
                             </div>
                             <div class="col-md-9">
                                 <div class="radio">
-                                    <label><input type="radio" th:field="*{status}" value="2" th:checked="${productDto.status == 2}"> Active</label>&emsp;&emsp;
-                                    <label><input type="radio" th:field="*{status}" value="3" th:checked="${productDto.status == 3}"> Inactive</label>
+                                    <label><input type="radio" th:field="*{status}" value="2"
+                                                  th:checked="${productDto.status == 2}"> Active</label>&emsp;&emsp;
+                                    <label><input type="radio" th:field="*{status}" value="3"
+                                                  th:checked="${productDto.status == 3}"> Inactive</label>
                                 </div>
                             </div>
                         </div>
@@ -94,7 +99,8 @@
                         <br>
                         <div class="show-image" id="img-pro-0">
                             <div class="form-group row">
-                                <input type="file" th:field="*{fileImage}" class="form-control-sm input-img-pro" id="input-img-pro-0" required >
+                                <input type="file" th:field="*{fileImage}" class="form-control-sm input-img-pro"
+                                       id="input-img-pro-0" required>
                             </div>
                             <div class="form-group row display-img">
                                 <img class="size-img-pro" id="img-show-pro-0">
@@ -118,14 +124,14 @@
     <div th:replace="fragments/partials/footer :: jquery-tmpl"></div>
     <script th:src="@{/admin/js/ckeditor/ckeditor.js}"></script>
     <script>
-        CKEDITOR.replace( 'editor', {
+        CKEDITOR.replace('editor', {
             filebrowserBrowseUrl: '/admin/ckfinder/ckfinder.html',
             filebrowserImageBrowseUrl: '/admin/ckfinder/ckfinder.html?type=Images',
-            filebrowserFlashBrowseUrl:'/admin/ckfinder/ckfinder.html?type=Flash',
+            filebrowserFlashBrowseUrl: '/admin/ckfinder/ckfinder.html?type=Flash',
             filebrowserUploadUrl: '/admin/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files',
             filebrowserImageUploadUrl: '/admin/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images',
             filebrowserFlashUploadUrl: '/admin/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Flash'
-        } );
+        });
     </script>
 </div>
 
