@@ -3,6 +3,7 @@ package com.anhtuan.store.service.impl;
 import com.anhtuan.store.commons.constants.ErrorMessage;
 import com.anhtuan.store.commons.enums.DeleteFlag;
 import com.anhtuan.store.commons.enums.ProductStatus;
+import com.anhtuan.store.commons.enums.SortProductType;
 import com.anhtuan.store.commons.enums.StatusType;
 import com.anhtuan.store.commons.enums.UserStatus;
 import com.anhtuan.store.config.Principal;
@@ -30,7 +31,9 @@ import com.querydsl.core.BooleanBuilder;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -73,6 +76,17 @@ ProductServiceImpl implements ProductService {
 
     @Override
     public Page<ProductResponseDto> search(ProductSearchRqDto searchRqDto, Pageable pageable) {
+        Sort sort = null;
+        Sort.Direction direction;
+        if (searchRqDto.getSortBy().equals(SortProductType.PRICE_ASC.getVal())) {
+            direction = Sort.Direction.ASC;
+            sort = Sort.by(direction, "salePrice", "id");
+        }
+        if (searchRqDto.getSortBy().equals(SortProductType.PRICE_DECS.getVal())) {
+            direction = Sort.Direction.DESC;
+            sort = Sort.by(direction, "salePrice", "id");
+        }
+        pageable = PageRequest.of((int) pageable.getOffset(), pageable.getPageSize(), sort);
         return productRepository.findAll(buildCondition(searchRqDto), pageable).map(entity -> commonService.transformProductEntityToDto(entity));
     }
 
@@ -257,6 +271,7 @@ ProductServiceImpl implements ProductService {
         if (Objects.nonNull(searchRqDto.getMaxPrice())) {
             condition.and(productEntity.salePrice.loe(searchRqDto.getMaxPrice()));
         }
+
         condition.and(productEntity.category.status.eq(StatusType.ENABLE.getVal())
                 .and(productEntity.deleteFlag.eq(DeleteFlag.NOT_DELETE.getVal())))
                 .and(productEntity.status.eq(StatusType.ENABLE.getVal()));

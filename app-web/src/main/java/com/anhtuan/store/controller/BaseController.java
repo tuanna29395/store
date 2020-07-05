@@ -2,6 +2,9 @@ package com.anhtuan.store.controller;
 
 import com.anhtuan.store.commons.constants.Commons;
 import com.anhtuan.store.commons.constants.ModelViewConst;
+import com.anhtuan.store.dto.request.CategorySearchDto;
+import com.anhtuan.store.service.CategoryService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
@@ -13,6 +16,10 @@ import javax.servlet.http.HttpServletRequest;
 
 @ControllerAdvice
 public abstract class BaseController {
+
+    @Autowired
+    private CategoryService categoryService;
+
     protected String redirect(String action) {
         return "redirect:" + action;
     }
@@ -29,7 +36,9 @@ public abstract class BaseController {
         model.addAttribute(ModelViewConst.DISPLAY_DATE_FORMAT, Commons.DATE_PATTERN);
         model.addAttribute(ModelViewConst.JS_DISPLAY_DATETIME_FORMAT, Commons.JS_DATETIME_PATTERN);
         model.addAttribute(ModelViewConst.JS_DISPLAY_DATE_FORMAT, Commons.JS_DATE_PATTERN);
-        model.addAttribute(ModelViewConst.LOGIN_FACEBOOK_URL,Commons.LOGIN_FACEBOOK_URL);
+        model.addAttribute(ModelViewConst.LOGIN_FACEBOOK_URL, Commons.LOGIN_FACEBOOK_URL);
+
+        model.addAttribute(ModelViewConst.Category.CATEGORY_LIST_HEADER, categoryService.getAll(new CategorySearchDto()));
     }
 
     protected String getBaseUrl(HttpServletRequest request) {

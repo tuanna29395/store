@@ -28,9 +28,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.support.RequestContextUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.Map;
 
 @Controller
 @RequestMapping(value = "/checkout")
@@ -85,7 +87,7 @@ public class CheckoutController extends BaseController {
                     successUrl);
             for (Links links : payment.getLinks()) {
                 if (links.getRel().equals("approval_url")) {
-                    ra.addAttribute(ModelViewConst.Order.REDIRECT, orderRqDto);
+                    session.setAttribute(ModelViewConst.Order.REDIRECT, orderRqDto);
                     return "redirect:" + links.getHref();
                 }
             }
@@ -109,14 +111,9 @@ public class CheckoutController extends BaseController {
         try {
             Payment payment = paypalService.executePayment(paymentId, payerId);
             if (payment.getState().equals("approved")) {
-
-                MessageHelper.addSuccessAttribute(ra, Messages.Checkouts.PAYMENT_SUCCESS);
-                OrderRqDto orderRqDto = (OrderRqDto) ra.getAttribute(ModelViewConst.Order.REDIRECT);
-
+                OrderRqDto orderRqDto = (OrderRqDto) session.getAttribute(ModelViewConst.Order.REDIRECT);
                 orderService.orderProduct(orderRqDto, principal, session);
                 cartService.removeAllItem(session);
-
-                return redirect(EndPointConst.Cart.CARTS);
             }
         } catch (PayPalRESTException e) {
             log.error(e.getMessage());

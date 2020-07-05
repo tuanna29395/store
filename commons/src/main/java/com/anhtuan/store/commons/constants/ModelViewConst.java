@@ -51,6 +51,7 @@ public interface ModelViewConst {
         String CATEGORY_PAGEABLE = "categories";
         String CATEGORY_SEARCH = "categorySearchDto";
         String CATEGORY_DTO = "categoryDto";
+        String CATEGORY_LIST_HEADER = "headerCategories";
     }
 
     interface Order {

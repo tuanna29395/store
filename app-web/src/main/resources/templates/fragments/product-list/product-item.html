@@ -19,17 +19,17 @@
                                 <img th:src="@{'/images/product/'+ ${item.imageUrl}}" alt=""/>
                                 <img class="secondary-img" th:src="@{'/images/product/'+ ${item.imageUrl}}" alt=""/>
                             </a>
-                            <span class="tag-line">new</span>
+<!--                            <span class="tag-line">new</span>-->
                             <div class="product-action">
-                                <div class="button-top">
-                                    <a href="#" data-toggle="modal" data-target="#productModal"><i
-                                            class="fa fa-search"></i></a>
-                                    <a href="#"><i class="fa fa-heart"></i></a>
-                                </div>
+<!--                                <div class="button-top">-->
+<!--                                    <a href="#" data-toggle="modal" data-target="#productModal"><i-->
+<!--                                            class="fa fa-search"></i></a>-->
+<!--                                    <a href="#"><i class="fa fa-heart"></i></a>-->
+<!--                                </div>-->
                                 <form th:action="@{'/carts/add/' + ${item.id}}" th:object="${toppingRq}" method="GET">
                                     <input hidden th:field="*{sizeId}">
                                     <div class="button-cart">
-                                        <button type="submit"><i class="fa fa-shopping-cart"></i> add to cart</button>
+                                        <button type="submit"><i class="fa fa-shopping-cart"></i> thêm vào giỏ hàng</button>
                                     </div>
                                 </form>
 
@@ -71,7 +71,7 @@
                                 <img th:src="@{'/images/product/'+ ${item.imageUrl}}" alt=""/>
                                 <img class="secondary-img" th:src="@{'/images/product/'+ ${item.imageUrl}}" alt=""/>
                             </a>
-                            <span class="tag-line">new</span>
+<!--                            <span class="tag-line">new</span>-->
                         </div>
                         <div class="product-content">
                             <h3><a th:href="@{'/products/'+ ${item.imageUrl}}"><span th:text="${item.name}"></span></a></h3>
@@ -81,15 +81,10 @@
                             </div>
                             <div th:utext="${item.description}"></div>
                             <div class="product-action">
-                                <div class="button-top">
-                                    <a href="#" data-toggle="modal" data-target="#productModal"><i
-                                            class="fa fa-search"></i></a>
-                                    <a href="#"><i class="fa fa-heart"></i></a>
-                                </div>
                                 <form th:action="@{'/carts/add/' + ${item.id}}" th:object="${toppingRq}" method="GET">
                                     <input hidden th:field="*{sizeId}">
                                     <div class="button-cart">
-                                        <button type="submit"><i class="fa fa-shopping-cart"></i> add to cart</button>
+                                        <button type="submit"><i class="fa fa-shopping-cart"></i> thêm vào giỏ hàng</button>
                                     </div>
                                 </form>
                             </div>
