@@ -5,6 +5,7 @@ $(document).ready(function () {
     changePageSize();
     onclickSelectStar();
     getReviews();
+    changeSortBy();
     // onclickAddReview();
 });
 
@@ -66,6 +67,27 @@ function changePageSize() {
         window.location = url;
     })
 
+}
+
+function changeSortBy() {
+    $(".sort-by").on('change', function () {
+        let currentSortBy = getUrlParameter('sortBy')
+        let newSortBy = $('.sort-by').val();
+        let url = window.location.href;
+        if (currentSortBy) {
+            url = url.replace("sortBy=" + currentSortBy, "sortBy=" + newSortBy);
+        } else {
+            if (url.includes('=')) {
+                url += "&sortBy=" + newSortBy;
+            } else {
+                url += "?sortBy=" + newSortBy;
+            }
+
+        }
+
+        window.location = url;
+
+    })
 }
 
 function getUrlParameter(sParam) {

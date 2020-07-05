@@ -13,21 +13,18 @@
                     class="fa fa-th-list" aria-hidden="true"></i></a></li>
         </ul>
         <div class="short-by">
-            <span class="sorting-show"> Sort by:</span>
-            <select>
-                <option value="volvo">popularity</option>
-                <option value="saab">Default</option>
-                <option value="mercedes">average rating</option>
-                <option value="audi">newness</option>
-                <option value="audi">low to high</option>
-                <option value="audi">high to low</option>
+            <span class="sorting-show"> Sắp xếp:</span>
+            <select class="sort-by">
+                <option value="1">Giá tăng dần</option>
+                <option value="2">Giá giảm dần </option>
+                <option value="3">Đang khuễn mãi</option>
             </select>
         </div>
         <div class="shop-show">
             <span class="sorting-show" > Show:</span>
             <select class="page-size">
+                <option value="10" th:selected="${dataPageable.size == 10}">10</option>
                 <option value="20" th:selected="${dataPageable.size == 20}">20</option>
-                <option value="50" th:selected="${dataPageable.size == 50}">50</option>
                 <option value="100" th:selected="${dataPageable.size == 100}">100</option>
             </select>
         </div>
@@ -35,7 +32,7 @@
             <ul th:if="${dataPageable.content.size() != 0}">
                 <li th:class="${dataPageable.number eq 0} ? 'disabled' : ''">
                     <a th:href="@{/products(categoryId=${searchDto.categoryId},
-                           sortCondition=${searchDto.sortCondition},size=${dataPageable.size},
+                           sortBy=${searchDto.sortBy},size=${dataPageable.size},
                            page=${dataPageable.number - 1})}">
                         <i class="fa fa-angle-left"></i>
                     </a>
@@ -45,14 +42,14 @@
                     <li th:class="${pageNumber==dataPageable.number + 1} ? active">
                         <a th:text="${pageNumber}"
                            th:href="@{/products(categoryId=${searchDto.categoryId},
-                           sortCondition=${searchDto.sortCondition},size=${dataPageable.size},
+                           sortBy=${searchDto.sortBy},size=${dataPageable.size},
                            page=${pageNumber - 1})}">
                         </a>
                     </li>
                 </th:block>
                 <li th:class="${dataPageable.number + 1 eq totalPage} ? 'disabled' : ''">
                     <a th:href="@{/products(categoryId=${searchDto.categoryId},
-                           sortCondition=${searchDto.sortCondition},size=${dataPageable.size},
+                           sortBy=${searchDto.sortBy},size=${dataPageable.size},
                            page=${dataPageable.number + 1})}"><i class="fa fa-angle-right"></i></a>
                 </li>
             </ul>

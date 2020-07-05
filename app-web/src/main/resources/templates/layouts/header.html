@@ -17,18 +17,20 @@
                             <nav>
                                 <ul>
                                     <li>
-                                        <a th:href="@{/products}">home</a>
-                                        <ul>
-                                            <li>
-                                                <a th:href="@{/products}">home page</a>
-                                            </li>
-                                        </ul>
+                                        <a th:href="@{/products}">Trang chủ</a>
                                     </li>
                                     <li>
                                         <a href="#">about</a>
                                     </li>
                                     <li>
-                                        <a href="#">blog</a>
+                                        <a>Danh mục sản phẩm</a>
+                                        <ul>
+                                            <th:block th:each="item: ${headerCategories}">
+                                                <li>
+                                                    <a th:href="@{/products(category=${item.id})}" th:text="${item.name}"></a>
+                                                </li>
+                                            </th:block>
+                                        </ul>
                                     </li>
 
                                     <li>
@@ -142,18 +144,13 @@
                                 <i class="fa fa-cog"></i>
                             </a>
                             <ul>
-                                <li>
+                                <li sec:authorize="isFullyAuthenticated()">
                                     <a th:href="@{/users/profile}">My Account</a>
                                 </li>
                                 <li>
-                                    <a href="#">Wish list</a>
+                                    <a th:href="@{/checkout}">Checkout</a>
                                 </li>
-                                <li>
-                                    <a href="#">Checkout</a>
-                                </li>
-                                <li>
-                                    <a href="#">Testimonial</a>
-                                </li>
+
 
                                 <li sec:authorize="!isFullyAuthenticated()">
                                     <a th:href="@{/login}">Log in</a>

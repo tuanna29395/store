@@ -102,7 +102,7 @@ public class UserServiceImpl implements UserService {
             userDto.setAvatar(DEFAULT_PROFILE_IMAGE);
         } else {
 
-            if (!userEntity.getTypeLogin().equals(TypeLoginFlag.FACEBOOK_LOGIN.getVal())) {
+            if (!userEntity.getTypeLogin().equals(TypeLoginFlag.FACEBOOK_LOGIN.getVal()) || !userEntity.getAvatar().contains("http")) {
                 userDto.setAvatar(PATH_PROFILE_IMAGE + userEntity.getAvatar());
             }
         }
