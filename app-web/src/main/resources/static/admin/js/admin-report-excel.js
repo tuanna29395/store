@@ -8,7 +8,7 @@ function onclickDownloadExcel() {
         let endDate = $("#end-date").val();
         if (!fromDate) fromDate = ''
         if (!endDate) endDate = '';
-        $("#download-report").attr("href", `/api/report/download/revenue.xlsx?fromDate=${fromDate}&endDate=${endDate}`);
+        $("#download-report").attr("href", `/admin/api/report/download/revenue.xlsx?fromDate=${fromDate}&endDate=${endDate}`);
         $("#download-report").click();
     })
 
