@@ -62,6 +62,8 @@ public class DiscountServiceImpl implements DiscountService {
     @Override
     public void create(DiscountRequestAddDto dto) {
         DiscountEntity discountEntity = modelMapper.map(dto, DiscountEntity.class);
+        discountEntity.setStartAt(DateTimeUtils.addTime(dto.getStartAt(),0,0,0));
+        discountEntity.setEndAt(DateTimeUtils.addTime(dto.getEndAt(),23,59,59));
         discountEntity.setDeleteFlag(DeleteFlag.NOT_DELETE.getVal());
         discountRepository.save(discountEntity);
     }
@@ -71,8 +73,8 @@ public class DiscountServiceImpl implements DiscountService {
         DiscountEntity discountEntity = discountRepository.findById(id).get();
 
         discountEntity.setPercent(dto.getPercent());
-        discountEntity.setStartAt(dto.getStartAt());
-        discountEntity.setEndAt(dto.getEndAt());
+        discountEntity.setStartAt(DateTimeUtils.addTime(dto.getStartAt(),0,0,0));
+        discountEntity.setEndAt(DateTimeUtils.addTime(dto.getEndAt(),23,59,59));
         discountEntity.setDescription(dto.getDescription());
 
         discountRepository.save(discountEntity);

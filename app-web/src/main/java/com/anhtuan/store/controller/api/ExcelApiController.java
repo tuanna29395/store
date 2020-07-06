@@ -16,12 +16,13 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/report")
+@RequestMapping("/admin/api/report")
 public class ExcelApiController {
 
     @Autowired
@@ -40,7 +41,7 @@ public class ExcelApiController {
     }
 
     @GetMapping(value = "/download/revenue.xlsx")
-    public ResponseEntity<InputStreamResource> excelCustomersReport(@RequestParam(value = "fromDate", required = false) Date fromDate, @RequestParam(value = "endDate", required = false) Date endDate) throws IOException {
+    public ResponseEntity<InputStreamResource> excelCustomersReport(@RequestParam(value = "fromDate", required = false) Date fromDate, @RequestParam(value = "endDate", required = false) Date endDate) throws IOException, ParseException {
 
         ByteArrayInputStream in = ExcelGenerator.revenueToExcel(statisticsService.getDataReportRevenue(fromDate,endDate));
         // return IOUtils.toByteArray(in);

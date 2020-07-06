@@ -44,6 +44,7 @@ import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -82,10 +83,11 @@ ProductServiceImpl implements ProductService {
             direction = Sort.Direction.ASC;
             sort = Sort.by(direction, "salePrice", "id");
         }
-        if (searchRqDto.getSortBy().equals(SortProductType.PRICE_DECS.getVal())) {
+        if (searchRqDto.getSortBy().equals(SortProductType.PRICE_DECS.getVal()) || searchRqDto.getSortBy().equals(SortProductType.DISCOUNTING.getVal())) {
             direction = Sort.Direction.DESC;
             sort = Sort.by(direction, "salePrice", "id");
         }
+
         pageable = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), sort);
         return productRepository.findAll(buildCondition(searchRqDto), pageable).map(entity -> commonService.transformProductEntityToDto(entity));
     }
@@ -271,7 +273,9 @@ ProductServiceImpl implements ProductService {
         if (Objects.nonNull(searchRqDto.getMaxPrice())) {
             condition.and(productEntity.salePrice.loe(searchRqDto.getMaxPrice()));
         }
-
+        if (searchRqDto.getSortBy() == 3) {
+            condition.and(productEntity.discount.startAt.loe(new Date())).and(productEntity.discount.endAt.goe(new Date()));
+        }
         condition.and(productEntity.category.status.eq(StatusType.ENABLE.getVal())
                 .and(productEntity.deleteFlag.eq(DeleteFlag.NOT_DELETE.getVal())))
                 .and(productEntity.status.eq(StatusType.ENABLE.getVal()));

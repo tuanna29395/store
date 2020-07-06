@@ -1,11 +1,15 @@
 package com.anhtuan.store.repository.impl;
 
+import com.anhtuan.store.commons.utils.DateTimeUtils;
 import com.anhtuan.store.repository.StatisticsRepository;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 
@@ -36,10 +40,19 @@ public class StatisticsImplRepository implements StatisticsRepository {
     }
 
     @Override
-    public List<Object[]> reportRevenue(Date from, Date to) {
+    public List<Object[]> reportRevenue(Date from, Date to) throws ParseException {
         String condition = "";
-        if (from != null && to != null) condition = "and o.updated_at BETWEEN from and to";
-        Query query = entityManager.createNativeQuery(REPORT_REVENUE + condition);
+        String queryString = REPORT_REVENUE;
+        Query query;
+        if (to == null) to = new Date();
+        if (from == null) from = DateTimeUtils.defaultDate();
+
+        condition = " and o.updated_at BETWEEN :startDate AND :endDate";
+        query = entityManager.createNativeQuery(queryString + condition);
+        query.setParameter("startDate", from, TemporalType.TIMESTAMP)
+                .setParameter("endDate", to, TemporalType.TIMESTAMP);
+
+
         return query.getResultList();
     }
 }

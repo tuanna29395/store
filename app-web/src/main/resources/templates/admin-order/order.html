@@ -20,12 +20,13 @@
                         <tr>
                             <th>STT</th>
                             <th>ID</th>
-                            <th>User Name</th>
-                            <th>Phone number</th>
-                            <th>Address</th>
-                            <th>Total Price</th>
-                            <th>Status Now</th>
-                            <th>Detail</th>
+                            <th>Họ tên</th>
+                            <th>Số điện thoại</th>
+                            <th>Địa chỉ</th>
+                            <th>Ngày tạo</th>
+                            <th>Tổng tiền</th>
+                            <th>Trạng thái</th>
+                            <th>Chi tiết</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -33,12 +34,19 @@
                             <tr id="order-{{$order->id}}"
                                 th:classappend="${item.status == 3 ? 'order-cancel' : (item.status == 2 ? 'order-success':'')}">
                                 <td th:text="${iter.index + 1}">STT</td>
-                                <td  th:text="${item.id}">CODE</td>
-                                <td th:text="${item.orderName}"><User></User> Name</td>
+                                <td th:text="${item.id}">CODE</td>
+                                <td th:text="${item.orderName}">
+                                    <User></User>
+                                    Name
+                                </td>
                                 <td th:text="${item.orderPhone}">Phone number</td>
                                 <td th:text="${item.orderAddress}">Address</td>
-                                <td ><span th:text="${item.totalPrice}" class="money">Total Price</span></td>
-                                <td  id="status-{{$order->id}}"><span th:text="${item.status}" class="label btn-success" th:classappend="${item.status == 'Completed' ? 'btn-success' : 'btn-danger'}">Default Label</span></td>
+                                <td th:attr="data-date-format=${jsDisplayDateFormat}" th:text="${item.updatedAt}">UpdatedAt
+                                </td>
+                                <td><span th:text="${item.totalPrice}" class="money">Total Price</span></td>
+                                <td id="status-{{$order->id}}"><span th:text="${item.status}" class="label btn-success"
+                                                                     th:classappend="${item.status == 'Completed' ? 'btn-success' : 'btn-danger'}">Default Label</span>
+                                </td>
                                 <td>
                                     <button th:data-id="${item.id}" class="btn btn-info show-detail">Detail Order
                                     </button>

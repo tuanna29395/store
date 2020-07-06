@@ -1,5 +1,6 @@
 package com.anhtuan.store.service.impl;
 
+import com.anhtuan.store.commons.utils.DateTimeUtils;
 import com.anhtuan.store.dto.request.ProductAddEditDto;
 import com.anhtuan.store.dto.response.CategoryResponseDto;
 import com.anhtuan.store.dto.response.DiscountResponseDto;
@@ -19,6 +20,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Objects;
+
+import static org.aspectj.bridge.Version.getTime;
 
 @Service
 public class CommonServiceImpl implements CommonService {
@@ -63,7 +66,7 @@ public class CommonServiceImpl implements CommonService {
     public Boolean isValidDiscount(DiscountEntity discountEntity) {
         if (!Objects.nonNull(discountEntity)) return false;
 
-        return discountEntity.getStartAt().getTime() <= System.currentTimeMillis() && System.currentTimeMillis() <= discountEntity.getEndAt().getTime();
+        return DateTimeUtils.addTime(discountEntity.getStartAt(), 0, 0, 0).getTime() <= System.currentTimeMillis() && System.currentTimeMillis() <= DateTimeUtils.addTime(discountEntity.getEndAt(), 23, 59, 59).getTime();
     }
 
     @Override

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -42,7 +43,7 @@ public class StatisticsServiceImpl implements StatisticsService {
     }
 
     @Override
-    public List<ReportRevenueDto> getDataReportRevenue(Date from, Date to) {
+    public List<ReportRevenueDto> getDataReportRevenue(Date from, Date to) throws ParseException {
         List<ReportRevenueDto> result = new ArrayList<>();
         statisticsRepository.reportRevenue(from, to).forEach(item -> {
             ReportRevenueDto dto = new ReportRevenueDto();
