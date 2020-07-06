@@ -1,7 +1,11 @@
 package com.anhtuan.store.model;
 
+import com.anhtuan.store.commons.constants.Commons;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,15 +24,17 @@ public class DiscountEntity {
     private Integer id;
 
     private Integer percent;
-
+    @DateTimeFormat(pattern = Commons.DATE_PATTERN)
     private Date startAt;
-
+    @DateTimeFormat(pattern = Commons.DATE_PATTERN)
     private Date endAt;
 
     private String description;
 
+    @UpdateTimestamp
     private Date updatedAt;
 
+    @CreationTimestamp
     private Date createdAt;
 
     private Integer deleteFlag;

@@ -58,4 +58,9 @@ public interface ModelViewConst {
         String LIST = "orders";
         String REDIRECT = "orderRqDto";
     }
+
+    interface Discount {
+        String LIST = "discounts";
+        String DISCOUNT_SEARCH_DTO = "discountSearchDto";
+    }
 }

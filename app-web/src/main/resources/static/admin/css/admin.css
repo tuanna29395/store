@@ -46,3 +46,8 @@
 .over-left {
     float: left !important;
 }
+
+.logo-datetime{
+    padding-top: 5px;
+    padding-left: 5px;
+}

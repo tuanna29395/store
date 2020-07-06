@@ -57,7 +57,7 @@ public class AdminProductController extends BaseController {
     @SneakyThrows
     @PostMapping("/add")
     public String submitCreate(Model model,
-                               @Valid @ModelAttribute(ModelViewConst.Product.PRODUCT_ADD_EDIT_DTO) ProductAddEditDto productAddEditDto, BindingResult bindingResult) {
+                               @Valid @ModelAttribute(ModelViewConst.Product.PRODUCT_ADD_EDIT_DTO) ProductAddEditDto productAddEditDto, BindingResult bindingResult,RedirectAttributes ra) {
         if (bindingResult.hasErrors()) {
             model.addAttribute(ModelViewConst.Product.PRODUCT_ADD_EDIT_DTO, productAddEditDto);
             model.addAttribute(ModelViewConst.Product.CATEGORY_LIST, categoryService.getAll(new CategorySearchDto()));
@@ -65,7 +65,7 @@ public class AdminProductController extends BaseController {
             return ViewHtmlConst.Products.ADMIN_CREATE;
         }
         productService.createProduct(productAddEditDto);
-
+        MessageHelper.addSuccessAttribute(ra, String.format(Messages.REGISTER_SUCCESS, Messages.PRODUCT));
         return redirect(EndPointConst.Products.ADMIN_LIST);
     }
 

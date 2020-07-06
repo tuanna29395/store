@@ -9,17 +9,6 @@
             <span th:if="${item.isDiscount}" th:text="${item.discountPrice}"></span>
             <span th:if="${item.isDiscount}" class="old" th:text="${item.salePrice}"></span>
         </div>
-        <div class="s-p-rating">
-										<span class="rating">
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star-o"></i>
-										</span>
-            <span class="review-no"><span class="number-review"></span> Review (s)</span>
-            <span class="review-no add-review"><a href="#">Add your review</a></span>
-        </div>
         <div th:utext="${item.description}"></div>
         <form th:action="@{'/carts/add/' + ${item.id}}" th:object="${toppingRq}" method="GET">
             <div class="pro-size">
@@ -47,7 +36,7 @@
                 <!--                <a href="#"><i class="fa fa-heart"></i></a>-->
                 <!--            </div>-->
                 <div class="button-cart">
-                    <button type="submit"><i class="fa fa-shopping-cart"></i> add to cart</button>
+                    <button type="submit"><i class="fa fa-shopping-cart"></i> thêm vào giỏ hàng</button>
                 </div>
             </div>
         </form>

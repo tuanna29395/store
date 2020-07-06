@@ -5,8 +5,8 @@
             <div>
                 <!-- Nav tabs -->
                 <ul class="pro-details-tab" role="tablist">
-                    <li role="presentation" class="active"><a href="#tab-desc" aria-controls="tab-desc" role="tab" data-toggle="tab">Description</a></li>
-                    <li role="presentation"><a href="#page-comments" aria-controls="page-comments" role="tab" data-toggle="tab">Reviews (1)</a></li>
+                    <li role="presentation" class="active"><a href="#tab-desc" aria-controls="tab-desc" role="tab" data-toggle="tab">Mô tả sản phẩm</a></li>
+                    <li role="presentation"><a href="#page-comments" aria-controls="page-comments" role="tab" data-toggle="tab">Nhận xét</a></li>
                 </ul>
                 <!-- Tab panes -->
                 <div class="tab-content">
@@ -18,7 +18,7 @@
                     <div role="tabpanel" class="tab-pane" id="page-comments">
                         <div class="product-tab-desc">
                             <div class="product-page-comments">
-                                <h2><span class="number-review"></span> review for product</h2>
+                                <h2><span class="number-review"></span> nhận xét cho sản phẩm</h2>
                                 <div class="review-content">
 
                                 </div>
@@ -66,10 +66,10 @@
 <!--                                    </li>-->
 <!--                                </ul>-->
                                 <div class="review-form-wrapper">
-                                    <h3 id="add-review">Add a review</h3>
+                                    <h3 id="add-review">Thêm nhận xét</h3>
                                     <form th:action="@{/review/{productId}/add(productId=${productDetail.id})}" th:method="POST" th:object="${reviewInfo}">
                                         <div class="your-rating">
-                                            <h5>Your Rating</h5>
+                                            <h5>Số sao</h5>
                                             <span class="number-star" data-star="1">
                                                 <a ><i class="fa fa-star color-star"></i></a>
                                             </span>
