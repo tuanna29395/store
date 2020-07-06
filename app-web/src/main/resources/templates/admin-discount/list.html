@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/admin-main-layout}">
+<head>
+    <title th:text="'Discount |' ">Page Title</title>
+</head>
+<body>
+
+<div>
+    <div class="container-fluid" layout:fragment="content">
+        <div th:if="${messageSuccess}" class="alert alert-dismissible alert-success">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <span th:text="${messageSuccess}"></span>
+        </div>
+        <h2 class="h3 mb-4 text-gray-800" style="padding-left: 20px;">Discount</h2>
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <form th:action="@{/admin/discounts}" th:object="${discountSearchDto}">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <select class="form-control form-control-sm" name="status">
+                                <option th:value="0">Choose action</option>
+                                <option th:value="1">Active</option>
+                                <option th:value="2">Inactive</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <button class="btn btn-primary form-control-sm">
+                                <span class="text white-text">Submit</span>
+                            </button>
+                        </div>
+                        <div class="col-md-6">
+                            <a style="float: right" class="btn btn-primary btn-circle .btn-sm" title="Add"
+                               th:href="@{/admin/discounts/add}">
+                                <i class="fas fa-plus"></i>
+                            </a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                        <tr>
+                            <th>
+                                <input class="form-check-input chk-table select-all-item" type="checkbox"
+                                       id="select-all-item">
+                            </th>
+                            <th>Mã giảm giá</th>
+                            <th>Phần trăm giảm giá (%)</th>
+                            <th>Ngày bắt đầu</th>
+                            <th>Ngày kết thúc</th>
+                            <th>Mô tả</th>
+                            <th>Kích hoạt / Bỏ kích hoạt</th>
+                            <th>Hành động</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <th:block th:with="imagePath='/images/product/'" th:each="item:${discounts}">
+                            <tr>
+                                <td>
+                                    <input class="form-check-input chk-table select-one-item" type="checkbox"
+                                           id="{{ $product->id }}">
+                                </td>
+                                <td th:text="${item.id}">Mã giảm giá</td>
+                                <td th:text="${item.percent}">Phần trăm giảm giá</td>
+                                <td th:text="${#dates.format(item.startAt, displayDateFormat)}">Ngày bắt đầu</td>
+                                <td th:text="${#dates.format(item.endAt, displayDateFormat)}">Ngày kết thúc</td>
+                                <td th:text="${item.description}">Mô tả</td>
+                                <td class="toggleDisp" th:data-id="${item.id}"
+                                    style="text-align: center;">
+                                <span>
+                                    <a href="javascript: void(0);"
+                                       th:class="${item.isActive() == true} ? active : ''"></a>
+                                </span>
+                                </td>
+                                <td>
+                                    <a th:href="@{/admin/discounts/{id}/edit(id=${item.id})}">
+                                        <i class="fas fa-tools" title="Edit"></i>
+                                    </a>
+                                    <a th:href="@{/admin/products/{id}/delete(id=${item.id})}"
+                                       onclick="return confirmDelete()">
+                                        <i class="fas fa-trash" title="Delete"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </th:block>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+</body>
+
+<div layout:fragment="footer">
+    <div th:replace="fragments/partials/footer :: jquery-tmpl"></div>
+    <script th:src="@{/admin/js/admin-product-list.js}"></script>
+</div>
+
+</html>

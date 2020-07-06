@@ -86,7 +86,7 @@ ProductServiceImpl implements ProductService {
             direction = Sort.Direction.DESC;
             sort = Sort.by(direction, "salePrice", "id");
         }
-        pageable = PageRequest.of((int) pageable.getOffset(), pageable.getPageSize(), sort);
+        pageable = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), sort);
         return productRepository.findAll(buildCondition(searchRqDto), pageable).map(entity -> commonService.transformProductEntityToDto(entity));
     }
 

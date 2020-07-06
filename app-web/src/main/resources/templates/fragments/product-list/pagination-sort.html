@@ -15,9 +15,8 @@
         <div class="short-by">
             <span class="sorting-show"> Sắp xếp:</span>
             <select class="sort-by">
-                <option value="1">Giá tăng dần</option>
-                <option value="2">Giá giảm dần </option>
-                <option value="3">Đang khuễn mãi</option>
+                <option value="1" th:selected="${searchDto.sortBy == 1}">Giá tăng dần</option>
+                <option value="2" th:selected="${searchDto.sortBy == 2}">Giá giảm dần </option>
             </select>
         </div>
         <div class="shop-show">

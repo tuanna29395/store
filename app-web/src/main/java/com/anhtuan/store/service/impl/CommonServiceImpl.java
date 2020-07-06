@@ -2,6 +2,7 @@ package com.anhtuan.store.service.impl;
 
 import com.anhtuan.store.dto.request.ProductAddEditDto;
 import com.anhtuan.store.dto.response.CategoryResponseDto;
+import com.anhtuan.store.dto.response.DiscountResponseDto;
 import com.anhtuan.store.dto.response.ProductResponseDto;
 import com.anhtuan.store.exception.Exception;
 import com.anhtuan.store.model.DiscountEntity;
@@ -66,7 +67,7 @@ public class CommonServiceImpl implements CommonService {
     }
 
     @Override
-    public String saveImageToFolder(MultipartFile file , String folder) throws IOException {
+    public String saveImageToFolder(MultipartFile file, String folder) throws IOException {
         if (file.isEmpty()) {
             throw Exception.dataConflict().build("image is empty");
         }
@@ -79,5 +80,11 @@ public class CommonServiceImpl implements CommonService {
             throw e;
         }
         return fileName;
+    }
+
+    @Override
+    public DiscountResponseDto transformDiscountDto(DiscountEntity entity) {
+        DiscountResponseDto dto = modelMapper.map(entity, DiscountResponseDto.class);
+        return dto;
     }
 }

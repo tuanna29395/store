@@ -45,4 +45,10 @@ public interface ViewHtmlConst {
     interface Charts{
         String CHART_REVENUE = "/chart/chart-revenue";
     }
+
+    interface Discounts{
+        String LIST = "/admin-discount/list";
+        String CREATE = "/admin-discount/create";
+        String UPDATE = "/admin-discount/update";
+    }
 }
