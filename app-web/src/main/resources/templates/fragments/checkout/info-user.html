@@ -1,23 +1,23 @@
 <div class="col-lg-6 col-md-6" th:fragment="info-user" xmlns:th="http://www.thymeleaf.org"
      xmlns="http://www.w3.org/1999/html">
     <div class="checkbox-form">
-        <h3>Billing Details</h3>
+        <h3>Thông tin cá nhân</h3>
         <div class="row">
             <div class="col-md-12">
                 <div class="checkout-form-list">
-                    <label>Full Name <span class="required">*</span></label>
+                    <label>Họ tên <span class="required">*</span></label>
                     <input type="text" placeholder="full name" name="fullName" th:value="${userInfo.fullName}" required>
                 </div>
             </div>
             <div class="col-md-12">
                 <div class="checkout-form-list">
-                    <label>Address <span class="required">*</span></label>
+                    <label>Địa chỉ <span class="required">*</span></label>
                     <input type="text" placeholder="Street address" name="address" th:value="${userInfo.address}" required>
                 </div>
             </div>
             <div class="col-md-12">
                 <div class="checkout-form-list">
-                    <label>Phone Number <span class="required">*</span></label>
+                    <label>Số điện thoại <span class="required">*</span></label>
                     <input type="text" placeholder="phone" name="phoneNumber" th:value="${userInfo.phoneNumber}" required>
                 </div>
             </div>
