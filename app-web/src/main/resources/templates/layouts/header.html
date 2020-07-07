@@ -78,8 +78,8 @@
                                 <div class="subtotal-price">${totalAmount}</div>
                             </li>
                             <li>
-                                <a class="cart-button" href="/carts">view cart</a>
-                                <a class="checkout" href="/checkout">checkout</a>
+                                <a class="cart-button" href="/carts">giỏ hàng</a>
+                                <a class="checkout" href="/checkout">Thanh toán</a>
                             </li>
                         </script>
                         <div class="my-cart">
@@ -145,10 +145,10 @@
                             </a>
                             <ul>
                                 <li sec:authorize="isFullyAuthenticated()">
-                                    <a th:href="@{/users/profile}">My Account</a>
+                                    <a th:href="@{/users/profile}">Thông tin cá nhân</a>
                                 </li>
                                 <li>
-                                    <a th:href="@{/checkout}">Checkout</a>
+                                    <a th:href="@{/checkout}">Thanh toán</a>
                                 </li>
 
 

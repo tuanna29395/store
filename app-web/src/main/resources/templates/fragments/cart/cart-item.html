@@ -6,14 +6,14 @@
                 <table>
                     <thead>
                     <tr>
-                        <th class="product-thumbnail">Image</th>
-                        <th class="product-name">Product</th>
-                        <th class="product-price">Price</th>
-                        <th class="product-size">Size</th>
-                        <th class="product-quantity">Quantity</th>
-                        <th class="product-subtotal">Total</th>
-                        <th class="product-remove">Remove</th>
-                        <th class="product-update">Update</th>
+                        <th class="product-thumbnail">Ảnh</th>
+                        <th class="product-name">Tên sản phẩm</th>
+                        <th class="product-price">Giá</th>
+                        <th class="product-size">Kích thước</th>
+                        <th class="product-quantity">Số lượng</th>
+                        <th class="product-subtotal">Tổng tiền</th>
+                        <th class="product-remove">Xóa</th>
+                        <th class="product-update">Chỉnh sửa</th>
                     </tr>
                     </thead>
                     <tbody class="content-item-cart">
@@ -64,7 +64,7 @@
                          </td>
                         <td class="product-subtotal"><span th:text="₫"></span> <span>${amount}</span></td>
                         <td class="product-remove"><i class="fa fa-times remove-cart-item" id="${removeItemId}" data-cart-id="${productId + ',' + sizeId}"></i></td>
-                        <td><button type="button" class="btn btn-success update-cart-item" data-cart-id="${productId + ',' + sizeId}">Update</button></td>
+                        <td><button type="button" class="btn btn-success update-cart-item" data-cart-id="${productId + ',' + sizeId}">Chỉnh sửa</button></td>
                     </tr>
 
 
@@ -80,7 +80,7 @@
             <div class="row">
                 <div class="col-md-8 col-sm-7 col-xs-12">
                     <div class="buttons-cart">
-                        <a th:href="@{/products}">Continue Shopping</a>
+                        <a th:href="@{/products}">Tiếp tục mua hàng</a>
                     </div>
                 </div>
                 <div class="col-md-4 col-sm-5 col-xs-12">
@@ -102,7 +102,7 @@
                             </tbody>
                         </table>
                         <div class="wc-proceed-to-checkout">
-                            <a th:href="@{/checkout}">Proceed to Checkout</a>
+                            <a th:href="@{/checkout}">Tiến hành đặt hàng</a>
                         </div>
                     </div>
                 </div>
