@@ -25,8 +25,6 @@ public class ProductEntity {
 
     private String imageUrl;
 
-    private Integer originalPrice;
-
     private Integer salePrice;
 
     private Integer status;

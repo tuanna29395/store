@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.io.IOException;
 
 @Controller
 @RequestMapping("/admin/products")
@@ -54,10 +55,9 @@ public class AdminProductController extends BaseController {
         return ViewHtmlConst.Products.ADMIN_CREATE;
     }
 
-    @SneakyThrows
     @PostMapping("/add")
     public String submitCreate(Model model,
-                               @Valid @ModelAttribute(ModelViewConst.Product.PRODUCT_ADD_EDIT_DTO) ProductAddEditDto productAddEditDto, BindingResult bindingResult,RedirectAttributes ra) {
+                               @Valid @ModelAttribute(ModelViewConst.Product.PRODUCT_ADD_EDIT_DTO) ProductAddEditDto productAddEditDto, BindingResult bindingResult,RedirectAttributes ra) throws IOException {
         if (bindingResult.hasErrors()) {
             model.addAttribute(ModelViewConst.Product.PRODUCT_ADD_EDIT_DTO, productAddEditDto);
             model.addAttribute(ModelViewConst.Product.CATEGORY_LIST, categoryService.getAll(new CategorySearchDto()));

@@ -175,7 +175,6 @@ ProductServiceImpl implements ProductService {
 
         ProductEntity productEntity = new ProductEntity();
         productEntity.setName(dto.getName());
-        productEntity.setOriginalPrice(dto.getOriginalPrice());
         productEntity.setSalePrice(dto.getSalePrice());
         productEntity.setStatus(dto.getStatus());
         productEntity.setCategory(categoryEntity);
@@ -215,7 +214,6 @@ ProductServiceImpl implements ProductService {
         CategoryEntity categoryEntity = categoryRepository.findByIdAndDeleteFlag(dto.getCategoryId(), StatusType.NOT_DELETE.getVal());
 
         productEntity.setName(dto.getName());
-        productEntity.setOriginalPrice(dto.getOriginalPrice());
         productEntity.setSalePrice(dto.getSalePrice());
         productEntity.setStatus(dto.getStatus());
         productEntity.setCategory(categoryEntity);

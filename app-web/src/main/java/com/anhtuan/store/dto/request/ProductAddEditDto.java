@@ -15,9 +15,6 @@ public class ProductAddEditDto {
 
     private Integer categoryId;
 
-    @NotNull(message = "Origin price is invalid")
-    private Integer originalPrice;
-
     @NotNull(message = "Sale price is invalid")
     private Integer salePrice;
 
