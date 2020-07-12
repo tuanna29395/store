@@ -26,13 +26,14 @@
                             <th>Ngày tạo</th>
                             <th>Tổng tiền</th>
                             <th>Trạng thái</th>
+                            <th>Chỉnh sửa trạng thái</th>
                             <th>Chi tiết</th>
                         </tr>
                         </thead>
                         <tbody>
                         <th:block th:each="item,iter : ${orders}">
                             <tr id="order-{{$order->id}}"
-                                th:classappend="${item.status == 3 ? 'order-cancel' : (item.status == 2 ? 'order-success':'')}">
+                                th:classappend="${item.statusNumber == 2 ? 'style-success' : (item.statusNumber == 1 ? 'style-cancel':'')}">
                                 <td th:text="${iter.index + 1}">STT</td>
                                 <td th:text="${item.id}">CODE</td>
                                 <td th:text="${item.orderName}">
@@ -41,14 +42,33 @@
                                 </td>
                                 <td th:text="${item.orderPhone}">Phone number</td>
                                 <td th:text="${item.orderAddress}">Address</td>
-                                <td th:attr="data-date-format=${jsDisplayDateFormat}" th:text="${item.updatedAt}">UpdatedAt
+                                <td th:attr="data-date-format=${jsDisplayDateFormat}" th:text="${item.updatedAt}">
+                                    UpdatedAt
                                 </td>
                                 <td><span th:text="${item.totalPrice}" class="money">Total Price</span></td>
-                                <td id="status-{{$order->id}}"><span th:text="${item.status}" class="label btn-success"
-                                                                     th:classappend="${item.status == 'Completed' ? 'btn-success' : 'btn-danger'}">Default Label</span>
+                                <td id="status-{{$order->id}}"><span th:text="${item.status}" class="label"
+                                                                     >Default Label</span>
+                                </td>
+                                <td style="display: flex">
+                                    <button th:disabled th:data-id="${item.id}"
+                                            th:data-status="1" type="button"
+                                            th:classappend="${item.statusNumber == 2 or item.statusNumber == 1 ? 'disabled-change-status': ''}"
+                                            class="btn btn-danger status-cancel change-status"
+                                    >
+                                        Hủy đơn hàng
+                                    </button>
+
+                                    <button th:data-id="${item.id}"
+                                            th:data-status="2" type="button"
+                                            th:classappend="${item.statusNumber == 2 or item.statusNumber == 1 ? 'disabled-change-status': ''}"
+                                            class="btn btn-success change-status"
+                                            id="btn-cancel-{{$order->id}}">
+                                        Hoàn thành đơn hàng
+                                    </button>
+
                                 </td>
                                 <td>
-                                    <button th:data-id="${item.id}" class="btn btn-info show-detail">Detail Order
+                                    <button th:data-id="${item.id}" class="btn btn-info show-detail">Chi tiết đơn hàng
                                     </button>
                                 </td>
                             </tr>

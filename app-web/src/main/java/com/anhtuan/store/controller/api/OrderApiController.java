@@ -1,6 +1,7 @@
 package com.anhtuan.store.controller.api;
 
 import com.anhtuan.store.config.Principal;
+import com.anhtuan.store.dto.request.OrderChangeStatusDto;
 import com.anhtuan.store.dto.request.OrderRqDto;
 import com.anhtuan.store.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,5 +24,11 @@ public class OrderApiController {
     @GetMapping("/{id}/items")
     public ResponseEntity<?> getDetailOrder(@PathVariable("id") Integer orderId) {
         return ResponseEntity.ok(orderService.getOrderItemById(orderId));
+    }
+
+    @PostMapping("/{id}/change-status")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void changeStatus(@PathVariable Integer id, @RequestBody OrderChangeStatusDto dto) {
+        orderService.changeStatus(id, dto.getStatus());
     }
 }

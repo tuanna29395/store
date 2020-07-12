@@ -11,36 +11,20 @@
 <div>
     <div class="container-fluid" layout:fragment="content">
 
-        <h2 class="h3 mb-4 text-gray-800" style="padding-left: 20px;">Chart Revenue</h2>
-        <!-- DataTales Example -->
+        <h2 class="h3 mb-4 text-gray-800" style="padding-left: 20px;">Thống kê doanh thu</h2>
         <div id="chartContainer" style="width:100%; height: 400px"></div>
         <script th:inline="javascript">
             var chart = new CanvasJS.Chart("chartContainer", {
                 theme: "light2",
                 animationEnabled: true,
                 title: {
-                    text: "Revenue statistics by month"
+                    text: "Thống kê doanh thu theo tháng"
                 },
                 data: [{
                     dataPoints: []
                 }]
             });
 
-            /*
-             To get data from Service and to update chart, perform a AJAX request to get data, update the chart with received data and re-render the chart
-             Please refer the following links for more info on accessing data / rest-service
-             https://www.thymeleaf.org/doc/articles/springmvcaccessdata.html
-             https://spring.io/guides/gs/rest-service/
-             */
-            /*<![CDATA[*/
-            /*$.get( "/dataPoints", function( data ) {*/
-            /* Update dataPoints from AJAX and render the chart*/
-            /*[+
-                //chart.options.data[0].dataPoints = JSON.parse([[${session.dataPoints}]]);
-                //chart.render();
-             +]*/
-            /*});*/
-            /*]]>*/
             $.get("/api/statistic", function (data) {
                 let list = [];
                 data.forEach(function (item) {

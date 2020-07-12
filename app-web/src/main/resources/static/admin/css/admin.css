@@ -51,3 +51,13 @@
     padding-top: 5px;
     padding-left: 5px;
 }
+
+.disabled-change-status{
+    pointer-events: none;
+}
+.style-success{
+    background-color: lightgreen;
+}
+.style-cancel{
+    background-color:  lightgray
+}

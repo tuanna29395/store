@@ -12,13 +12,13 @@
             <div class="col-md-12">
                 <div class="checkout-form-list">
                     <label>Địa chỉ <span class="required">*</span></label>
-                    <input type="text" placeholder="Street address" name="address" th:value="${userInfo.address}" required>
+                    <input type="text" placeholder="Street address" name="address"  th:value="${userInfo.address}" required>
                 </div>
             </div>
             <div class="col-md-12">
                 <div class="checkout-form-list">
                     <label>Số điện thoại <span class="required">*</span></label>
-                    <input type="text" placeholder="phone" name="phoneNumber" th:value="${userInfo.phoneNumber}" required>
+                    <input type="text" placeholder="phone" name="phoneNumber" pattern="[0-9]" th:value="${userInfo.phoneNumber}" required>
                 </div>
             </div>
 

@@ -16,4 +16,6 @@ public interface OrderService {
     List<OrderResponseDto> getAll(SearchOrderDto dto);
 
     List<OrderItemResponseDto> getOrderItemById(Integer OrderId);
+
+    void changeStatus(Integer id ,Integer status);
 }

@@ -25,6 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -83,6 +84,14 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public List<OrderItemResponseDto> getOrderItemById(Integer orderId) {
         return orderItemsRepository.findByOrderId(orderId).stream().map(this::transformToOrderItemDto).collect(Collectors.toList());
+    }
+
+    @Override
+    public void changeStatus(Integer id, Integer status) {
+        OrderEntity orderEntity = orderRepository.findById(id).orElse(null);
+        assert orderEntity != null;
+        orderEntity.setStatus(status);
+        orderRepository.save(orderEntity);
     }
 
     private OrderEntity createOrder(OrderRqDto dto, Principal principle) {
@@ -162,6 +171,7 @@ public class OrderServiceImpl implements OrderService {
         OrderResponseDto res = modelMapper.map(entity, OrderResponseDto.class);
         res.setTotalPrice(orderRepository.calculateAmountById(entity.getId()));
         res.setStatus(getStatus(entity.getStatus()));
+        res.setStatusNumber(entity.getStatus());
         return res;
     }
 

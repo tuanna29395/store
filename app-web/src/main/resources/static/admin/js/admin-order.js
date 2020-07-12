@@ -1,5 +1,6 @@
 $(document).ready(function () {
     showDetail();
+    changeStatus();
 });
 
 function showDetail() {
@@ -57,6 +58,30 @@ function showDetail() {
                 $('#total_price').text(total);
             }
         });
+
+    })
+
+}
+
+function changeStatus() {
+
+    $('#dataTable').on('click', '.change-status', function () {
+        confirm("Bạn có muốn cập nhật trạng thái đơn hàng không?", function () {
+            let status = $(this).data('status');
+            let id = $(this).data('id');
+            let data = {'status': status};
+            $.ajax({
+                method: 'POST',
+                url: `/api/order/${id}/change-status`,
+                contentType: 'application/json',
+                data: JSON.stringify(data),
+                success: function () {
+                    location.reload(true);
+                }, error: function (response) {
+                    alertDanger({message: response.responseText});
+                }
+            });
+        })
 
     })
 

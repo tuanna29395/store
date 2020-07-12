@@ -24,4 +24,6 @@ public class OrderResponseDto {
 
     private Date updatedAt;
 
+    private Integer statusNumber;
+
 }

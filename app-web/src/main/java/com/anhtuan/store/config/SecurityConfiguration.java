@@ -24,6 +24,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     private RefererRedirectionAuthenticationSuccessHandler refererRedirectionAuthenticationSuccessHandler;
 
+    @Autowired
+    AuthenticationSuccessHandler authenticationSuccessHandler;
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -56,6 +59,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             "/api/carts/update",
             "/api/categories/{id}/change-status",
             "/api/product/{id}/change-status",
+            "/api/order/{id}/change-status",
     };
 
     @Autowired
@@ -94,7 +98,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .loginPage("/login")
                 .usernameParameter("email-login")
                 .passwordParameter("password-login")
-                .successHandler(refererRedirectionAuthenticationSuccessHandler)
+                .successHandler(authenticationSuccessHandler)
                 .failureUrl("/login-error")
                 .defaultSuccessUrl("/products")
                 .and()
