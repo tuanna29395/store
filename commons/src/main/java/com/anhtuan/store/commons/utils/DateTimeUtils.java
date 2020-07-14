@@ -34,4 +34,10 @@ public class DateTimeUtils {
         Date defaultDate = format.parse("1/1/1753");
         return defaultDate;
     }
+
+    public static String convertToString(Date date){
+
+        SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
+        return formatter.format(date);
+    }
 }

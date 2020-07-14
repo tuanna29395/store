@@ -26,12 +26,12 @@ function showDetail() {
                     data.quantity = item.quantity;
                     data.soldPrice = item.soldPrice;
                     data.sizeName = item.size.name;
-                    data.sizePrice = item.size.price;
+                    data.sizePrice = item.sizePrice;
                     data.discount = 0;
 
                     let percent = parseInt(item.percentDiscount);
                     let soldPrice = parseInt(item.soldPrice);
-                    let sizePrice = parseInt(item.size.price);
+                    let sizePrice = parseInt(item.sizePrice);
 
                     totalOriginPrice += (soldPrice + sizePrice) * item.quantity;
                     if (percent) {
@@ -66,7 +66,7 @@ function showDetail() {
 function changeStatus() {
 
     $('#dataTable').on('click', '.change-status', function () {
-        confirm("Bạn có muốn cập nhật trạng thái đơn hàng không?", function () {
+
             let status = $(this).data('status');
             let id = $(this).data('id');
             let data = {'status': status};
@@ -81,7 +81,6 @@ function changeStatus() {
                     alertDanger({message: response.responseText});
                 }
             });
-        })
 
     })
 

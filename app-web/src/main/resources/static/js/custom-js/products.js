@@ -16,19 +16,7 @@ function getUrlParamCategory() {
 
 }
 
-function changeBackgroundMenuCategory() {
-    let categoryId = getUrlParamCategory();
 
-    if (categoryId) {
-        $('#content-categories li').each(function () {
-            let idElement = 'category-' + categoryId;
-            if ($(this).attr('id') === idElement) {
-                $(this).addClass('bg-category');
-            }
-        });
-
-    }
-}
 
 function changePageSize() {
     $(".page-size").on('change', function () {

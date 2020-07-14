@@ -65,7 +65,7 @@
                                 <td th:text="${item.name}">Name</td>
                                 <td th:text="${item.category.name}">Category</td>
                                 <td th:text="${item.salePrice}">Price</td>
-                                <td th:text="${item.updatedAt}">Update</td>
+                                <td th:text="${#dates.format(item.updatedAt, displayDatetimeFormat)}">Update</td>
                                 <td class="toggleDisp change-status-category" th:data-id="${item.id}" style="text-align: center;">
                                 <span>
                                     <a href="javascript: void(0);"

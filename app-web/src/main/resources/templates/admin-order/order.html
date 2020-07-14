@@ -42,7 +42,7 @@
                                 </td>
                                 <td th:text="${item.orderPhone}">Phone number</td>
                                 <td th:text="${item.orderAddress}">Address</td>
-                                <td th:attr="data-date-format=${jsDisplayDateFormat}" th:text="${item.updatedAt}">
+                                <td th:attr="data-date-format=${jsDisplayDateFormat}" th:text="${#dates.format(item.updatedAt, displayDatetimeFormat)}">
                                     UpdatedAt
                                 </td>
                                 <td><span th:text="${item.totalPrice}" class="money">Total Price</span></td>

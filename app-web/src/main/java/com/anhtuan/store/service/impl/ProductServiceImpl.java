@@ -154,9 +154,8 @@ ProductServiceImpl implements ProductService {
         if (dto.getStatus() != 0) {
             condition.and(productEntity.status.eq(dto.getStatus()));
         }
-
         condition.and(productEntity.deleteFlag.eq(StatusType.NOT_DELETE.getVal()));
-        List<ProductEntity> entities = (List<ProductEntity>) productRepository.findAll(condition);
+        List<ProductEntity> entities = (List<ProductEntity>) productRepository.findAll(condition, Sort.by( Sort.Direction.DESC, "updatedAt", "id"));
         return entities.stream().map(entity -> commonService.transformProductEntityToDto(entity)).collect(Collectors.toList());
     }
 

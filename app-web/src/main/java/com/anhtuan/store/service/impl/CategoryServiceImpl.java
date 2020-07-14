@@ -46,6 +46,7 @@ public class CategoryServiceImpl implements CategoryService {
         }
 
         condition.and(categoryEntity.deleteFlag.eq(StatusType.NOT_DELETE.getVal()));
+        condition.and(categoryEntity.status.eq(StatusType.ENABLE.getVal()));
         List<CategoryEntity> categories = (List<CategoryEntity>) categoryRepository.findAll(condition);
 
         return categories.stream().map(this::transformToCategoryResponseDto).collect(Collectors.toList());

@@ -1,5 +1,6 @@
 package com.anhtuan.store.excel_util;
 
+import com.anhtuan.store.commons.utils.DateTimeUtils;
 import com.anhtuan.store.dto.response.ReportRevenueDto;
 import org.apache.poi.hssf.usermodel.HSSFHeader;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -10,16 +11,16 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 public class ExcelGenerator {
-    public static ByteArrayInputStream revenueToExcel(List<ReportRevenueDto> dataReport) throws IOException {
-        String[] columns = {"STT", "Order code", "Product code", "Product name", "Sold price","Size name","size price", "Quantity", "Amount" };
+    public static ByteArrayInputStream revenueToExcel(List<ReportRevenueDto> dataReport, Date from, Date to) throws IOException {
+        String[] columns = {"STT", "Mã hóa đơn" ,"Mã sản phẩm", "Tên sản phẩm", "Giá bán","Tên Size","Giá size", "Số lượng", "Tổng tiền" };
         try (
                 Workbook workbook = new XSSFWorkbook();
                 ByteArrayOutputStream out = new ByteArrayOutputStream();
         ) {
-
             Sheet sheet = workbook.createSheet("revenue");
 
             Header header = sheet.getHeader();
@@ -39,9 +40,11 @@ public class ExcelGenerator {
 
             // Header
             for (int col = 0; col < columns.length; col++) {
+
                 Cell cell = headerRow.createCell(col);
                 cell.setCellValue(columns[col]);
                 cell.setCellStyle(headerCellStyle);
+                sheet.autoSizeColumn(col);
             }
 
 
@@ -67,7 +70,7 @@ public class ExcelGenerator {
             }
             sheet.createRow(rowIdx++);
             Row total = sheet.createRow(rowIdx++);
-            total.createCell(1).setCellValue("Total");
+            total.createCell(1).setCellValue("Tổng doanh thu từ " + DateTimeUtils.convertToString(from) +"-"+ DateTimeUtils.convertToString(to));
             total.createCell(7).setCellValue(totalQuantity);
             total.createCell(8).setCellValue(String.format("%,d", totalAmount));
 

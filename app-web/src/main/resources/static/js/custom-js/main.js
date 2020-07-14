@@ -2,6 +2,9 @@ const PATH_IMAGE = "/images/product/";
 $(document).ready(function () {
     renderCartShoppingHeader();
     onclickRemoveItemCartHeader();
+    window.onload = function () {
+        changeBackgroundMenuCategory();
+    };
 });
 
 function renderCartShoppingHeader() {
@@ -74,4 +77,18 @@ function convertStringToArray(data) {
     return data.split(',').map(function (item) {
         return parseInt(item, 10);
     });
+}
+
+function changeBackgroundMenuCategory() {
+    let categoryId = getUrlParameter("categoryId");
+
+    if (categoryId) {
+        $('#content-categories li').each(function () {
+            let idElement = 'category-' + categoryId;
+            if ($(this).attr('id') === idElement) {
+                $(this).addClass('bg-category');
+            }
+        });
+
+    }
 }

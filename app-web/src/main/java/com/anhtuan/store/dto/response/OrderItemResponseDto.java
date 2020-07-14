@@ -14,6 +14,7 @@ public class OrderItemResponseDto {
 
     private SizeDto size;
 
+    private Integer sizePrice;
     private String amount;
 
 }

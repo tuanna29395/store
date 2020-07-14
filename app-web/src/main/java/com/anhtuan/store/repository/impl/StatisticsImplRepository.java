@@ -46,7 +46,8 @@ public class StatisticsImplRepository implements StatisticsRepository {
         Query query;
         if (to == null) to = new Date();
         if (from == null) from = DateTimeUtils.defaultDate();
-
+        to = DateTimeUtils.addTime(to, 23, 59, 59);
+        from = DateTimeUtils.addTime(from, 0, 0, 0);
         condition = " and o.updated_at BETWEEN :startDate AND :endDate";
         query = entityManager.createNativeQuery(queryString + condition);
         query.setParameter("startDate", from, TemporalType.TIMESTAMP)

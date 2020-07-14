@@ -43,11 +43,11 @@ public class ExcelApiController {
     @GetMapping(value = "/download/revenue.xlsx")
     public ResponseEntity<InputStreamResource> excelCustomersReport(@RequestParam(value = "fromDate", required = false) Date fromDate, @RequestParam(value = "endDate", required = false) Date endDate) throws IOException, ParseException {
 
-        ByteArrayInputStream in = ExcelGenerator.revenueToExcel(statisticsService.getDataReportRevenue(fromDate,endDate));
+        ByteArrayInputStream in = ExcelGenerator.revenueToExcel(statisticsService.getDataReportRevenue(fromDate,endDate), fromDate, endDate);
         // return IOUtils.toByteArray(in);
 
         HttpHeaders headers = new HttpHeaders();
-        headers.add("Content-Disposition", "attachment; filename=revenue.xlsx");
+        headers.add("Content-Disposition", "attachment; filename=Doanhthu.xlsx");
 
         return ResponseEntity
                 .ok()

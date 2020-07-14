@@ -19,6 +19,7 @@ import com.google.common.collect.Lists;
 import com.querydsl.core.BooleanBuilder;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -76,7 +77,9 @@ public class OrderServiceImpl implements OrderService {
             Date end = DateTimeUtils.addTime(dto.getEndDate(), 23, 59, 59);
             condition.and(orderEntity.updatedAt.between(from, end));
         }
-        return Lists.newArrayList(orderRepository.findAll(condition)).stream()
+
+
+        return Lists.newArrayList(orderRepository.findAll(condition, Sort.by(Sort.Direction.DESC, "updatedAt", "id"))).stream()
                 .map(this::transformToResponseDto)
                 .collect(Collectors.toList());
     }
@@ -153,7 +156,7 @@ public class OrderServiceImpl implements OrderService {
 
             orderItemEntity.setQuantity(cartItem.getQuantity());
             orderItemEntity.setSoldPrice(productEntity.getSalePrice());
-//            orderItemEntity.setSizePrice(sizeEntity.getPrice());
+            orderItemEntity.setSizePrice(sizeEntity.getPrice());
             orderItemEntity.setAmount(convertPrice(cartItem.getAmount()));
 
 
@@ -179,17 +182,18 @@ public class OrderServiceImpl implements OrderService {
         OrderStatus orderStatus = OrderStatus.values()[status];
         switch (orderStatus) {
             case COMPLETED:
-                return "Completed";
+                return "Giao hàng thành công";
             case PROCESSING:
-                return "Processing";
+                return "Đang xử lí";
 
             default:
-                return "Cancel";
+                return "Đã bị hủy";
         }
     }
 
     private OrderItemResponseDto transformToOrderItemDto(OrderItemEntity orderItemEntity) {
         OrderItemResponseDto res = modelMapper.map(orderItemEntity, OrderItemResponseDto.class);
+        res.setSizePrice(orderItemEntity.getSizePrice());
         res.setProduct(commonService.transformProductEntityToDto(orderItemEntity.getProduct()));
         return res;
     }

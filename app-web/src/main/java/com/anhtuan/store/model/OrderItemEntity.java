@@ -46,7 +46,7 @@ public class OrderItemEntity {
     private Integer quantity;
 
     private Integer soldPrice;
-
+    private Integer sizePrice;
     private Integer amount;
 
     @CreationTimestamp
