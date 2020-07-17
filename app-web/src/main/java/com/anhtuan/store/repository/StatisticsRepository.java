@@ -8,4 +8,6 @@ public interface StatisticsRepository {
     List<Object[]> revenueStatisticsByMonth();
 
     List<Object[]> reportRevenue(Date from, Date to) throws ParseException;
+
+    List<Object[]> reportOrder(Integer orderId) throws ParseException;
 }

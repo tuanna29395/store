@@ -1,6 +1,7 @@
 package com.anhtuan.store.service.impl;
 
 import com.anhtuan.store.dto.response.ChartDto;
+import com.anhtuan.store.dto.response.OrderReportDto;
 import com.anhtuan.store.dto.response.ReportRevenueDto;
 import com.anhtuan.store.repository.StatisticsRepository;
 import com.anhtuan.store.service.StatisticsService;
@@ -50,12 +51,29 @@ public class StatisticsServiceImpl implements StatisticsService {
             dto.setOrderId((int) item[0]);
             dto.setProductId((int) item[1]);
             dto.setProductName((String) item[2]);
-            dto.setSoldPrice(String.format("%,d",((BigDecimal)item[3]).intValue()));
+            dto.setSoldPrice(String.format("%,d", ((BigDecimal) item[3]).intValue()));
             dto.setSizeName((String) item[4]);
-            dto.setSizePrice(String.format("%,d",((BigDecimal)item[5]).intValue()));
+            dto.setSizePrice(String.format("%,d", ((BigDecimal) item[5]).intValue()));
             dto.setPercentDiscount((double) item[6]);
-            dto.setAmount(String.format("%,d",((BigDecimal)item[7]).intValue()));
+            dto.setAmount(String.format("%,d", ((BigDecimal) item[7]).intValue()));
             dto.setQuantity((Integer) item[8]);
+            result.add(dto);
+        });
+        return result;
+    }
+
+    @Override
+    public List<OrderReportDto> getDataReportOrder(Integer orderId) throws ParseException {
+        List<OrderReportDto> result = new ArrayList<>();
+        statisticsRepository.reportOrder(orderId).forEach(item -> {
+            OrderReportDto dto = new OrderReportDto();
+            dto.setOrderId((Integer) item[0]);
+            dto.setProductId((Integer) item[1]);
+            dto.setProductName((String) item[2]);
+            dto.setQuantity((Integer) item[3]);
+            dto.setSalePrice(String.format("%,d", ((BigDecimal) item[4]).intValue()));
+            dto.setAmount(String.format("%,d", ((BigDecimal) item[5]).intValue()));
+            dto.setSizeName((String)item[6]);
             result.add(dto);
         });
         return result;

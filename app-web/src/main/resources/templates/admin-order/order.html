@@ -70,6 +70,8 @@
                                 <td>
                                     <button th:data-id="${item.id}" class="btn btn-info show-detail">Chi tiết đơn hàng
                                     </button>
+                                    <a th:href="@{/admin/api/report/download/order.xlsx/{id}(id=${item.id})}" class="btn btn-info">Xuất hóa đơn
+                                    </a>
                                 </td>
                             </tr>
                         </th:block>

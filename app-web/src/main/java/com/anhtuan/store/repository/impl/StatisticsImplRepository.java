@@ -30,6 +30,13 @@ public class StatisticsImplRepository implements StatisticsRepository {
             "         join product p on p.id = oi.product_id\n" +
             "where o.status = 2";
 
+    private static final String REPORT_ORDER = "select o.id order_id, p.id as product_id, p.name product_name, oi.quantity, oi.sold_price, oi.amount, s.name\n" +
+            "from orders o\n" +
+            "         join order_items oi on o.id = oi.order_id\n" +
+            "         join product p on oi.product_id = p.id\n" +
+            "         join size s on oi.size_id = s.id\n" +
+            "where o.id = ?1";
+
     @PersistenceContext
     private EntityManager entityManager;
 
@@ -54,6 +61,13 @@ public class StatisticsImplRepository implements StatisticsRepository {
                 .setParameter("endDate", to, TemporalType.TIMESTAMP);
 
 
+        return query.getResultList();
+    }
+
+    @Override
+    public List<Object[]> reportOrder(Integer orderId) throws ParseException {
+        Query query = entityManager.createNativeQuery(REPORT_ORDER);
+        query.setParameter(1,orderId);
         return query.getResultList();
     }
 }
