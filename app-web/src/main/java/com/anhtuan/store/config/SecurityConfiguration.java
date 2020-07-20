@@ -60,6 +60,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             "/api/categories/{id}/change-status",
             "/api/product/{id}/change-status",
             "/api/order/{id}/change-status",
+            "/api/storage/uploadFile"
     };
 
     @Autowired
@@ -78,7 +79,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             "/api/carts/**",
             "/review/{productId}/reviews",
             "/password/**",
-            "/reset-password/**"
+            "/reset-password/**",
+            "/api/storage/uploadFile"
 
     };
 

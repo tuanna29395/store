@@ -70,6 +70,11 @@ facebook:
   link:
     get:
       token: https://graph.facebook.com/oauth/access_token?client_id=%s&client_secret=%s&redirect_uri=%s&code=%s
+aws:
+  endpointUrl: ${aws.endpointUrl}
+  accessKey: ${aws.accessKey}
+  secretKey: ${aws.secretKey}
+  bucketName: ${aws.bucketName}
 #logging:
 #  level:
 #    org:
