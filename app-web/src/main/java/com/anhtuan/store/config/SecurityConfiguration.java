@@ -113,10 +113,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                 .exceptionHandling().accessDeniedPage("/login");
 
-        http
-                .requiresChannel()
-                .anyRequest()
-                .requiresSecure();
+//        http
+//                .requiresChannel()
+//                .anyRequest()
+//                .requiresSecure();
 
     }
 }

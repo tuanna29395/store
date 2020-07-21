@@ -47,14 +47,14 @@ server:
   error:
     whitelabel:
       enabled: false
-  ssl:
-    key-store: classpath:keystore.p12
-    key-store-password: 123456
-    key-store-type: pkcs12
-    key-alias: tomcat
-    key-password: 123456
-  security:
-    require-ssl: true
+#  ssl:
+#    key-store: classpath:keystore.p12
+#    key-store-password: 123456
+#    key-store-type: pkcs12
+#    key-alias: tomcat
+#    key-password: 123456
+#  security:
+#    require-ssl: true
   port: 8082
 paypal:
   mode: sandbox
